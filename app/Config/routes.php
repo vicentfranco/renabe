@@ -41,3 +41,11 @@
  * the built-in default routes.
  */
 	require CAKE . 'Config' . DS . 'routes.php';
+
+        
+        
+//ruta para obtener departamentos
+Router::connect(
+    '/departamentos/',
+    array('controller' => 'departamentos', 'action' => 'index')
+);
