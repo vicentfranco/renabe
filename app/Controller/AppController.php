@@ -31,4 +31,9 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+    
+    
+    function responseJson($data = array()){
+        return  new CakeResponse(array('body' => json_encode($data)));
+    }
 }
