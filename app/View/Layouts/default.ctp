@@ -28,7 +28,14 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	<?php
 		echo $this->Html->meta('icon');
 
-		echo $this->Html->css('cake.generic');
+		
+		echo $this->Html->script('jquery-2.1.3.min.js');
+		echo $this->Html->script('jquery-2.1.3.js'); 
+		echo $this->Html->css('bootstrap.css');
+		echo $this->Html->css('bootstrap.min.css');
+		echo $this->Html->script('bootstrap.js');
+		echo $this->Html->script('bootstrap.min.js');
+
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -38,24 +45,56 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
+			<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+			    <div class="navbar-header">
+			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <a class="navbar-brand" href="#">Brand</a>
+			    </div>
+
+			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			      <ul class="nav navbar-nav">
+			        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+			        <li><a href="#">Link</a></li>
+			        <li class="dropdown">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+			          <ul class="dropdown-menu" role="menu">
+			            <li><a href="#">Action</a></li>
+			            <li><a href="#">Another action</a></li>
+			            <li><a href="#">Something else here</a></li>
+			            <li class="divider"></li>
+			            <li><a href="#">Separated link</a></li>
+			            <li class="divider"></li>
+			            <li><a href="#">One more separated link</a></li>
+			          </ul>
+			        </li>
+			      </ul>
+			      <form class="navbar-form navbar-left" role="search">
+			        <div class="form-group">
+			          <input type="text" class="form-control" placeholder="Search">
+			        </div>
+			        <button type="submit" class="btn btn-default">Submit</button>
+			      </form>
+			      <ul class="nav navbar-nav navbar-right">
+			        <li><a href="#">Link</a></li>
+			      </ul>
+			    </div>
+			  </div>
+			</nav>
 		</div>
 		<div id="content">
 
 			<?php echo $this->Session->flash(); ?>
 
-			<?php echo $this->fetch('content'); ?>
+			<?php //echo $this->fetch('content'); ?>
 		</div>
 		<div id="footer">
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-					'http://www.cakephp.org/',
-					array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
-				);
-			?>
-			<p>
-				<?php echo $cakeVersion; ?>
-			</p>
+			
 		</div>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
