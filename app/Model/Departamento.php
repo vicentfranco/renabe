@@ -12,6 +12,6 @@
  * @author vfranco
  */
 App::uses('AppModel', 'Model');
-class Departamento {
+class Departamento extends AppModel{
     public $name = 'departamentos';
 }

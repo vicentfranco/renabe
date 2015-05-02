@@ -46,6 +46,6 @@
         
 //ruta para obtener departamentos
 Router::connect(
-    '/departamentos/',
+    '/departamentos',
     array('controller' => 'departamentos', 'action' => 'index')
 );
