@@ -16,7 +16,7 @@ class DepartamentosController extends AppController {
     public function index() {
         //TODO: return from model departamento
         //$departamentos = array('1'=>'central','2'=>'alto parana');
-        $departamentos = null;
+        $departamentos = array();
         try{
            $departamentos = $this->Departamento->find('all');
         } catch (Exception $ex) {
