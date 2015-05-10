@@ -30,10 +30,10 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
 		
 		echo $this->Html->script('jquery-2.1.3.min.js');
-		echo $this->Html->script('jquery-2.1.3.js'); 
+		//echo $this->Html->script('jquery-2.1.3.js'); 
 		echo $this->Html->css('bootstrap.css');
-		echo $this->Html->css('bootstrap.min.css');
-		echo $this->Html->script('bootstrap.js');
+		//echo $this->Html->css('bootstrap.min.css');
+		//echo $this->Html->script('bootstrap.js');
 		echo $this->Html->script('bootstrap.min.js');
 
 
@@ -45,7 +45,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <body>
 	<div id="container">
 		<div id="header">
-			<nav class="navbar navbar-default">
+			<nav class="navbar navbar-inverse">
 			  <div class="container-fluid">
 			    <div class="navbar-header">
 			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -87,16 +87,17 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			  </div>
 			</nav>
 		</div>
-		<div id="content">
+		<div id="content row">
+			<div class="col-md-2">
 
-			<?php echo $this->Session->flash(); ?>
-
-			<?php //echo $this->fetch('content'); ?>
+			</div>
+			<div class="col-md-10">
+				<?php echo $this->fetch('content'); ?>
+			</div>
 		</div>
 		<div id="footer">
 			
 		</div>
 	</div>
-	<?php echo $this->element('sql_dump'); ?>
 </body>
 </html>
