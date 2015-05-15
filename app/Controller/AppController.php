@@ -32,6 +32,26 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
     
+    public $components = array(
+        'Session',
+        'Auth' => array(
+            'loginRedirect' => array(
+                'controller' => 'posts',
+                'action' => 'index'
+            ),
+            'logoutRedirect' => array(
+                'controller' => 'pages',
+                'action' => 'display',
+                'home'
+            ),
+            'authenticate' => array(
+                'Form' => array(
+                    'passwordHasher' => 'Blowfish'
+                )
+            )
+        )
+    );
+
     
     function responseJson($data = array()){
         return  new CakeResponse(array('body' => json_encode($data)));

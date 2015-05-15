@@ -13,7 +13,7 @@
  */
 
 App::uses('AppModel', 'Model');
-class Usuario extends AppModel{
+class User extends AppModel{
     public $name = 'usuarios'; 
         public $validate = array(
         'username' => array(

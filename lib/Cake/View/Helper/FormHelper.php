@@ -335,7 +335,9 @@ class FormHelper extends AppHelper {
 	public function create($model = null, $options = array()) {
 		$created = $id = false;
 		$append = '';
-
+		if(empty($options['class'])){
+			$options['class'] = 'form-inline';
+		}
 		if (is_array($model) && empty($options)) {
 			$options = $model;
 			$model = null;
@@ -1311,7 +1313,7 @@ class FormHelper extends AppHelper {
 			return array();
 		}
 
-		$divOptions = array('class' => 'input');
+		$divOptions = array('class' => 'input form-group');
 		$divOptions = $this->addClass($divOptions, $options['type']);
 		if (is_string($div)) {
 			$divOptions['class'] = $div;
@@ -1900,7 +1902,7 @@ class FormHelper extends AppHelper {
 			$div = $options['div'];
 			unset($options['div']);
 		}
-		$options += array('type' => 'submit', 'before' => null, 'after' => null, 'secure' => false);
+		$options += array('type' => 'submit', 'before' => '<br /><div style="clear=both"></div>', 'after' => null, 'secure' => false, 'class' => 'btn btn-primary');
 		$divOptions = array('tag' => 'div');
 
 		if ($div === true) {

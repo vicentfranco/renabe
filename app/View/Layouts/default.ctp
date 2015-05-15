@@ -45,7 +45,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <body>
 	<div id="container">
 		<div id="header">
-			<nav class="navbar navbar-default">
+			<nav class="navbar navbar-inverse">
 			  <div class="container-fluid">
 			    <div class="navbar-header">
 			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -87,16 +87,19 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			  </div>
 			</nav>
 		</div>
-		<div id="content">
+		<div id="content" class="row">
+			<div class="col-lg-9">
+				<?php echo $this->Session->flash(); ?>
 
-			<?php echo $this->Session->flash(); ?>
-
-			<?php //echo $this->fetch('content'); ?>
+				<?php echo $this->fetch('content'); ?>
+			</div>
+			<div class="col-lg-3">
+				
+			</div>
 		</div>
 		<div id="footer">
 			
 		</div>
 	</div>
-	<?php echo $this->element('sql_dump'); ?>
 </body>
 </html>
