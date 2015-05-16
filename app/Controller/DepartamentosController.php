@@ -17,13 +17,18 @@ class DepartamentosController extends AppController {
         //TODO: return from model departamento
         //$departamentos = array('1'=>'central','2'=>'alto parana');
         $departamentos = array();
+        $response = array();
         try{
            $departamentos = $this->Departamento->find('all');
         } catch (Exception $ex) {
            return Err.getErrorFromDescription('001','Error inesperado');
         }
-
-        return $this->responseJson($departamentos);
+        foreach($departamentos as $departamento){
+            $data = $departamento['Departamento'];
+            $a = array("id"=>$data['id'], "nombre"=>$data['nombre']);
+           array_push($response, $a);
+        }
+        return $this->responseJson($response);
     }
     
     

@@ -91,3 +91,8 @@ Router::connect('/asentamientos/view/:id', array(
         'action' => 'view' ),
     array('id' => '[0-9]+')
 );
+
+
+Router::connect('/formulariosF1/add', array(
+        'controller' => 'formulariosF1',
+        'action' => 'add'));

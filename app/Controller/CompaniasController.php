@@ -35,12 +35,19 @@ class CompaniasController extends AppController{
             throw new NotFoundException(__('Invalid post'));
         }
         $companias = array();
-        
+        $response = array();
         try{
             $companias = $this->Compania->find('all',array('conditions'=>array('distrito_id'=>$id)));
         } catch (Exception $ex) {
             return Err.getErrorFromDescription('001','Error inesperado');
         }
-        return $this->responseJson($companias);
+        foreach($companias as $compania){
+            $data = $compania['Compania'];
+            $a = array("id"=>$data['id'], "nombre"=>$data['nombre'], "distrito_id"=>$data['distrito_id']);
+            array_push($response, $a);
+        }
+        
+        
+        return $this->responseJson($response);
     }
 }

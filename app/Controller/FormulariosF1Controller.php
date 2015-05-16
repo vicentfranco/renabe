@@ -12,5 +12,8 @@
  * @author vfranco
  */
 class FormulariosF1Controller extends AppController {
-    //put your code here
+    
+    public function add(){
+        return $this->render();
+    }
 }

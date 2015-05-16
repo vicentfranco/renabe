@@ -37,12 +37,18 @@ class DistritosController extends AppController{
             throw new NotFoundException(__('Invalid post'));
         }
         $distritos = array();
-        
+        $response = array();
         try{
             $distritos = $this->Distrito->find('all',array('conditions'=>array('departamento_id'=>$id)));
         } catch (Exception $ex) {
             return Err.getErrorFromDescription('001','Error inesperado');
         }
-        return $this->responseJson($distritos);
+        
+        foreach($distritos as $distrito){
+            $data = $distrito['Distrito'];
+            $a = array("id"=>$data['id'], "nombre"=>$data['nombre'], "departamento_id"=>$data['departamento_id']);
+            array_push($response, $a);
+        }
+        return $this->responseJson($response);
     }
 }
