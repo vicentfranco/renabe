@@ -279,7 +279,8 @@ class PaginatorHelper extends AppHelper {
  */
 	public function prev($title = '<< Previous', $options = array(), $disabledTitle = null, $disabledOptions = array()) {
 		$defaults = array(
-			'rel' => 'prev'
+			'rel' => 'prev',
+			'tag'=> 'span'
 		);
 		$options = (array)$options + $defaults;
 		return $this->_pagingLink('Prev', $title, $options, $disabledTitle, $disabledOptions);
@@ -305,7 +306,8 @@ class PaginatorHelper extends AppHelper {
  */
 	public function next($title = 'Next >>', $options = array(), $disabledTitle = null, $disabledOptions = array()) {
 		$defaults = array(
-			'rel' => 'next'
+			'rel' => 'next',
+			'tag' => 'span'
 		);
 		$options = (array)$options + $defaults;
 		return $this->_pagingLink('Next', $title, $options, $disabledTitle, $disabledOptions);
@@ -487,7 +489,7 @@ class PaginatorHelper extends AppHelper {
 		$check = 'has' . $which;
 		$_defaults = array(
 			'url' => array(), 'step' => 1, 'escape' => true, 'model' => null,
-			'tag' => 'span', 'class' => strtolower($which), 'disabledTag' => null
+			'tag' => null, 'class' => strtolower($which), 'disabledTag' => null
 		);
 		$options = (array)$options + $_defaults;
 		$paging = $this->params($options['model']);
@@ -720,8 +722,8 @@ class PaginatorHelper extends AppHelper {
 
 		$defaults = array(
 			'tag' => 'span', 'before' => null, 'after' => null, 'model' => $this->defaultModel(), 'class' => null,
-			'modulus' => '8', 'separator' => ' | ', 'first' => null, 'last' => null, 'ellipsis' => '...',
-			'currentClass' => 'current', 'currentTag' => null
+			'modulus' => '8', 'separator' => null, 'first' => null, 'last' => null, 'ellipsis' => null,
+			'currentClass' => 'active', 'currentTag' => 'span'
 		);
 		$options += $defaults;
 

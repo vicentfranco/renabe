@@ -21,14 +21,16 @@
 								<?php } ?>
 								<div class="row">
 									<div class="col-sm-12 col-md-10  col-md-offset-1 ">
-										 <?php 
-										 		echo '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>';
-										 		echo $this->Form->input('username', array( 'class'=>'form-control', 'placeholder'=>'Usuario', 'type'=>'text', 'aoutofocus'=>true, 'label'=>false));
-										 		echo '</div></br>';
-										 		echo '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>';
-        										echo $this->Form->input('password', array('class'=>'form-control', 'placeholder'=>'Password', 'type'=>'password', 'label'=>false)); 
-        										echo '</div></br>';
-        								?>
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+								 			<input name="data[User][username]" class="form-control" placeholder="Usuario" aoutofocus="1" type="text" id="UserUsername" required="required">
+								 		</div>
+									 	</br>
+									 	<div class="input-group">
+									 		<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+    										<input name="data[User][password]" class="form-control" placeholder="Password" type="password" id="UserPassword" required="required">
+    									</div>
+    									</br>
 										<input type="submit" value="Ingresar" class="center-block btn btn-primary">
 									</div>
 								</div>

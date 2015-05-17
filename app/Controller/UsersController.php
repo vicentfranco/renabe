@@ -37,7 +37,7 @@ class UsersController extends AppController{
 
 	public function add(){
 		if(!empty($this->data)){
-			if($this->User->saveAll($this->data)){
+			if($this->User->saveAll($this->data) && $this->request->is('post')){
 				//Redirecciona a ver al usuario nuevo
 				$this->Session->setFlash('Usuario creado');
 				$this->redirect(array('action'=>'view', $this->User->id));
@@ -46,5 +46,44 @@ class UsersController extends AppController{
 			}
 		}
 		//tendria que pasar los roles disponibles;
+	}
+
+	public function index(){
+		$this->paginate = array(
+			'limit' => 25
+		);
+		$this->set('usuarios', $this->paginate());
+
+	}
+
+
+	public function delete($id = null){
+		if(empty($id)){
+			$this->Session->setFlash('Id no valido', 'error');
+			$this->redirect(array('action'=>'index'));
+		}
+		if($this->User->delete($id)){
+			$this->Session->setFlash('Usuario eliminado', 'suscces');
+			$this->redirect(array('action'=>'index'));	
+		}else{
+			$this->Session->setFlash('No es posible eliminar el usuario', 'suscces');
+			$this->redirect(array('action'=>'index'));	
+		}
+	}
+
+	public function edit($id = null){
+		if(empty($id)){
+			$this->Session->setFlash('Id no valido', 'error');
+			$this->redirect(array('action'=>'index'));
+		}
+		if(!empty($this->data)){
+			if($this->User->saveAll($this->data)){
+				$this->Session->setFlash('Usuario editado');
+				$this->redirect(array('action'=>'index'));	
+			}
+		}else{
+			$user = $this->User->find('first', array('conditions'=>array('User.id'=>$id)));
+			$this->set('user', $user);
+		}
 	}
 }

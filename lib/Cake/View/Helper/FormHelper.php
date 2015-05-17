@@ -469,7 +469,6 @@ class FormHelper extends AppHelper {
 			$this->setEntity($model, true);
 			$this->_introspectModel($model, 'fields');
 		}
-
 		return $this->Html->useTag('form', $action, $htmlAttributes) . $append;
 	}
 
@@ -845,6 +844,8 @@ class FormHelper extends AppHelper {
 
 		if (is_string($options)) {
 			$options = array('class' => $options);
+		}else{
+			$options = array('class'=>'col-lg-5');
 		}
 
 		if (isset($options['for'])) {
@@ -1000,6 +1001,11 @@ class FormHelper extends AppHelper {
  */
 	public function input($fieldName, $options = array()) {
 		$this->setEntity($fieldName);
+
+		if(empty($options['class'])){
+			$options['class'] = 'form-control col-lg-2';
+		}
+
 		$options = $this->_parseOptions($options);
 
 		$divOptions = $this->_divOptions($options);
@@ -1313,7 +1319,7 @@ class FormHelper extends AppHelper {
 			return array();
 		}
 
-		$divOptions = array('class' => 'input form-group');
+		$divOptions = array('class' => 'input form-group col-lg-5');
 		$divOptions = $this->addClass($divOptions, $options['type']);
 		if (is_string($div)) {
 			$divOptions['class'] = $div;
