@@ -8,7 +8,7 @@
 			<th><?php echo $this->Paginator->sort('nombre', 'Nombre') ?></th>
 			<th><?php echo $this->Paginator->sort('username', 'Login'); ?></th>
 			<th>Fecha de creacion</th>
-			<th colspan="2">Opciones</th>
+			<th colspan="3">Opciones</th>
 		</tr>
 		<?php 
 			foreach ($usuarios as $usuario) { 
@@ -20,10 +20,19 @@
 					<td><?php echo $usuario['User']['username'] ?></td>
 					<td><?php echo $usuario['User']['created'] ?></td>
 					<td scope="row">
-  							<?php echo $this->Html->url('edit', array('controller'=>'users', 'action'=>'edit', 'class'=>'glyphicon glyphicon-pencil')); //<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> ?>
+  							<?php echo $this->Html->link('Editar', array('controller'=>'users', 'action'=>'edit', 'class'=>'btn btn-primary')); ?>
+					</td>
+					<td>
+							<?php
+								if($usuario['User']['habilitado']){
+									echo '<a href="#" class="btn btn-default deshabilitar">Deshabilitar</a>';
+								}else{
+									echo '<a href="#" class="btn btn-succes deshabilitar">Habilitar</a>';
+								}
+							?>
 					</td>
 					<td scope="row">
-  							<span class="glyphicon glyphicon-trash" aria-hidden="true"><?php echo $this->Html->url(array('controller'=>'users', 'action'=>'delete')); ?></span>
+  							<?php echo $this->Html->link('Eliminar', array('controller'=>'users', 'action'=>'edit', 'class'=>'btn btn-warning')); ?>
 					</td>
 				<tr>
 		<?php 
