@@ -26,8 +26,9 @@ class FormulariosF1Controller extends AppController {
     public function addHeader(){
     	if($this->request->is('post')){
     		$reply = array();
-    		if(!empty($_POST)){
-    			$header = $this->data;
+    		if(!empty($this->data)){
+    			$this->data['FormularioF1']['fecha_inicio'] = $this->data['FormularioF1']['fecha_inicio'].'-07-01';
+                $this->data['FormularioF1']['fecha_fecha'] =  $this->data['FormularioF1']['fecha_fin'].'-07-01';
     		}else{
     			return $reply = array('status'=>'error', 'message'=>'Not input data');
     		}
