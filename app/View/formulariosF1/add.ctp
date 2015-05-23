@@ -125,6 +125,30 @@ $(document).ready(function(){
                 }
             });
         });
+        
+        $("#s-compania").change(function(){
+            var selected = $("#s-compania").val();
+            $("#s-asentamiento option").remove();
+            $("#s-asentamiento").append("<option></option>");
+            var urls ="<?php echo $this->
+                    Html->url(array("controller"=>"asentamientos", "action"=>"view"))?>"+"/"+selected;
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: urls,
+                success: function(data){
+                    for(var i in data){
+                        var asent = data[i];
+                        var option =  String.
+                                format("<option value={0}>{1}</option>",asent.id, asent.nombre);
+                        $("#s-asentamiento").append(option);
+                    }
+                }
+            });
+        });
+        
+        
+        
      
      
         
