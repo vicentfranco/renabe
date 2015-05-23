@@ -43,7 +43,7 @@ class FormularioF1 extends AppModel{
 			'foreignKey' => 'asentamiento_id',
 			'dependent' => false
 		),
-		'Carpeta'=> => array(
+		'Carpeta'=>array(
 			'className' => 'Carpeta',
 			'foreignKey' => 'carpeta_id',
 			'dependent' => false
