@@ -86,7 +86,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			</nav>
 		</div>
 		<div id="content" class="row">
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                          <?php echo $this->element('cabecera'); ?>
                     </div>
                     <div class="col-lg-8">
