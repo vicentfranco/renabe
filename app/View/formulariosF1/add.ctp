@@ -44,13 +44,6 @@
 
 <script>
 
-var data = {
-    "3942308": {
-        "cedula" : "3942308",
-        "nombre" : "vicente",
-        "cantFamilia" : "5"
-    }
-}
 
 String.format = function() {
     // The string containing the format items (e.g. "{0}")
@@ -68,7 +61,7 @@ String.format = function() {
     return theString;
 }
 
-
+var productor = null;
 $(document).ready(function(){
         $("#s-departamento").focus();
         $.ajax({
@@ -79,7 +72,8 @@ $(document).ready(function(){
                  $("#s-departamento").append("<option></option>");
                 for(var i in data){
                     var depar = data[i];
-                    var option =  String.format("<option value={0}>{1}</option>", depar.id, depar.nombre);
+                    var option =
+                            String.format("<option value={0}>{1}</option>", depar.id, depar.nombre);
                     $("#s-departamento").append(option);
                 }
         }
@@ -168,6 +162,7 @@ $(document).ready(function(){
             });
         });
         
+        
         $("#b-agregar").hide();
             var p = {};
             $("#b-search").click(function(){
@@ -178,22 +173,37 @@ $(document).ready(function(){
                 }
                 var valueCI = $("#t-cedula-s").val();
                 
-                p = data[valueCI];
-
-                for (var key in p) {
-                    if (p.hasOwnProperty(key)) {
-                        var table = String.format("<tr><td>{0}</td><td>{1}</td></tr>", key, p[key]);
-                       $('#tb-buscador').append(table);
+                
+                var urls ="<?php echo $this->
+                    Html->url(array("controller"=>"productores", "action"=>"search"))?>"+"/"+valueCI;
+                
+                
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: urls,
+                    success: function(data){
+                        productor = data;
+                        for(var key in data){
+                           if (data.hasOwnProperty(key)) {
+                               if(key == 'id'){
+                                   continue;
+                               }
+                               var table = String.format("<tr><td>{0}</td><td>{1}</td></tr>", key, data[key]);
+                               $('#tb-buscador').append(table);
+                            }
+                        }
+                        $("#b-agregar").fadeIn(300);
                     }
-                }
-                $("#b-agregar").fadeIn(300);
+                });
+
         });
     
         $("#b-agregar").click(function(){
-            $("#t-nombre").val(p.nombre);
+            $("#t-nombre").val(productor["nombre"]);
             
-            $("#t-ci").val(p.cedula);
-            $("#t-cantfamilia").val(p.cantFamilia);
+            $("#t-ci").val(productor["cedula"]);
+            $("#t-cantfamilia").val(productor["cantFamilia"]);
         
         });
     

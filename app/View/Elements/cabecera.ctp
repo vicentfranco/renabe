@@ -34,6 +34,8 @@
             <input type="text" class="form-control" id="t-desde">
             <label for="t-hasta">Al 30 DE JUNIO:</label>
             <input type="text" class="form-control" id="t-hasta">
+            
+            <input type="hidden" class="form-control" id="h-val">
                 
     </div>    
     <button type="button" class="btn btn-primary" id="b-agregarcabecera">Agregar registros</button>

@@ -12,6 +12,6 @@
  * @author vfranco
  */
 App::uses('AppModel', 'Model');
-class Productor {
+class Productor extends AppModel{
     public $name = 'productores';
 }

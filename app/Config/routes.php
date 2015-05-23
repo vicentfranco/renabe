@@ -95,4 +95,15 @@ Router::connect('/asentamientos/view/:id', array(
 
 Router::connect('/formulariosF1/add', array(
         'controller' => 'formulariosF1',
-        'action' => 'add'));
+        'action' => 'add')
+);
+
+Router::connect('/productores', array(
+        'controller' => 'productores',
+        'action' => 'index')
+);
+
+Router::connect('/asentamientos/search/:cedula', array(
+        'controller' => 'productores',
+        'action' => 'search' )
+);
