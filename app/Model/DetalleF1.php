@@ -14,4 +14,17 @@
 App::uses('AppModel', 'Model');
 class DetalleF1 extends AppModel{
     public $name = 'f1_detalle';
+
+    var $belongsTo = array(
+		'FormularioF1' => array(
+			'className' => 'FormularioF1',
+			'foreignKey' => 'formulario_id',
+			'dependent' => false
+		),
+		'Productor'=> array(
+			'className' => 'Productor',
+			'foreignKey' => 'productor_id',
+			'dependent' => false
+		)
+	);
 }

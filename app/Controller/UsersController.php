@@ -37,10 +37,10 @@ class UsersController extends AppController{
 
 	public function add(){
 		if(!empty($this->data)){
-			if($this->User->saveAll($this->data) && $this->request->is('post')){
+			if($this->User->saveAll($this->data)){
 				//Redirecciona a ver al usuario nuevo
 				$this->Session->setFlash('Usuario creado');
-				$this->redirect(array('action'=>'view', $this->User->id));
+				$this->redirect(array('action'=>'index', $this->User->id));
 			}else{
 				$this->Session->setFlash('Error al registrar el usuario. Intente nuevamente.', 'error');
 			}
