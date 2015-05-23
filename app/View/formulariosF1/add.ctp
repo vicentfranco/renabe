@@ -223,7 +223,7 @@ $(document).ready(function(){
                 
                 var data = $('#f-cabecera').serialize();
                 var url = "<?php echo $this->
-                    Html->url(array("controller"=>"formulariosF1", "action"=>"addHeader"))?>
+                    Html->url(array("controller"=>"formulariosF1", "action"=>"addHeader"))?>";
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
