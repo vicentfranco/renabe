@@ -32,7 +32,7 @@ class FormulariosF1Controller extends AppController {
     		}else{
     			return $reply = array('status'=>'error', 'message'=>'Not input data');
     		}
-    		if($this->FormularioF1->saveAll($header)){
+    		if($this->FormularioF1->saveAll($this->data)){
     			return $this->responseJson(array('status'=>'ok', 'message'=>$this->FormularioF1->id));
     		}else{
     			return $this->responseJson(array('status'=>'error', 'message'=>'Error saving'));
