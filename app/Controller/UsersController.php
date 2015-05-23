@@ -18,6 +18,7 @@ class UsersController extends AppController{
 	    $this->Auth->allow('add', 'logout');
 	}
 
+
 	public function login() {
 		//verificar que haya recibido parametros del formulario e intenta validar
 	    if ($this->request->is('post')) {
@@ -37,12 +38,15 @@ class UsersController extends AppController{
 
 	public function add(){
 		if(!empty($this->data)){
-			if($this->User->saveAll($this->data)){
-				//Redirecciona a ver al usuario nuevo
-				$this->Session->setFlash('Usuario creado');
-				$this->redirect(array('action'=>'index', $this->User->id));
-			}else{
-				$this->Session->setFlash('Error al registrar el usuario. Intente nuevamente.', 'error');
+			if ($this->request->is('post')){
+				$this->User->create();
+				if($this->User->saveAll($this->data)){
+					//Redirecciona a ver al usuario nuevo
+					$this->Session->setFlash('Usuario creado');
+					$this->redirect(array('action'=>'index'));
+				}else{
+					$this->Session->setFlash('Error al registrar el usuario. Intente nuevamente.', 'error');
+				}
 			}
 		}
 		//tendria que pasar los roles disponibles;

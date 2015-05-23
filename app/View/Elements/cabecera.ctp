@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12" id="cabecera">
 
             <label for="s-departamento">Departamento:</label>
             <select class="form-control" id="s-departamento">
@@ -34,11 +34,11 @@
             <input type="text" class="form-control" id="t-desde">
             <label for="t-hasta">Al 30 DE JUNIO:</label>
             <input type="text" class="form-control" id="t-hasta">
+                
+    </div>    
+    <button type="button" class="btn btn-primary" id="b-agregarcabecera">Agregar registros</button>
             
-            <button type="button" class="btn btn-primary" id="b-agregarcabecera">Agregar registros</button>
-            
-        
-    </div>
+
     
     
 </div>
