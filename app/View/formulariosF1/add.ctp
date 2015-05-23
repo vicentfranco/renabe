@@ -213,13 +213,27 @@ $(document).ready(function(){
                 $("#b-agregarcabecera").html("Agregar Registros");
             }else{
                
-                    var empty = $("#cabecera").find("input").filter(function() {
-                        return this.value === "";
-                    });
-                    if(empty.length) {
-                        alert('Todos los campos son obligatorios');
-                        return;
+                var empty = $("#cabecera").find("input").filter(function() {
+                    return this.value === "";
+                });
+                if(empty.length) {
+                    alert('Todos los campos son obligatorios');
+                    return;
+                }
+                
+                var data = $('#f-cabecera').serialize();
+                var url = "<?php echo $this->
+                    Html->url(array("controller"=>"formulariosF1", "action"=>"addHeader"))?>
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: url,
+                    success: function(data){
+                        alert(data);
                     }
+                });
+                
+                
                 
                 $("#cabecera :input").attr("disabled", true);
                 $("#b-agregarcabecera").html("Modificar datos");

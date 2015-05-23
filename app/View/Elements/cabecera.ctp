@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-12" id="cabecera">
-
-            <label for="s-departamento">Departamento:</label>
+        <form id="f-cabecera">
+            <label for="s-departamento" >Departamento:</label>
             <select class="form-control" id="s-departamento">
                 
             </select>
@@ -17,7 +17,7 @@
             </select>
             
             <label for="s-asentamiento">Asentamiento:</label>
-            <select class="form-control" id="s-asentamiento">
+            <select class="form-control" id="s-asentamiento" name="data[FormularioF1[asentamiento_id]">
 
             </select>
             
@@ -27,16 +27,18 @@
             </select>
             
             <label for="s-carpeta">Carpeta:</label>
-            <input type="text" class="form-control" id="t-carpeta">
+            <input type="text" class="form-control" id="t-carpeta" name="data[FormularioF1[carpeta_id]">
             
             <label>Periodo Agricola:</label>
             <label for="t-desde">Del 1 DE JULIO:</label>
-            <input type="text" class="form-control" id="t-desde">
+            <input type="text" class="form-control" id="t-desde" name="data[FormularioF1[fecha_inicio]">
             <label for="t-hasta">Al 30 DE JUNIO:</label>
-            <input type="text" class="form-control" id="t-hasta">
+            <input type="text" class="form-control" id="t-hasta" name="data[FormularioF1[fecha_fin]">
+            <label for="t-fecha">Fecha firma:</label>
+            <input type="date" class="form-control" id="t-fecha" name="data[FormularioF1[fecha]]">
             
-            <input type="hidden" class="form-control" id="h-val">
-                
+            
+        </form>
     </div>    
     <button type="button" class="btn btn-primary" id="b-agregarcabecera">Agregar registros</button>
             
