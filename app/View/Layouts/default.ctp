@@ -32,7 +32,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->Html->script('jquery-2.1.3.js'); 
 		echo $this->Html->css('bootstrap.css');
 		echo $this->Html->script('bootstrap.js');
-
+        echo $this->Html->script('../assets/js/Buscador.js'); 
 
 
 		echo $this->fetch('meta');
@@ -86,14 +86,16 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			</nav>
 		</div>
 		<div id="content" class="row">
-			<div class="col-lg-9">
-				<?php echo $this->Session->flash(); ?>
-
-				<?php echo $this->fetch('content'); ?>
-			</div>
-			<div class="col-lg-3">
-				
-			</div>
+                    <div class="col-lg-2">
+                         <?php echo $this->element('cabecera'); ?>
+                    </div>
+                    <div class="col-lg-8">
+			<?php echo $this->Session->flash(); ?>
+                        <?php echo $this->fetch('content'); ?>
+                    </div>
+                    <div class="col-lg-2">
+                        <?php echo $this->element('buscador'); ?>
+                    </div>
 		</div>
 		<div id="footer">
 			

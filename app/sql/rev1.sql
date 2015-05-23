@@ -123,7 +123,7 @@ WITH (
 ALTER TABLE distritos
   OWNER TO admin_renabe;
 
-CREATE TABLE compania
+CREATE TABLE companias
 (
   id serial NOT NULL,
   nombre character varying,
@@ -134,7 +134,7 @@ CREATE TABLE compania
   created timestamp without time zone,
   modified timestamp without time zone,
   CONSTRAINT compania_pk PRIMARY KEY (id),
-  CONSTRAINT compania_fk_distrito FOREIGN KEY (usuario_id)
+  CONSTRAINT compania_fk_distrito FOREIGN KEY (distrito_id)
       REFERENCES distritos (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT compania_fk_usuario FOREIGN KEY (usuario_id)
@@ -145,7 +145,7 @@ CREATE TABLE compania
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE compania
+ALTER TABLE companias
   OWNER TO admin_renabe;
   
 
@@ -160,7 +160,7 @@ CREATE TABLE asentamientos
   modified timestamp without time zone,
   CONSTRAINT asentamiento_pk PRIMARY KEY (id),
   CONSTRAINT asentamiento_fk_compania FOREIGN KEY (compania_id)
-      REFERENCES compania (id) MATCH SIMPLE
+      REFERENCES companias (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT asentamiento_fk_usuario FOREIGN KEY (usuario_id)
       REFERENCES usuarios (id) MATCH SIMPLE

@@ -49,3 +49,50 @@ Router::connect(
     '/departamentos',
     array('controller' => 'departamentos', 'action' => 'index')
 );
+
+//ruta para obtener los distritos
+Router::connect(
+        '/distritos',
+        array('controller'=> 'distritos', 'action'=> 'index')
+);
+
+
+//ruta para obtener los distritos por departamento
+Router::connect('/distritos/view/:id', array(
+        'controller' => 'distritos',
+        'action' => 'view' ),
+    array('id' => '[0-9]+')
+);
+
+//ruta para obtener las companhias
+Router::connect(
+        '/companias',
+        array('controller'=> 'companias', 'action'=> 'index')
+);
+
+
+//ruta para obtener las companhias por departamento
+Router::connect('/companias/view/:id', array(
+        'controller' => 'companias',
+        'action' => 'view' ),
+    array('id' => '[0-9]+')
+);
+
+//ruta para obtener los asentamientos
+Router::connect(
+        '/asentamientos',
+        array('controller'=> 'asentamientos', 'action'=> 'index')
+);
+
+
+//ruta para obtener los asentamientos por departamento
+Router::connect('/asentamientos/view/:id', array(
+        'controller' => 'asentamientos',
+        'action' => 'view' ),
+    array('id' => '[0-9]+')
+);
+
+
+Router::connect('/formulariosF1/add', array(
+        'controller' => 'formulariosF1',
+        'action' => 'add'));
