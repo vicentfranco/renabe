@@ -70,6 +70,7 @@ String.format = function() {
 
 
 $(document).ready(function(){
+        $("#s-departamento").focus();
         $.ajax({
             type: "GET",
             dataType: "json",
@@ -108,13 +109,19 @@ $(document).ready(function(){
         $("#s-distrito").change(function(){
             var selected = $("#s-distrito").val();
             $("#s-compania option").remove();
+            $("#s-comite option").remove();
+            
             $("#s-compania").append("<option></option>");
-            var urls ="<?php echo $this->
+            $("#s-comite").append("<option></option>");
+            var url_compania ="<?php echo $this->
                     Html->url(array("controller"=>"companias", "action"=>"view"))?>"+"/"+selected;
+                                
+            var url_comite ="<?php echo $this->
+                    Html->url(array("controller"=>"comites", "action"=>"view"))?>"+"/"+selected;
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
-                url: urls,
+                url: url_compania,
                 success: function(data){
                     for(var i in data){
                         var compa = data[i];
@@ -124,6 +131,20 @@ $(document).ready(function(){
                     }
                 }
             });
+            
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: url_comite,
+                success: function(data){
+                    for(var i in data){
+                        var comi = data[i];
+                        var option =  String.
+                                format("<option value={0}>{1}</option>",comi.id, comi.nombre);
+                        $("#s-comite").append(option);
+                    }
+                }
+            });   
         });
         
         $("#s-compania").change(function(){
@@ -147,35 +168,53 @@ $(document).ready(function(){
             });
         });
         
-        
-        
-     
-     
-        
         $("#b-agregar").hide();
-        var p = {};
-       
-        $("#b-search").click(function(){
-            $('#tb-buscador tr').remove();
-        var valueCI = $("#t-cedula-s").val();
-        p = data[valueCI];
+            var p = {};
+            $("#b-search").click(function(){
+                $('#tb-buscador tr').remove();
+                if(!$("#t-cedula-s").val()){
+                    alert ('cedula no puede ser nulo');
+                    return;
+                }
+                var valueCI = $("#t-cedula-s").val();
+                
+                p = data[valueCI];
+
+                for (var key in p) {
+                    if (p.hasOwnProperty(key)) {
+                        var table = String.format("<tr><td>{0}</td><td>{1}</td></tr>", key, p[key]);
+                       $('#tb-buscador').append(table);
+                    }
+                }
+                $("#b-agregar").fadeIn(300);
+        });
+    
+        $("#b-agregar").click(function(){
+            $("#t-nombre").val(p.nombre);
+            
+            $("#t-ci").val(p.cedula);
+            $("#t-cantfamilia").val(p.cantFamilia);
         
-        for (var key in p) {
-            if (p.hasOwnProperty(key)) {
-                var table = String.format("<tr><td>{0}</td><td>{1}</td></tr>", key, p[key]);
-               $('#tb-buscador').append(table);
+        });
+    
+        $("#b-agregarcabecera").click(function(){
+            if($("#cabecera :input").is('[disabled=disabled]')){
+                $("#cabecera :input").attr("disabled", false);
+                $("#b-agregarcabecera").html("Agregar Registros");
+            }else{
+               
+                    var empty = $("#cabecera").find("input").filter(function() {
+                        return this.value === "";
+                    });
+                    if(empty.length) {
+                        alert('Todos los campos son obligatorios');
+                        return;
+                    }
+                
+                $("#cabecera :input").attr("disabled", true);
+                $("#b-agregarcabecera").html("Modificar datos");
             }
-        }
-        $("#b-agregar").fadeIn(300);
-    });
-    
-    $("#b-agregar").click(function(){
-        $("#t-nombre").val(p.nombre);
-        $("#t-ci").val(p.cedula);
-        $("#t-cantfamilia").val(p.cantFamilia);
-    });
-    
-    
+        });
     
 });
 
