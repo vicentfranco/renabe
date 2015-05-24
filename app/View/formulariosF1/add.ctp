@@ -221,12 +221,13 @@ $(document).ready(function(){
                     return;
                 }
                 
-                var data = $('#f-cabecera').serialize();
+                var dataForm = $('#f-cabecera').serialize();
                 var url = "<?php echo $this->
                     Html->url(array("controller"=>"formulariosF1", "action"=>"addHeader"))?>";
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
+                    data: dataForm,
                     url: url,
                     success: function(data){
                         alert(data);
