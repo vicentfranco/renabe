@@ -43,6 +43,16 @@ class FormularioF1 extends AppModel{
 			'foreignKey' => 'asentamiento_id',
 			'dependent' => false
 		),
+		'Compania'=> array(
+			'className' => 'Compania',
+			'foreignKey' => 'compania_id',
+			'dependent' => false
+		),
+		'Comite'=> array(
+			'className' => 'Comite',
+			'foreignKey' => 'comite_id',
+			'dependent' => false
+		),
 		'Carpeta'=> array(
 			'className' => 'Carpeta',
 			'foreignKey' => 'carpeta_id',
