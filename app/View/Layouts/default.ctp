@@ -90,7 +90,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                          <?php echo $this->element('cabecera'); ?>
                     </div>
                     <div class="col-lg-8">
-			<?php echo $this->Session->flash(); ?>
+						<?php echo $this->Session->flash(); ?>
                         <?php echo $this->fetch('content'); ?>
                     </div>
                     <div class="col-lg-2">

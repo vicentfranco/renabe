@@ -1,9 +1,7 @@
-
-
-
-
-
 <div class="row">
+    <div id="source-modal" class="modal fade in" aria-hidden="false" style="display: block;">
+        <?php echo $this->element('../Productors/modal_add'); ?>
+    </div>
     <div class="col-lg-12">
         <table class="table table-striped">
             <thead>
@@ -169,6 +167,7 @@ $(document).ready(function(){
         });
         
         $("#b-agregar").hide();
+        $('#b-aproductor').hide();
             var p = {};
             $("#b-search").click(function(){
                 $('#tb-buscador tr').remove();
@@ -187,6 +186,7 @@ $(document).ready(function(){
                     }
                 }
                 $("#b-agregar").fadeIn(300);
+                $("#b-aproductor").fadeIn(300);
         });
     
         $("#b-agregar").click(function(){
