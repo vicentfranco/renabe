@@ -1,9 +1,13 @@
 <script type="text/javascript">
   $('document').ready(function(){
-      $('#source-modal').hide();
+      $('#source-modal, #b-eproductor').hide();
       $('.alert').hide();
       $('#b-aproductor').click(function(){
         $('#source-modal').fadeIn(200);
+      });
+      $('#b-eproductor').click(function(){
+        $('#source-modal').fadeIn(200);
+        rellenarCampos();
       });
       $('.close, .cerrar').click(function(){
         $('#source-modal').fadeOut(200);
@@ -30,6 +34,14 @@
         }
       })
     });
+  }
+
+  function rellenarCampos(){
+    $('#ProductorCedula').val(productor['cedula']);
+    $('#ProductorNombre').val(productor['nombre']);
+    $('#ProductorTotalFamiliares').val(productor['cantFamilia']);
+    var input = '<input type ="hidden" name="data[Productor][id]" value="'+productor['id']+'">';
+    $('#ProductorCedula').before(input);
   }
 </script>
 <!-- <div id="source-modal" class="modal fade in" aria-hidden="false" style="display: block;"> -->

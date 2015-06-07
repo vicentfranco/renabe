@@ -214,11 +214,13 @@ $(document).ready(function(){
                             }
                         }
                         $("#b-agregar").fadeIn(300);
+                        if(typeof data['cedula'] != 'undefined'){
+                            $("#b-eproductor").fadeIn(300);
+                        }else{
+                            $("#b-aproductor").fadeIn(300);
+                        }
                     }
                 });
-                                
-                $("#b-agregar").fadeIn(300);
-                $("#b-aproductor").fadeIn(300);
         });
     
         $("#b-agregar").click(function(){
