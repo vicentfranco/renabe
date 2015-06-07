@@ -27,13 +27,15 @@
                     <td><input type="text" class="form-control" id="t-nombre"></td>
                     <td><input type="text" class="form-control" id="t-ci"></td>
                     <td><input type="text" class="form-control" id="t-cantfamilia"></td>
-                    <td><input type="text" class="form-control" id="t-supfinca"></td>
-                    <td><input type="text" class="form-control" id="t-supcultivo"></td>
-                    <td><input type="text" class="form-control" id="t-totcontra"></td>
-                    <td><input type="text" class="form-control" id="t-cantganado"></td>
-                    <td><input type="text" class="form-control" id="t-cantporcino"></td>
-                    <td><input type="text" class="form-control" id="t-cantaves"></td>
-                    <td><input type="text" class="form-control" id="t-codexcl"></td>
+                    <td><input type="text" class="form-control" id="t-supfinca" name="data[FormularioF1][superficie_finca]"></td>
+                    <td><input type="text" class="form-control" id="t-supcultivo" name="data[FormularioF1][superficie_cultivo]"></td>
+                    <td><input type="text" class="form-control" id="t-totcontra" name="data[FormularioF1][total_contratados]"></td>
+                    <td><input type="text" class="form-control" id="t-cantganado" name="data[FormularioF1][bovino]"></td>
+                    <td><input type="text" class="form-control" id="t-cantporcino" name="data[FormularioF1][porcino]"></td>
+                    <td><input type="text" class="form-control" id="t-cantaves" name="data[FormularioF1][aves]"></td>
+                    <td><input type="text" class="form-control" id="t-codexcl" name="data[FormularioF1][codigo_exclusion]"></td>
+                    <td><input type="hidden" class="form-control" id="t-hid-cabecera" name="data[FormularioF1][formulario_id]"></td>
+                    <td><input type="hidden" class="form-control" id="t-hid-productor" name="data[FormularioF1][productor_id]"></td>
                 </tr>
                 </tbody>
         </table>
@@ -104,7 +106,9 @@ $(document).ready(function(){
             var selected = $("#s-distrito").val();
             $("#s-compania option").remove();
             $("#s-comite option").remove();
+            $("#s-asentamiento option").remove();
             
+            $("#s-asentamiento").append("<option></option>");
             $("#s-compania").append("<option></option>");
             $("#s-comite").append("<option></option>");
             var url_compania ="<?php echo $this->
@@ -112,6 +116,10 @@ $(document).ready(function(){
                                 
             var url_comite ="<?php echo $this->
                     Html->url(array("controller"=>"comites", "action"=>"view"))?>"+"/"+selected;
+            
+            var urls_asentamientos ="<?php echo $this->
+                    Html->url(array("controller"=>"asentamientos", "action"=>"view"))?>"+"/"+selected;            
+            
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
@@ -125,6 +133,23 @@ $(document).ready(function(){
                     }
                 }
             });
+            
+            
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: urls_asentamientos,
+                success: function(data){
+                    for(var i in data){
+                        var asent = data[i];
+                        var option =  String.
+                                format("<option value={0}>{1}</option>",asent.id, asent.nombre);
+                        $("#s-asentamiento").append(option);
+                    }
+                }
+            });
+            
+            
             
             $.ajax({
                 type: 'GET',
@@ -141,26 +166,6 @@ $(document).ready(function(){
             });   
         });
         
-        $("#s-compania").change(function(){
-            var selected = $("#s-compania").val();
-            $("#s-asentamiento option").remove();
-            $("#s-asentamiento").append("<option></option>");
-            var urls ="<?php echo $this->
-                    Html->url(array("controller"=>"asentamientos", "action"=>"view"))?>"+"/"+selected;
-            $.ajax({
-                type: 'GET',
-                dataType: 'json',
-                url: urls,
-                success: function(data){
-                    for(var i in data){
-                        var asent = data[i];
-                        var option =  String.
-                                format("<option value={0}>{1}</option>",asent.id, asent.nombre);
-                        $("#s-asentamiento").append(option);
-                    }
-                }
-            });
-        });
         
         
         $("#b-agregar").hide();
@@ -201,7 +206,7 @@ $(document).ready(function(){
     
         $("#b-agregar").click(function(){
             $("#t-nombre").val(productor["nombre"]);
-            
+            $("#t-id-prod").val(productor["id"]);
             $("#t-ci").val(productor["cedula"]);
             $("#t-cantfamilia").val(productor["cantFamilia"]);
         
@@ -231,10 +236,13 @@ $(document).ready(function(){
                     url: url,
                     success: function(data){
                         alert(data);
+                        if(data["status"] == "OK"){
+                            $("#t-hid-cabecera").val(data['id']);
+                        }else{
+                            alert('error al guardar la cabecera');
+                        }
                     }
                 });
-                
-                
                 
                 $("#cabecera :input").attr("disabled", true);
                 $("#b-agregarcabecera").html("Modificar datos");
