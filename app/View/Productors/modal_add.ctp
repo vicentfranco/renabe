@@ -1,13 +1,36 @@
 <script type="text/javascript">
   $('document').ready(function(){
       $('#source-modal').hide();
+      $('.alert').hide();
       $('#b-aproductor').click(function(){
         $('#source-modal').fadeIn(200);
       });
       $('.close, .cerrar').click(function(){
         $('#source-modal').fadeOut(200);
       });
+
+      bindGuardar();
   }); 
+
+  function bindGuardar(){
+    $('#guardar').click(function(){
+      $('alert').hide();
+      $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        data: $('#ProductorAddForm').serialize(),
+        url: '<?php echo $this->Html->url(array('controller'=>'productors', 'action'=>'addProductor')); ?>',
+        success: function(data){
+          if(data.status = 'ok'){
+            $('#ProductorAddForm')[0].reset();
+            $('#source-modal').fadeOut(200);
+          }else{
+            $('alert').show();
+          }
+        }
+      })
+    });
+  }
 </script>
 <!-- <div id="source-modal" class="modal fade in" aria-hidden="false" style="display: block;"> -->
   <div class="modal-dialog">
@@ -27,7 +50,10 @@
           </fieldset>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Guardar</button>
+        <div class="alert alert-dismissible alert-danger">
+          <strong>Error!</strong> Verifique los datos y vuelva a intentarlo
+        </div>
+        <button type="button" class="btn btn-primary" id="guardar">Guardar</button>
         <button type="button" class="btn btn-default cerrar" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
