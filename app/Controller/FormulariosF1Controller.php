@@ -45,13 +45,11 @@ class FormulariosF1Controller extends AppController {
     public function addDetail(){
     	if($this->request->is('post')){
     		$reply = array();
-    		if(!empty($_POST)){
-    			$header = $_POST;
-    		}else{
+    		if(empty($this->request->data)){
     			return $this->responseJson(array('status'=>'error', 'message'=>'Not input data'));
     		}
-    		if($this->FormularioF1->saveAll($header)){
-    			return $this->responseJson(array('status'=>'ok', 'message'=>$this->FormularioF1->id));
+    		if($this->FormularioF1->FormulariosF1Detalle->saveAll($this->request->data['FormulariosF1Detalle'])){
+    			return $this->responseJson(array('status'=>'ok', 'message'=>$this->FormularioF1->FormulariosF1Detalle->id));
     		}else{
     			return $this->responseJson(array('status'=>'error', 'message'=>'Error saving'));
     		}
