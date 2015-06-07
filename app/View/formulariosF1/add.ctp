@@ -8,7 +8,6 @@
         <table class="table table-striped">
             <thead>
                     <tr>
-                        <th>Orden</th>
                         <th>Nombre y Apellido del titular</th>
                         <th>C.I. Titular</th>
                         <th>Total miembros familia</th>
@@ -23,7 +22,6 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><input type="text" class="form-control" id="t-orden"></td>
                     <td><input type="text" class="form-control" id="t-nombre"></td>
                     <td><input type="text" class="form-control" id="t-ci"></td>
                     <td><input type="text" class="form-control" id="t-cantfamilia"></td>
@@ -36,6 +34,7 @@
                     <td><input type="text" class="form-control" id="t-codexcl" name="data[FormularioF1][codigo_exclusion]"></td>
                     <td><input type="hidden" class="form-control" id="t-hid-cabecera" name="data[FormularioF1][formulario_id]"></td>
                     <td><input type="hidden" class="form-control" id="t-hid-productor" name="data[FormularioF1][productor_id]"></td>
+                    <td><input type="button" class="btn btn-primary" id="b-agregar-detalle" value="Guardar"/></td>
                 </tr>
                 </tbody>
         </table>
@@ -65,6 +64,22 @@ String.format = function() {
 
 var productor = null;
 $(document).ready(function(){
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "<?php echo $this->Html->url(array("controller"=>"users", "action"=>"encuestadores"))?>",
+            success: function(data){
+                 $("#s-encuestador").append("<option></option>");
+                for(var i in data){
+                    var encue = data[i];
+                    var option =
+                            String.format("<option value={0}>{1}</option>", encue.id, encue.nombre);
+                    $("#s-encuestador").append(option);
+                }
+        }
+        });
+        
+        
         $("#s-departamento").focus();
         $.ajax({
             type: "GET",
@@ -111,6 +126,7 @@ $(document).ready(function(){
             $("#s-asentamiento").append("<option></option>");
             $("#s-compania").append("<option></option>");
             $("#s-comite").append("<option></option>");
+            
             var url_compania ="<?php echo $this->
                     Html->url(array("controller"=>"companias", "action"=>"view"))?>"+"/"+selected;
                                 
@@ -206,9 +222,9 @@ $(document).ready(function(){
     
         $("#b-agregar").click(function(){
             $("#t-nombre").val(productor["nombre"]);
-            $("#t-id-prod").val(productor["id"]);
             $("#t-ci").val(productor["cedula"]);
             $("#t-cantfamilia").val(productor["cantFamilia"]);
+            $("#t-hid-productor").val(productor['id']);
         
         });
     
@@ -236,8 +252,8 @@ $(document).ready(function(){
                     url: url,
                     success: function(data){
                         alert(data);
-                        if(data["status"] == "OK"){
-                            $("#t-hid-cabecera").val(data['id']);
+                        if(data["status"] == "ok"){
+                            $("#t-hid-cabecera").val(data['message']);
                         }else{
                             alert('error al guardar la cabecera');
                         }

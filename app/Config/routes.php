@@ -107,3 +107,9 @@ Router::connect('/asentamientos/search/:cedula', array(
         'controller' => 'productores',
         'action' => 'search' )
 );
+
+Router::connect('/users/encuestadores',
+        array(
+            'controller' => 'users',
+            'action' => 'encuestadores'
+        ));

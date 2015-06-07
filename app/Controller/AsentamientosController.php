@@ -39,13 +39,13 @@ class AsentamientosController extends AppController{
         $response = array();
         
         try{
-            $asentamientos = $this->Asentamiento->find('all',array('conditions'=>array('compania_id'=>$id)));
+            $asentamientos = $this->Asentamiento->find('all',array('conditions'=>array('distrito_id'=>$id)));
         } catch (Exception $ex) {
             return Err.getErrorFromDescription('001','Error inesperado');
         }
         foreach($asentamientos as $asentamiento){
             $data = $asentamiento['Asentamiento'];
-            $a = array("id"=>$data['id'], "nombre"=>$data['nombre'], "compania_id"=>$data['compania_id']);
+            $a = array("id"=>$data['id'], "nombre"=>$data['nombre'], "distrito_id"=>$data['distrito_id']);
             array_push($response, $a);
         }
         return $this->responseJson($response);

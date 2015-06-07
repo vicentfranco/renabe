@@ -12,7 +12,7 @@
             </select>
 
             <label for="s-compania">Compañia:</label>
-            <select class="form-control" id="s-compania">
+            <select class="form-control" id="s-compania" name="data[FormularioF1][compania_id]">
         
             </select>
             
@@ -22,9 +22,13 @@
             </select>
             
             <label for="s-comite">Comite:</label>
-            <select class="form-control" id="s-comite">
-
+            <select class="form-control" id="s-comite" name="data[FormularioF1][comite_id]">
             </select>
+            
+            <label for="s-comite">Encuestador:</label>
+            <select class="form-control" id="s-encuestador" name="data[FormularioF1][encuestador_id]">
+            </select>
+            
             
             <label for="s-carpeta">Carpeta:</label>
             <input type="text" class="form-control" id="t-carpeta" name="data[FormularioF1][carpeta_id]">

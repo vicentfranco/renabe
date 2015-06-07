@@ -90,4 +90,23 @@ class UsersController extends AppController{
 			$this->set('user', $user);
 		}
 	}
+        
+        public function encuestadores(){
+            $encuestadores = array();
+            $response = array();
+            try{
+                //TODO: FILTRAR POR TIPO ENCUESTADOR
+               $encuestadores = $this->User->find('all');
+            } catch (Exception $ex) {
+               return Err.getErrorFromDescription('001','Error inesperado');
+            }
+            
+            foreach($encuestadores as $encuestador){
+                $data = $encuestador['User'];
+                $a = array("id"=>$data['id'], "nombre"=>$data['nombre']);
+                array_push($response, $a);
+        }
+
+            return $this->responseJson($response);
+        }
 }
