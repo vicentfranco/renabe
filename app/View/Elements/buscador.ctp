@@ -28,6 +28,7 @@
         <div class="col-lg-12">
             <button type="button" class="btn btn-primary" id="b-agregar">Agregar</button>
             <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Agregar productor" data-original-title="Agregar productor" id="b-aproductor">+</button>
+            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Agregar productor" data-original-title="Agregar productor" id="b-eproductor">Editar</button>
         </div>
     </div>
 </div>

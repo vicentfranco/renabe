@@ -42,7 +42,7 @@ class ProductoresController extends AppController{
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-        
+        $p = array();
         foreach($productores as $productor){
             $data = $productor['productores'];
             $p = array("id"=>$data["id"], 
@@ -55,5 +55,20 @@ class ProductoresController extends AppController{
             
     }
     
+    function addProductor(){
+        if($this->request->is('post')){
+            $reply = array();
+            if(empty($this->request->data)){
+                return $reply = array('status'=>'error', 'message'=>'Not input data');
+            }
+            if($this->Productor->saveAll($this->request->data['Productor'])){
+                return $this->responseJson(array('status'=>'ok', 'message'=>$this->Productor->id, 'data'=>$this->request->data['Productor']));
+            }else{
+                return $this->responseJson(array('status'=>'error', 'message'=>'Error saving'));
+            }
+        }else{
+            return $this->responseJson(array('status'=>'error', 'message'=>'Bad method'));
+        }
+    }
     
 }
