@@ -1,10 +1,11 @@
-<div class="row">
-    <div id="source-modal" class="modal fade in" aria-hidden="true" style="display: block;">
+<div class="row" id="modal-div">
+    <div id="source-modal" class="modal fade in" aria-hidden="false" style="display: block;">
         <?php echo $this->element('../Productors/modal_add'); ?>
-    </div>
-    <div id="source-modal" class="modal fade in" aria-hidden="true" style="display: block;">
+    </div>  
+     <div id="source-modal" class="modal fade in" aria-hidden="true" style="display: block;">
          <?php echo $this->element('../formulariosF1/edit_detail'); ?>
     </div>
+</div>
     <div class="col-lg-12" id="detalle">
         <form id="f-detalle">
             <table class="table table-striped" id="t-detalle">
@@ -278,8 +279,13 @@ $(document).ready(function(){
                     alert('Todos los campos son obligatorios');
                     return;
                 }
-                
+          
                 var dataForm = $('#f-cabecera').serialize();
+                
+                if ($("#t-hid-edit-cabecera").length != 0){
+                    dataForm = dataForm.concat("&data[FormularioF1][id]="+$("#t-hid-edit-cabecera").val() );
+                }
+                
                 var url = "<?php echo $this->
                     Html->url(array("controller"=>"formulariosF1", "action"=>"addHeader"))?>";
                 $.ajax({
@@ -290,6 +296,7 @@ $(document).ready(function(){
                     success: function(data){
                         if(data["status"] == "ok"){
                             $("#t-hid-cabecera").val(data['message']);
+                            $("#t-hid-edit-cabecera").val(data['message']);
                         }else{
                             alert('error al guardar la cabecera');
                         }
