@@ -2,47 +2,89 @@
     <div id="source-modal" class="modal fade in" aria-hidden="false" style="display: block;">
         <?php echo $this->element('../Productors/modal_add'); ?>
     </div>
-    <div class="col-lg-12">
-        <table class="table table-striped">
-            <thead>
+    <div class="col-lg-12" id="detalle">
+        <form id="f-detalle">
+            <table class="table table-striped" id="t-detalle">
+                <thead>
+                        <tr>
+                            <th>Nombre y Apellido del titular</th>
+                            <th>C.I. Titular</th>
+                            <th>Total miembros familia</th>
+                            <th>Superficie finca</th>
+                            <th>Superficie cultivos</th>
+                            <th>Total contratados</th>
+                            <th>Cantidad ganado bovino</th>
+                            <th>Cantidad porcino</th>
+                            <th>Cantidad aves</th>
+                            <th>Codigo exclusion</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                </thead>
+                <tbody>
                     <tr>
-                        <th>Nombre y Apellido del titular</th>
-                        <th>C.I. Titular</th>
-                        <th>Total miembros familia</th>
-                        <th>Superficie finca</th>
-                        <th>Superficie cultivos</th>
-                        <th>Total contratados</th>
-                        <th>Cantidad ganado bovino</th>
-                        <th>Cantidad porcino</th>
-                        <th>Cantidad aves</th>
-                        <th>Codigo exclusion</th>
+                        <td><input type="text" class="form-control" id="t-nombre"></td>
+                        <td><input type="text" class="form-control" id="t-ci"></td>
+                        <td><input type="text" class="form-control" id="t-cantfamilia"></td>
+                        <td><input type="text" class="form-control" id="t-supfinca" name="data[FormulariosF1Detalle][superficie_finca]"></td>
+                        <td><input type="text" class="form-control" id="t-supcultivo" name="data[FormulariosF1Detalle][superficie_cultivo]"></td>
+                        <td><input type="text" class="form-control" id="t-totcontra" name="data[FormulariosF1Detalle][total_contratados]"></td>
+                        <td><input type="text" class="form-control" id="t-cantganado" name="data[FormulariosF1Detalle][bovinos]"></td>
+                        <td><input type="text" class="form-control" id="t-cantporcino" name="data[FormulariosF1Detalle][porcinos]"></td>
+                        <td><input type="text" class="form-control" id="t-cantaves" name="data[FormulariosF1Detalle][aves]"></td>
+                        <td><input type="text" class="form-control" id="t-codexcl" name="data[FormulariosF1Detalle][codigo_exclusion]"></td>
+                        <td><input type="button" class="btn btn-primary" id="b-agregar-detalle" value="Guardar">
+                        <input type="hidden" class="form-control" id="t-hid-cabecera" name="data[FormulariosF1Detalle][formulario_id]">
+                        <input type="hidden" class="form-control" id="t-hid-productor" name="data[FormulariosF1Detalle][productor_id]"></td>
+                        
                     </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" class="form-control" id="t-nombre"></td>
-                    <td><input type="text" class="form-control" id="t-ci"></td>
-                    <td><input type="text" class="form-control" id="t-cantfamilia"></td>
-                    <td><input type="text" class="form-control" id="t-supfinca" name="data[FormularioF1][superficie_finca]"></td>
-                    <td><input type="text" class="form-control" id="t-supcultivo" name="data[FormularioF1][superficie_cultivo]"></td>
-                    <td><input type="text" class="form-control" id="t-totcontra" name="data[FormularioF1][total_contratados]"></td>
-                    <td><input type="text" class="form-control" id="t-cantganado" name="data[FormularioF1][bovino]"></td>
-                    <td><input type="text" class="form-control" id="t-cantporcino" name="data[FormularioF1][porcino]"></td>
-                    <td><input type="text" class="form-control" id="t-cantaves" name="data[FormularioF1][aves]"></td>
-                    <td><input type="text" class="form-control" id="t-codexcl" name="data[FormularioF1][codigo_exclusion]"></td>
-                    <td><input type="hidden" class="form-control" id="t-hid-cabecera" name="data[FormularioF1][formulario_id]"></td>
-                    <td><input type="hidden" class="form-control" id="t-hid-productor" name="data[FormularioF1][productor_id]"></td>
-                    <td><input type="button" class="btn btn-primary" id="b-agregar-detalle" value="Guardar"/></td>
-                </tr>
                 </tbody>
-        </table>
-
+            </table>
+        </form>
     </div>
+ 
 </div>
 
+<div class="row">
 
+    <div class="col-lg-12" id="detalle">
+        <form id="f-detalle">
+            <table class="table table-striped" id="t-list">
+                <thead>
+                        <tr>
+                            <th>Nombre y Apellido</th>
+                            <th>C.I. Titular</th>
+                            <th>Total miembros familia</th>
+                            <th>Sup. finca</th>
+                            <th>Sup. cultivos</th>
+                            <th>Contratados</th>
+                            <th>Cant. ganado bovino</th>
+                            <th>Cant. porcino</th>
+                            <th>Cant. aves</th>
+                            <th>Cod. exclusion</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </form>
+    </div>
+ 
+</div>
 <script>
-
+    var detalleF1 = {
+        nombre: "",
+        ci: "",
+        totalFamilia: "",
+        finca: "",
+        cultivos: "",
+        contratados: "",
+        bovinos: "",
+        porcinos: "",
+        aves : "",
+        exclusion: ""
+    };
+    var listDetallesF1 = [];
 
 String.format = function() {
     // The string containing the format items (e.g. "{0}")
@@ -254,7 +296,6 @@ $(document).ready(function(){
                     data: dataForm,
                     url: url,
                     success: function(data){
-                        alert(data);
                         if(data["status"] == "ok"){
                             $("#t-hid-cabecera").val(data['message']);
                         }else{
@@ -267,6 +308,44 @@ $(document).ready(function(){
                 $("#b-agregarcabecera").html("Modificar datos");
             }
         });
+        
+        $("#b-agregar-detalle").click(function(){
+            var empty = $("#detalle").find("input").filter(function() {
+                    return this.value === "";
+                });
+            if(empty.length) {
+                alert('Todos los campos son obligatorios');
+                return;
+            }
+            
+            var dataForm = $('#t-detalle :input').serialize();
+            var url = "<?php echo $this->
+                Html->url(array("controller"=>"formulariosF1", "action"=>"addDetail"))?>";
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                data: dataForm,
+                url: url,
+                success: function(data){
+                    if(data["status"] == "error"){
+                        alert('error al guardar la cabecera:'. data['message']);
+                    }
+                }
+            });
+            var tr = $('#t-detalle tr:last');
+            var table = String.format
+                ("<tr>\n\
+                    <td>{0}</td>\n\
+                    <td>{1}</td>\n\
+                </tr>", key, data[key]);
+            tr.find('input[id=t-ci]').val()
+                               
+            
+        });
+        
+        
+        
+        
     
 });
 
