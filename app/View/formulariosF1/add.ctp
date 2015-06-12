@@ -1,6 +1,9 @@
 <div class="row">
-    <div id="source-modal" class="modal fade in" aria-hidden="false" style="display: block;">
+    <div id="source-modal" class="modal fade in" aria-hidden="true" style="display: block;">
         <?php echo $this->element('../Productors/modal_add'); ?>
+    </div>
+    <div id="source-modal" class="modal fade in" aria-hidden="true" style="display: block;">
+         <?php echo $this->element('../formulariosF1/edit_detail'); ?>
     </div>
     <div class="col-lg-12" id="detalle">
         <form id="f-detalle">
@@ -333,11 +336,11 @@ $(document).ready(function(){
                 }
             });
             var tr = $('#t-detalle tr:last');
-            var table = String.format
+            /*var table = String.format
                 ("<tr>\n\
                     <td>{0}</td>\n\
                     <td>{1}</td>\n\
-                </tr>", key, data[key]);
+                </tr>", key, data[key]);*/
             tr.find('input[id=t-ci]').val()
                                
             
