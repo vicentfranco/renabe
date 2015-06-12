@@ -43,8 +43,7 @@
             
             
         </form>
-    </div>
-    <input type="hidden" id="t-hid-edit-cabecera" name="data[FormularioF1][id]">
+    </div>    
     <button type="button" class="btn btn-primary" id="b-agregarcabecera">Agregar registros</button>
             
 

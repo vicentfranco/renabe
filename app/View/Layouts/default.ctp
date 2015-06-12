@@ -97,14 +97,14 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			</nav>
 		</div>
 		<div id="content" class="row">
-                    <div class="col-lg-1" id="form-cab-div">
+                    <div class="col-lg-1">
                          <?php echo $this->element('cabecera'); ?>
                     </div>
-                    <div class="col-lg-9" id="form-det-div">
+                    <div class="col-lg-9">
                         <?php echo $this->Session->flash(); ?>
                         <?php echo $this->fetch('content'); ?>
                     </div>
-                    <div class="col-lg-2" id="form-bus-div">
+                    <div class="col-lg-2">
                         <?php echo $this->element('buscador'); ?>
                     </div>
 		</div>

@@ -4,9 +4,6 @@
       $('.alert').hide();
       $('#b-aproductor').click(function(){
         $('#source-modal').fadeIn(200);
-        $("#form-det-div").children().not("#modal-div").css('opacity','0.5');
-        $("#form-cab-div").children().css('opacity','0.5');
-        $("#form-bus-div").children().css('opacity','0.5');
       });
       $('#b-eproductor').click(function(){
         $('#source-modal').fadeIn(200);
@@ -14,9 +11,6 @@
       });
       $('.close, .cerrar').click(function(){
         $('#source-modal').fadeOut(200);
-        $("#form-det-div").children().css('opacity','1');
-        $("#form-cab-div").children().css('opacity','1');
-        $("#form-bus-div").children().css('opacity','1');
       });
 
       bindGuardar();
@@ -37,11 +31,7 @@
             $('alert').show();
           }
         }
-      });
-       $("#form-det-div").children().css('opacity','1');
-       $("#form-cab-div").children().css('opacity','1');
-       $("#form-bus-div").children().css('opacity','1');
-      
+      })
     });
   }
 
