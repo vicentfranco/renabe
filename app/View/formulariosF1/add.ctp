@@ -72,19 +72,8 @@
  
 </div>
 <script>
-    var detalleF1 = {
-        nombre: "",
-        ci: "",
-        totalFamilia: "",
-        finca: "",
-        cultivos: "",
-        contratados: "",
-        bovinos: "",
-        porcinos: "",
-        aves : "",
-        exclusion: ""
-    };
-    var listDetallesF1 = [];
+
+    var mapDetallesF1 = new Map();
 
 String.format = function() {
     // The string containing the format items (e.g. "{0}")
@@ -317,6 +306,7 @@ $(document).ready(function(){
                 alert('Todos los campos son obligatorios');
                 return;
             }
+            var ob = new Object();
             
             var dataForm = $('#t-detalle :input').serialize();
             var url = "<?php echo $this->
@@ -327,20 +317,43 @@ $(document).ready(function(){
                 data: dataForm,
                 url: url,
                 success: function(data){
+
                     if(data["status"] == "error"){
                         alert('error al guardar la cabecera:'. data['message']);
                     }
+                    ob.id = data["message"];
                 }
             });
             var tr = $('#t-detalle tr:last');
-            var table = String.format
+            
+            ob.ci = tr.find('input[id=t-ci]').val();
+            ob.nombre = tr.find('input[id=t-nombre]').val();
+            ob.familia = tr.find('input[id=t-cantfamilia]').val();
+            ob.finca = tr.find('input[id=t-supfinca]').val();
+            ob.cultivo = tr.find('input[id=t-supcultivo]').val();
+            ob.contratados = tr.find('input[id=t-totcontra]').val();
+            ob.bovinos = tr.find('input[id=t-cantganado]').val();
+            ob.porcinos = tr.find('input[id=t-cantporcino]').val();
+            ob.aves = tr.find('input[id=t-cantaves]').val();
+            ob.exclusion = tr.find('input[id=t-codexcl]').val();
+            mapDetallesF1.set(ob.ci, ob);
+
+            var row = String.format
                 ("<tr>\n\
                     <td>{0}</td>\n\
                     <td>{1}</td>\n\
-                </tr>", key, data[key]);
-            tr.find('input[id=t-ci]').val()
-                               
-            
+                    <td>{2}</td>\n\
+                    <td>{3}</td>\n\
+                    <td>{4}</td>\n\
+                    <td>{5}</td>\n\
+                    <td>{6}</td>\n\
+                    <td>{7}</td>\n\
+                    <td>{8}</td>\n\
+                    <td>{9}</td>\n\
+                </tr>", ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
+                                ob.contratados, ob.bovinos, ob.porcinos,
+                                ob.aves, ob.exclusion);
+            $("#t-list  tbody").append(row);  
         });
         
         
