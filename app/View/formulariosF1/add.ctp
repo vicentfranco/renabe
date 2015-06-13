@@ -400,5 +400,9 @@ function bindDetailEvents(){
             $(this).parent().parent().remove();
         }
     }); 
+    $('button.editar').unbind('click');
+    $('button.editar').click(function(){
+        $('#modal-edit-div').fadeIn(300);
+    });
 }
 </script>

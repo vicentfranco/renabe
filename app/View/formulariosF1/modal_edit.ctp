@@ -1,8 +1,12 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $('#modal-edit-div').hide();
+    $('.medit').hide();
+    $('.cerrar').click(function(){
+      $('#modal-edit-div').fadeOut(300);
+    });
   });
-  
+
   function loadForm(item){
     $('input#idDetail').val(item.id);
     $('input#supFinca').val(item.finca);
@@ -20,7 +24,7 @@
 <div class="modal-dialog modal-lg">
   <div class="modal-content">
     <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <button type="button" class="close cerrar" data-dismiss="modal" aria-hidden="true">×</button>
       <h4 class="modal-title"> Editar Detalle </h4>
     </div>
     <div class="modal-body">
@@ -39,7 +43,7 @@
         </fieldset>
     </div>
     <div class="modal-footer">
-      <div class="alert alert-dismissible alert-danger">
+      <div class="alert medit alert-dismissible alert-danger">
         <strong>Error!</strong> Verifique los datos y vuelva a intentarlo
       </div>
       <button type="button" class="btn btn-primary" id="guardar">Guardar</button>
