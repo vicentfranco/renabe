@@ -369,18 +369,36 @@ $(document).ready(function(){
                     <td>{7}</td>\n\
                     <td>{8}</td>\n\
                     <td>{9}</td>\n\
+                    <td></td>\n\
+                    <td></td>\n\
                 ", ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
                                 ob.contratados, ob.bovinos, ob.porcinos,
                                 ob.aves, ob.exclusion);
                 var tdoptions = 
-            '<td><button type="button" class="btn btn-primary btn-sm" aria-label="Editar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar" rel="'+ob.ci+'"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" class="btn btn-danger btn-sm" aria-label="Eliminar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Eliminar" rel="'+ob.ci+'"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td></tr>';
+            '<td><button type="button" class="btn btn-primary btn-sm editar" aria-label="Editar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar" rel="'+ob.ci+'"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" class="btn btn-danger btn-sm eliminar" aria-label="Eliminar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Eliminar" rel="'+ob.ci+'"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td></tr>';
             $("#t-list  tbody").append(row+tdoptions);
-        });
-        
-        
-        
-        
-    
+            bindDetailEvents();
+        });    
 });
 
+function bindDetailEvents(){
+    $('button.eliminar').unbind('click');
+    $('button.eliminar').click(function(){
+        if(confirm('Desea eliminar este registro?')){
+            $.ajax({
+                type: 'GET',
+                url: '<?php echo $this->Html->url(array("controller"=>"formulariosF1", "action"=>deleteDetail)); ?>',
+                data: 'id='+mapDetallesF1.get($(this).attr('rel')).id,
+                success: function(data){
+                    reply = eval('('+data+')');
+                    if(reply.status == 'error'){
+                        alert('Error al eliminar. Intente nuevamente');
+                        return false;
+                    }
+                }
+            });
+            $(this).parent().parent().remove();
+        }
+    }); 
+}
 </script>
