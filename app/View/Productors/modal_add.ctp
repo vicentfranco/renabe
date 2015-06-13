@@ -2,11 +2,19 @@
   $('document').ready(function(){
       $('#source-modal, #b-eproductor').hide();
       $('#modal-footer').hide();
-      $('#b-aproductor').click(function(){
-        $('#source-modal').fadeIn(200);
+      
+      $("#b-aproductor, #b-eproductor").click(function(){
         $("#form-det-div").children().not("#modal-div").css('opacity','0.5');
         $("#form-cab-div").children().css('opacity','0.5');
         $("#form-bus-div").children().css('opacity','0.5');
+        $("#ProductorCedula").val($("#t-cedula-s").val());
+      });
+        
+      $('#b-aproductor').click(function(){
+        $('#source-modal').fadeIn(200);
+        $("#error-buscador").hide();
+        $("#b-aproductor").hide();
+        $("#b-eproductor").show();
       });
       $('#b-eproductor').click(function(){
         $('#source-modal').fadeIn(200);
@@ -17,6 +25,7 @@
         $("#form-det-div").children().css('opacity','1');
         $("#form-cab-div").children().css('opacity','1');
         $("#form-bus-div").children().css('opacity','1');
+        borrarCampos();
       });
 
       bindGuardar();
@@ -33,11 +42,16 @@
         success: function(data){
           if(data.status == 'ok'){
             $('#source-modal').fadeOut(200);
+            disabledInputElement("#t-detalle", false);
+            addInfoProductorForm(data["data"]["cedula"], data["data"]["nombre"], data["data"]["cantFamilia"],
+            data["message"]);
+            addTableProductor(data["data"]);
           }else{
             $('#modal-footer').show();
           }
         }
       });
+      borrarCampos();
        $("#form-det-div").children().css('opacity','1');
        $("#form-cab-div").children().css('opacity','1');
        $("#form-bus-div").children().css('opacity','1');
@@ -52,6 +66,16 @@
     var input = '<input type ="hidden" name="data[Productor][id]" value="'+productor['id']+'">';
     $('#ProductorCedula').before(input);
   }
+  
+  function borrarCampos(){
+    $('#ProductorCedula').val('');
+    $('#ProductorNombre').val('');
+    $('#ProductorTotalFamiliares').val('');
+    var input = '<input type ="hidden" name="data[Productor][id]" value="">';
+    $('#ProductorCedula').before(input);
+  }
+  
+  
 </script>
 <!-- <div id="source-modal" class="modal fade in" aria-hidden="false" style="display: block;"> -->
   <div class="modal-dialog modal-lg">

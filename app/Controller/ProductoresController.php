@@ -62,7 +62,15 @@ class ProductoresController extends AppController{
                 return $reply = array('status'=>'error', 'message'=>'Not input data');
             }
             if($this->Productor->saveAll($this->request->data['Productor'])){
-                return $this->responseJson(array('status'=>'ok', 'message'=>$this->Productor->id, 'data'=>$this->request->data['Productor']));
+                $pro = $this->request->data['Productor'];
+                $p = array("id"=>$this->Productor->id, 
+                    "nombre"=>$pro["nombre"],
+                    "cedula"=>$pro["cedula"],
+                    "cantFamilia"=>$pro["total_familiares"]
+                );  
+                
+                return $this->responseJson(array('status'=>'ok', 'message'=>$this->Productor->id, 
+                    'data'=>$p));
             }else{
                 return $this->responseJson(array('status'=>'error', 'message'=>'Error saving'));
             }
