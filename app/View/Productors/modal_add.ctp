@@ -31,7 +31,7 @@
         data: $('#ProductorAddForm').serialize(),
         url: '<?php echo $this->Html->url(array('controller'=>'productores', 'action'=>'addProductor')); ?>',
         success: function(data){
-          if(data.status = 'ok'){
+          if(data.status == 'ok'){
             $('#source-modal').fadeOut(200);
           }else{
             $('#modal-footer').show();
