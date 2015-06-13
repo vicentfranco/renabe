@@ -25,20 +25,20 @@ class FormulariosF1Controller extends AppController {
 
     public function addHeader(){
     	if($this->request->is('post')){
-    		$reply = array();
-    		if(!empty($this->request->data)){
+            $reply = array();
+            if(!empty($this->request->data)){
                 $this->request->data['FormularioF1']['fecha_inicio'] = $this->request->data['FormularioF1']['fecha_inicio'].'-07-01';
                 $this->request->data['FormularioF1']['fecha_fin'] =  $this->request->data['FormularioF1']['fecha_fin'].'-07-01';
-    		}else{
-    			return $reply = array('status'=>'error', 'message'=>'Not input data');
-    		}
-    		if($this->FormularioF1->saveAll($this->request->data['FormularioF1'])){
-    			return $this->responseJson(array('status'=>'ok', 'message'=>$this->FormularioF1->id));
-    		}else{
-    			return $this->responseJson(array('status'=>'error', 'message'=>'Error saving'));
-    		}
+            }else{
+                return $reply = array('status'=>'error', 'message'=>'Not input data');
+            }
+            if($this->FormularioF1->saveAll($this->request->data['FormularioF1'])){
+                return $this->responseJson(array('status'=>'ok', 'message'=>$this->FormularioF1->id));
+            }else{
+                return $this->responseJson(array('status'=>'error', 'message'=>'Error saving'));
+            }
     	}else{
-    		return $this->responseJson(array('status'=>'error', 'message'=>'Bad method'));
+            return $this->responseJson(array('status'=>'error', 'message'=>'Bad method'));
     	}
     }
 
