@@ -221,7 +221,14 @@ $(document).ready(function(){
         $('#b-aproductor').hide();
             var p = {};
             $("#b-search").click(function(){
+                
                 $('#tb-buscador tr').remove();
+                
+                $("#b-aproductor").hide();
+                $("#b-eproductor").hide();
+                $("#b-agregar").hide();
+                $("#error-buscador").hide();
+                
                 if(!$("#t-cedula-s").val()){
                     alert ('cedula no puede ser nulo');
                     return;
@@ -337,6 +344,7 @@ $(document).ready(function(){
                     ob.id = data["message"];
                 }
             });
+            
             var tr = $('#t-detalle tr:last');
             
             ob.ci = tr.find('input[id=t-ci]').val();
@@ -366,7 +374,9 @@ $(document).ready(function(){
                 </tr>", ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
                                 ob.contratados, ob.bovinos, ob.porcinos,
                                 ob.aves, ob.exclusion);
-            $("#t-list  tbody").append(row);  
+            $("#t-list  tbody").append(row);
+            
+            borrarCamposDetalle();
         });
         
         
@@ -374,5 +384,7 @@ $(document).ready(function(){
         
     
 });
-
+    function borrarCamposDetalle(){
+        $("#t-detalle").find("input[type!=hidden]").not("input[type=button]").val('');
+    }
 </script>
