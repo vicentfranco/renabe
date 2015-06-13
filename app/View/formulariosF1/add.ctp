@@ -358,20 +358,20 @@ $(document).ready(function(){
             mapDetallesF1.set(ob.ci, ob);
 
             var row = String.format
-                ("<tr>\n\
+                ('<tr>\n\
                     <td>{0}</td>\n\
-                    <td>{1}</td>\n\
-                    <td>{2}</td>\n\
-                    <td>{3}</td>\n\
-                    <td>{4}</td>\n\
-                    <td>{5}</td>\n\
-                    <td>{6}</td>\n\
-                    <td>{7}</td>\n\
-                    <td>{8}</td>\n\
-                    <td>{9}</td>\n\
-                    <td></td>\n\
-                    <td></td>\n\
-                ", ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
+                    <td class="numeric">{1}</td>\n\
+                    <td class="numeric">{2}</td>\n\
+                    <td class="numeric">{3}</td>\n\
+                    <td class="numeric">{4}</td>\n\
+                    <td class="numeric">{5}</td>\n\
+                    <td class="numeric">{6}</td>\n\
+                    <td class="numeric">{7}</td>\n\
+                    <td class="numeric">{8}</td>\n\
+                    <td class="numeric">{9}</td>\n\
+                    <td class="numeric"></td>\n\
+                    <td class="numeric"></td>\n\
+                ', ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
                                 ob.contratados, ob.bovinos, ob.porcinos,
                                 ob.aves, ob.exclusion);
                 var tdoptions = 
@@ -387,7 +387,7 @@ function bindDetailEvents(){
         if(confirm('Desea eliminar este registro?')){
             $.ajax({
                 type: 'GET',
-                url: '<?php echo $this->Html->url(array("controller"=>"formulariosF1", "action"=>deleteDetail)); ?>',
+                url: '<?php echo $this->Html->url(array("controller"=>"formulariosF1", "action"=>"deleteDetail")); ?>',
                 data: 'id='+mapDetallesF1.get($(this).attr('rel')).id,
                 success: function(data){
                     reply = eval('('+data+')');
@@ -403,6 +403,7 @@ function bindDetailEvents(){
     $('button.editar').unbind('click');
     $('button.editar').click(function(){
         $('#modal-edit-div').fadeIn(300);
+        loadForm(mapDetallesF1.get($(this).attr('rel')));
     });
 }
 </script>
