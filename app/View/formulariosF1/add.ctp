@@ -361,30 +361,30 @@ $(document).ready(function(){
             ob.exclusion = tr.find('input[id=t-codexcl]').val();
             mapDetallesF1.set(ob.ci, ob);
             var row = String.format
-                ("<tr>\n\
+                ('<tr>\n\
                     <td>{0}</td>\n\
-                    <td>{1}</td>\n\
-                    <td>{2}</td>\n\
-                    <td>{3}</td>\n\
-                    <td>{4}</td>\n\
-                    <td>{5}</td>\n\
-                    <td>{6}</td>\n\
-                    <td>{7}</td>\n\
-                    <td>{8}</td>\n\
-                    <td>{9}</td>\n\
-                    <td></td>\n\
-                    <td></td>\n\
-                ", ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
+                    <td class="numeric">{1}</td>\n\
+                    <td class="numeric">{2}</td>\n\
+                    <td class="numeric">{3}</td>\n\
+                    <td class="numeric">{4}</td>\n\
+                    <td class="numeric">{5}</td>\n\
+                    <td class="numeric">{6}</td>\n\
+                    <td class="numeric">{7}</td>\n\
+                    <td class="numeric">{8}</td>\n\
+                    <td class="numeric">{9}</td>\n\
+                    <td class="numeric"></td>\n\
+                    <td class="numeric"></td>\n\
+                ', ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
                                 ob.contratados, ob.bovinos, ob.porcinos,
                                 ob.aves, ob.exclusion);
             
             var tdoptions = 
-            '<td><button type="button" class="btn btn-primary btn-sm" aria-label="Editar" \n\
+            '<td><button type="button" class="btn btn-primary btn-sm editar" aria-label="Editar" \n\
             data-toggle="tooltip" data-placement="top" \n\
             title="" data-original-title="Editar" rel="'+ob.ci+'">\n\
             <span class="glyphicon glyphicon-pencil" aria-hidden="true">\n\
             </span></button></td><td><button type="button" \n\
-            class="btn btn-danger btn-sm" aria-label="Eliminar" \n\
+            class="btn btn-danger btn-sm eliminar" aria-label="Eliminar" \n\
             data-toggle="tooltip" data-placement="top" title="" \n\
             data-original-title="Eliminar" rel="'+ob.ci+'">\n\
             <span class="glyphicon glyphicon-trash" aria-hidden="true">\n\
@@ -445,7 +445,7 @@ function bindDetailEvents(){
         if(confirm('Desea eliminar este registro?')){
             $.ajax({
                 type: 'GET',
-                url: '<?php echo $this->Html->url(array("controller"=>"formulariosF1", "action"=>deleteDetail)); ?>',
+                url: '<?php echo $this->Html->url(array("controller"=>"formulariosF1", "action"=>"deleteDetail")); ?>',
                 data: 'id='+mapDetallesF1.get($(this).attr('rel')).id,
                 success: function(data){
                     reply = eval('('+data+')');
@@ -461,6 +461,7 @@ function bindDetailEvents(){
     $('button.editar').unbind('click');
     $('button.editar').click(function(){
         $('#modal-edit-div').fadeIn(300);
+        loadForm(mapDetallesF1.get($(this).attr('rel')));
     });
 }
 </script>

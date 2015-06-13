@@ -40,6 +40,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->fetch('script');
 	?>
 </head>
+<style type="text/css">
+    .numeric{
+        text-align: right;
+    }
+</style>
 <body>
 	<div id="container">
 		<div id="header">

@@ -49,7 +49,7 @@ class FormulariosF1Controller extends AppController {
     			return $this->responseJson(array('status'=>'error', 'message'=>'Not input data'));
     		}
     		if($this->FormularioF1->FormulariosF1Detalle->saveAll($this->request->data['FormulariosF1Detalle'])){
-    			return $this->responseJson(array('status'=>'ok', 'message'=>$this->FormularioF1->FormulariosF1Detalle->id));
+    			return $this->responseJson(array('status'=>'ok', 'message'=>$this->FormularioF1->FormulariosF1Detalle->id, 'data'=>$this->request->data['FormulariosF1Detalle']));
     		}else{
     			return $this->responseJson(array('status'=>'error', 'message'=>'Error saving'));
     		}
