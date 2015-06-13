@@ -379,12 +379,12 @@ $(document).ready(function(){
                                 ob.aves, ob.exclusion);
             
             var tdoptions = 
-            '<td><button type="button" class="btn btn-primary btn-sm" aria-label="Editar" \n\
+            '<td><button type="button" class="btn btn-primary btn-sm editar" aria-label="Editar" \n\
             data-toggle="tooltip" data-placement="top" \n\
             title="" data-original-title="Editar" rel="'+ob.ci+'">\n\
             <span class="glyphicon glyphicon-pencil" aria-hidden="true">\n\
             </span></button></td><td><button type="button" \n\
-            class="btn btn-danger btn-sm" aria-label="Eliminar" \n\
+            class="btn btn-danger btn-sm eliminar" aria-label="Eliminar" \n\
             data-toggle="tooltip" data-placement="top" title="" \n\
             data-original-title="Eliminar" rel="'+ob.ci+'">\n\
             <span class="glyphicon glyphicon-trash" aria-hidden="true">\n\
