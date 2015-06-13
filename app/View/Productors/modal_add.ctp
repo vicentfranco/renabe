@@ -1,7 +1,7 @@
 <script type="text/javascript">
   $('document').ready(function(){
       $('#source-modal, #b-eproductor').hide();
-      $('.alert').hide();
+      $('#modal-footer').hide();
       $('#b-aproductor').click(function(){
         $('#source-modal').fadeIn(200);
         $("#form-det-div").children().not("#modal-div").css('opacity','0.5');
@@ -24,7 +24,7 @@
 
   function bindGuardar(){
     $('#guardar').click(function(){
-      $('alert').hide();
+      $('#modal-footer').hide();
       $.ajax({
         type: 'POST',
         dataType: 'json',
@@ -34,7 +34,7 @@
           if(data.status = 'ok'){
             $('#source-modal').fadeOut(200);
           }else{
-            $('alert').show();
+            $('#modal-footer').show();
           }
         }
       });
@@ -70,10 +70,10 @@
             ?>
           </fieldset>
       </div>
-      <div class="modal-footer">
-        <div class="alert alert-dismissible alert-danger">
-          <strong>Error!</strong> Verifique los datos y vuelva a intentarlo
-        </div>
+        <div class="modal-footer">
+            <div class="alert alert-dismissible alert-danger" id="modal-footer">
+                <strong>Error!</strong> Verifique los datos y vuelva a intentarlo
+            </div>
         <button type="button" class="btn btn-primary" id="guardar">Guardar</button>
         <button type="button" class="btn btn-default cerrar" data-dismiss="modal">Cerrar</button>
       </div>

@@ -248,10 +248,13 @@ $(document).ready(function(){
                                $('#tb-buscador').append(table);
                             }
                         }
-                        $("#b-agregar").fadeIn(300);
+                        
                         if(typeof data['cedula'] != 'undefined'){
+                            $("#b-agregar").fadeIn(300);
                             $("#b-eproductor").fadeIn(300);
                         }else{
+                            $("#error-buscador").append("<strong>No se encontro información del productor, haga click en el boton de abajo para agregar</strong>");
+                            $("#error-buscador").show();
                             $("#b-aproductor").fadeIn(300);
                         }
                     }
