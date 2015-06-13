@@ -272,7 +272,7 @@ $(document).ready(function(){
     
         /* LOS INPUT DE DETALLE Y BUSCADOR QUEDAN DESABILITADOS HASTA QUE SE CARGUE LA CABECERA*/
         disabledInputElement("#t-detalle", true);
-        //disabledInputElement("#inp-buscador", true);
+        disabledInputElement("#inp-buscador", true);
     
         $("#b-agregarcabecera").click(function(){
             if($("#cabecera :input").is('[disabled=disabled]')){
@@ -321,16 +321,16 @@ $(document).ready(function(){
         });
         
         $("#b-agregar-detalle").click(function(){
-            /*var empty = $("#detalle").find("input").filter(function() {
+            var empty = $("#detalle").find("input").filter(function() {
                     return this.value === "";
                 });
             if(empty.length) {
                 alert('Todos los campos son obligatorios');
                 return;
-            }*/
+            }
             var ob = new Object();
             
-            /*var dataForm = $('#t-detalle :input').serialize();
+            var dataForm = $('#t-detalle :input').serialize();
             var url = "<?php echo $this->
                 Html->url(array("controller"=>"formulariosF1", "action"=>"addDetail"))?>";
             $.ajax({
@@ -346,7 +346,7 @@ $(document).ready(function(){
                     ob.id = data["message"];
                 }
             });
-            */
+            
             var tr = $('#t-detalle tr:last');
             
             ob.ci = tr.find('input[id=t-ci]').val();
@@ -372,6 +372,8 @@ $(document).ready(function(){
                     <td>{7}</td>\n\
                     <td>{8}</td>\n\
                     <td>{9}</td>\n\
+                    <td></td>\n\
+                    <td></td>\n\
                 ", ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
                                 ob.contratados, ob.bovinos, ob.porcinos,
                                 ob.aves, ob.exclusion);
@@ -390,12 +392,8 @@ $(document).ready(function(){
             $("#t-list tbody").append(row+tdoptions);
             
             borrarCamposDetalle();
-        });
-        
-        
-        
-        
-    
+            bindDetailEvents();
+        });    
 });
     function borrarCamposDetalle(){
         $("#t-detalle").find("input[type!=hidden]").not("input[type=button]").val('');
@@ -441,4 +439,28 @@ $(document).ready(function(){
         $(element).append("<strong>"+message+"</strong>");
     }
 
+function bindDetailEvents(){
+    $('button.eliminar').unbind('click');
+    $('button.eliminar').click(function(){
+        if(confirm('Desea eliminar este registro?')){
+            $.ajax({
+                type: 'GET',
+                url: '<?php echo $this->Html->url(array("controller"=>"formulariosF1", "action"=>deleteDetail)); ?>',
+                data: 'id='+mapDetallesF1.get($(this).attr('rel')).id,
+                success: function(data){
+                    reply = eval('('+data+')');
+                    if(reply.status == 'error'){
+                        alert('Error al eliminar. Intente nuevamente');
+                        return false;
+                    }
+                }
+            });
+            $(this).parent().parent().remove();
+        }
+    }); 
+    $('button.editar').unbind('click');
+    $('button.editar').click(function(){
+        $('#modal-edit-div').fadeIn(300);
+    });
+}
 </script>
