@@ -225,16 +225,15 @@ $(document).ready(function(){
         
         $("#b-agregar").hide();
         $('#b-aproductor').hide();
-            var p = {};
+        var p = {};
+           
             $("#b-search").click(function(){
-                
-                $('#tb-buscador tr').remove();
                 
                 $("#b-aproductor").hide();
                 $("#b-eproductor").hide();
                 $("#b-agregar").hide();
+                $("#error-buscador strong").remove();
                 $("#error-buscador").hide();
-                
                 if(!$("#t-cedula-s").val()){
                     alert ('cedula no puede ser nulo');
                     return;
@@ -245,22 +244,12 @@ $(document).ready(function(){
                 var urls ="<?php echo $this->
                     Html->url(array("controller"=>"productores", "action"=>"search"))?>"+"/"+valueCI;
                 
-                
                 $.ajax({
                     type: 'GET',
                     dataType: 'json',
                     url: urls,
                     success: function(data){
-                        productor = data;
-                        for(var key in data){
-                           if (data.hasOwnProperty(key)) {
-                               if(key == 'id'){
-                                   continue;
-                               }
-                               var table = String.format("<tr><td>{0}</td><td>{1}</td></tr>", key, data[key]);
-                               $('#tb-buscador').append(table);
-                            }
-                        }
+                        addTableProductor(data);
                         
                         if(typeof data['cedula'] != 'undefined'){
                             $("#b-agregar").fadeIn(300);
@@ -273,14 +262,17 @@ $(document).ready(function(){
                     }
                 });
         });
-    
-        $("#b-agregar").click(function(){
-            $("#t-nombre").val(productor["nombre"]);
-            $("#t-ci").val(productor["cedula"]);
-            $("#t-cantfamilia").val(productor["cantFamilia"]);
-            $("#t-hid-productor").val(productor['id']);
         
+        $("#b-agregar").click(function(){
+            disabledInputElement("#t-detalle", false);
+            addInfoProductorForm(productor["cedula"], productor["nombre"],
+                productor["cantFamilia"], productor["id"]);   
         });
+    
+    
+        /* LOS INPUT DE DETALLE Y BUSCADOR QUEDAN DESABILITADOS HASTA QUE SE CARGUE LA CABECERA*/
+        disabledInputElement("#t-detalle", true);
+        //disabledInputElement("#inp-buscador", true);
     
         $("#b-agregarcabecera").click(function(){
             if($("#cabecera :input").is('[disabled=disabled]')){
@@ -313,6 +305,10 @@ $(document).ready(function(){
                         if(data["status"] == "ok"){
                             $("#t-hid-cabecera").val(data['message']);
                             $("#t-hid-edit-cabecera").val(data['message']);
+                            //HABILITAMOS EL BUSCADOR DE PRODUCTOR
+                            disabledInputElement("#inp-buscador", false);
+                            getFocus("#t-cedula-s");
+                            
                         }else{
                             alert('error al guardar la cabecera');
                         }
@@ -364,7 +360,6 @@ $(document).ready(function(){
             ob.aves = tr.find('input[id=t-cantaves]').val();
             ob.exclusion = tr.find('input[id=t-codexcl]').val();
             mapDetallesF1.set(ob.ci, ob);
-
             var row = String.format
                 ("<tr>\n\
                     <td>{0}</td>\n\
@@ -382,7 +377,16 @@ $(document).ready(function(){
                                 ob.aves, ob.exclusion);
             
             var tdoptions = 
-            '<td><button type="button" class="btn btn-primary btn-sm" aria-label="Editar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar" rel="'+ob.ci+'"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" class="btn btn-danger btn-sm" aria-label="Eliminar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Eliminar" rel="'+ob.ci+'"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td></tr>';
+            '<td><button type="button" class="btn btn-primary btn-sm" aria-label="Editar" \n\
+            data-toggle="tooltip" data-placement="top" \n\
+            title="" data-original-title="Editar" rel="'+ob.ci+'">\n\
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true">\n\
+            </span></button></td><td><button type="button" \n\
+            class="btn btn-danger btn-sm" aria-label="Eliminar" \n\
+            data-toggle="tooltip" data-placement="top" title="" \n\
+            data-original-title="Eliminar" rel="'+ob.ci+'">\n\
+            <span class="glyphicon glyphicon-trash" aria-hidden="true">\n\
+            </span></button></td></tr>';
             $("#t-list tbody").append(row+tdoptions);
             
             borrarCamposDetalle();
@@ -396,4 +400,45 @@ $(document).ready(function(){
     function borrarCamposDetalle(){
         $("#t-detalle").find("input[type!=hidden]").not("input[type=button]").val('');
     }
+    
+    /**
+     * Deshabilita todos los input que estan dentro del element pasado como parametro
+     * @param {type} parent element contenedor de inputs
+     * @param {type} bool true o false
+     */
+    function disabledInputElement(parent, bool){
+        $(parent).find('input').prop('disabled', bool);
+    }
+    
+    function getFocus(element){
+        $(element).focus();
+    }
+
+    function addInfoProductorForm(ci, nombre, cantF, id){
+        $("#t-nombre").val(nombre);
+        $("#t-ci").val(ci);
+        $("#t-cantfamilia").val(cantF);
+        $("#t-hid-productor").val(id);
+        $("#t-nombre, #t-ci, #t-cantfamilia").prop('disabled', true);
+    }
+    
+    function addTableProductor(data){
+        productor = data;
+        $('#tb-buscador tr').remove();
+        for(var key in data){
+            if (data.hasOwnProperty(key)) {
+                if(key == 'id'){
+                    continue;
+                }
+                var table = String.format("<tr><td>{0}</td><td>{1}</td></tr>", key, data[key]);
+                $('#tb-buscador').append(table);
+            }
+        }
+    }
+    
+    function addMessageError(element, message){
+        $(element + " strong").remove();
+        $(element).append("<strong>"+message+"</strong>");
+    }
+
 </script>
