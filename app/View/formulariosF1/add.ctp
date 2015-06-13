@@ -4,6 +4,12 @@
     </div>  
     
 </div>
+<div class="row" id="modal-div">
+    <div id="source-modal" class="modal fade in" aria-hidden="false" style="display: block;">
+        <?php echo $this->element('../FormulariosF1Detalle/modals_edit'); ?>
+    </div>  
+    
+</div>
 <div class="row">
     
     <div class="col-lg-12" id="detalle">
@@ -363,10 +369,12 @@ $(document).ready(function(){
                     <td>{7}</td>\n\
                     <td>{8}</td>\n\
                     <td>{9}</td>\n\
-                </tr>", ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
+                ", ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
                                 ob.contratados, ob.bovinos, ob.porcinos,
                                 ob.aves, ob.exclusion);
-            $("#t-list  tbody").append(row);  
+                var tdoptions = 
+            '<td><button type="button" class="btn btn-primary btn-sm" aria-label="Editar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar" rel="'+ob.ci+'"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" class="btn btn-danger btn-sm" aria-label="Eliminar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Eliminar" rel="'+ob.ci+'"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td></tr>';
+            $("#t-list  tbody").append(row+tdoptions);
         });
         
         
