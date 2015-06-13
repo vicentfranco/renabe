@@ -13,12 +13,13 @@
       $('#b-aproductor').click(function(){
         $('#source-modal').fadeIn(200);
         $("#error-buscador").hide();
-        $("#b-aproductor").hide();
-        $("#b-eproductor").show();
+        getFocus("#ProductorNombre");
+        
       });
       $('#b-eproductor').click(function(){
         $('#source-modal').fadeIn(200);
         rellenarCampos();
+        getFocus("#ProductorNombre");
       });
       $('.close, .cerrar').click(function(){
         $('#source-modal').fadeOut(200);
@@ -46,6 +47,9 @@
             addInfoProductorForm(data["data"]["cedula"], data["data"]["nombre"], data["data"]["cantFamilia"],
             data["message"]);
             addTableProductor(data["data"]);
+            $("#b-aproductor").hide();
+            $("#b-agregar").show();
+            $("#b-eproductor").show();
           }else{
             $('#modal-footer').show();
           }

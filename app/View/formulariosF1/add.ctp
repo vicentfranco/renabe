@@ -272,7 +272,7 @@ $(document).ready(function(){
     
         /* LOS INPUT DE DETALLE Y BUSCADOR QUEDAN DESABILITADOS HASTA QUE SE CARGUE LA CABECERA*/
         disabledInputElement("#t-detalle", true);
-        disabledInputElement("#inp-buscador", true);
+        //disabledInputElement("#inp-buscador", true);
     
         $("#b-agregarcabecera").click(function(){
             if($("#cabecera :input").is('[disabled=disabled]')){
