@@ -1,10 +1,11 @@
-<div class="row">
-    <div id="source-modal" class="modal fade in" aria-hidden="true" style="display: block;">
+<div class="row" id="modal-div">
+    <div id="source-modal" class="modal fade in" aria-hidden="false" style="display: block;">
         <?php echo $this->element('../Productors/modal_add'); ?>
-    </div>
-    <div id="source-modal" class="modal fade in" aria-hidden="true" style="display: block;">
-         <?php echo $this->element('../formulariosF1/edit_detail'); ?>
-    </div>
+    </div>  
+    
+</div>
+<div class="row">
+    
     <div class="col-lg-12" id="detalle">
         <form id="f-detalle">
             <table class="table table-striped" id="t-detalle">
@@ -278,8 +279,13 @@ $(document).ready(function(){
                     alert('Todos los campos son obligatorios');
                     return;
                 }
-                
+          
                 var dataForm = $('#f-cabecera').serialize();
+                
+                if ($("#t-hid-edit-cabecera").length != 0){
+                    dataForm = dataForm.concat("&data[FormularioF1][id]="+$("#t-hid-edit-cabecera").val() );
+                }
+                
                 var url = "<?php echo $this->
                     Html->url(array("controller"=>"formulariosF1", "action"=>"addHeader"))?>";
                 $.ajax({
@@ -290,6 +296,7 @@ $(document).ready(function(){
                     success: function(data){
                         if(data["status"] == "ok"){
                             $("#t-hid-cabecera").val(data['message']);
+                            $("#t-hid-edit-cabecera").val(data['message']);
                         }else{
                             alert('error al guardar la cabecera');
                         }
@@ -327,7 +334,8 @@ $(document).ready(function(){
                     ob.id = data["message"];
                 }
             });
-            var tr = $('#t-detalle tr:last');            
+            var tr = $('#t-detalle tr:last');
+            
             ob.ci = tr.find('input[id=t-ci]').val();
             ob.nombre = tr.find('input[id=t-nombre]').val();
             ob.familia = tr.find('input[id=t-cantfamilia]').val();
@@ -341,7 +349,7 @@ $(document).ready(function(){
             mapDetallesF1.set(ob.ci, ob);
 
             var row = String.format
-                ('<tr>\n\
+                ("<tr>\n\
                     <td>{0}</td>\n\
                     <td>{1}</td>\n\
                     <td>{2}</td>\n\
@@ -352,12 +360,10 @@ $(document).ready(function(){
                     <td>{7}</td>\n\
                     <td>{8}</td>\n\
                     <td>{9}</td>\n\
-                ', ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
+                </tr>", ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
                                 ob.contratados, ob.bovinos, ob.porcinos,
                                 ob.aves, ob.exclusion);
-            var tdoptions = 
-            '<td><button type="button" class="btn btn-primary btn-sm" aria-label="Editar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar" rel="'+ob.ci+'"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td><td><button type="button" class="btn btn-danger btn-sm" aria-label="Eliminar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Eliminar" rel="'+ob.ci+'"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td></tr>';
-            $("#t-list  tbody").append(row+tdoptions);  
+            $("#t-list  tbody").append(row);  
         });
         
         

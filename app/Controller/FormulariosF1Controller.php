@@ -58,16 +58,4 @@ class FormulariosF1Controller extends AppController {
     		return $this->responseJson(array('status'=>'error', 'message'=>'Bad method'));
     	}	
     }
-
-    public function deleteDetail($id = null){
-        if(empty($id)){
-            if($this->FormularioF1->FormulariosF1Detalle->delete($this->request->data['FormulariosF1Detalle']['id'])){
-                return $this->responseJson(array('status'=>'ok', 'message'=>'Succesful'));
-            }else{
-                return $this->responseJson(array('status'=>'error', 'message'=>'Error deleting'));
-            }
-        }else{
-            return $this->responseJson(array('status'=>'error', 'message'=>'Bad method'));
-        }
-    }
 }

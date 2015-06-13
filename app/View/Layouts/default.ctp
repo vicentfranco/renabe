@@ -52,59 +52,48 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			        <span class="icon-bar"></span>
 			        <span class="icon-bar"></span>
 			      </button>
-			      <a class="navbar-brand" href="#">Renabe</a>
+			      <a class="navbar-brand" href="#">Brand</a>
 			    </div>
 
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			      <ul class="nav navbar-nav navbar-left">
-			        <li><a href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'index')); ?>">Usuarios</a></li>
-			      </ul>
 			      <ul class="nav navbar-nav">
+			        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+			        <li><a href="#">Link</a></li>
 			        <li class="dropdown">
-			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Formularios <span class="caret"></span></a>
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
 			          <ul class="dropdown-menu" role="menu">
-			            <li><a href="#">F1 - Productores de la Agricultura Familiar</a></li>
-			            <li><a href="#">F2 - Productores Indigenas, Urbanos y Periurbanos</a></li>
-			            <li><a href="#">F3 - Productores Agropecuarios Consolidados</a></li>
+			            <li><a href="#">Action</a></li>
+			            <li><a href="#">Another action</a></li>
+			            <li><a href="#">Something else here</a></li>
 			            <li class="divider"></li>
-			            <li><a href="#">Ver Anexos</a></li>
-			          </ul>
-			        </li>
-			        <li class="dropdown">
-			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reportes <span class="caret"></span></a>
-			          <ul class="dropdown-menu" role="menu">
-			            <li><a href="#">Beneficiarios por Departamento</a></li>
-			            <li><a href="#">Beneficiarios por Distritos</a></li>
-			            <li><a href="#">Beneficiarios por Comite o Asentamiento</a></li>
+			            <li><a href="#">Separated link</a></li>
 			            <li class="divider"></li>
-			            <li><a href="#">F1 - Productores de la Agricultura Familiar</a></li>
-			            <li class="divider"></li>
-			            <li><a href="#">Productores</a></li>
+			            <li><a href="#">One more separated link</a></li>
 			          </ul>
 			        </li>
 			      </ul>
-			      <ul class="nav navbar-nav navbar-right">
-			        <li><a href="<?php echo $this->Html->url(array('controller'=>'users', 'action'=>'logout')); ?>">Salir  <span class="glyphicon glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
-			      </ul>
-			      <form class="navbar-form navbar-right" role="search">
+			      <form class="navbar-form navbar-left" role="search">
 			        <div class="form-group">
 			          <input type="text" class="form-control" placeholder="Search">
 			        </div>
 			        <button type="submit" class="btn btn-default">Submit</button>
 			      </form>
+			      <ul class="nav navbar-nav navbar-right">
+			        <li><a href="#">Link</a></li>
+			      </ul>
 			    </div>
 			  </div>
 			</nav>
 		</div>
 		<div id="content" class="row">
-                    <div class="col-lg-1">
+                    <div class="col-lg-1" id="form-cab-div">
                          <?php echo $this->element('cabecera'); ?>
                     </div>
-                    <div class="col-lg-9">
+                    <div class="col-lg-9" id="form-det-div">
                         <?php echo $this->Session->flash(); ?>
                         <?php echo $this->fetch('content'); ?>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-2" id="form-bus-div">
                         <?php echo $this->element('buscador'); ?>
                     </div>
 		</div>
