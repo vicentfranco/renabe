@@ -44,6 +44,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     .numeric{
         text-align: right;
     }
+    .principal{
+    	margin-left: 0px;
+    }
 </style>
 <body>
 	<div id="container">
@@ -102,14 +105,19 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			</nav>
 		</div>
 		<div id="content" class="row">
-                    <div class="col-lg-1" id="form-cab-div">
+                    <div class="col-lg-1 principal" id="form-cab-div">
+                    	<h4>Cabecera</h4>
                          <?php echo $this->element('cabecera'); ?>
                     </div>
                     <div class="col-lg-9" id="form-det-div">
                         <?php echo $this->Session->flash(); ?>
-                        <?php echo $this->fetch('content'); ?>
+                        <div class="principal" style="margin:0;">
+                        	<h2>F1 - Productores de la Agriculatura Familiar</h2>
+                        	<hr />
+                        	<?php echo $this->fetch('content'); ?>
+                        </div>
                     </div>
-                    <div class="col-lg-2" id="form-bus-div">
+                    <div class="col-lg-2 principal" id="form-bus-div">
                         <?php echo $this->element('buscador'); ?>
                     </div>
 		</div>
