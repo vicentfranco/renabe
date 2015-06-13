@@ -4,9 +4,9 @@
     </div>  
     
 </div>
-<div class="row" id="modal-div">
-    <div id="source-modal" class="modal fade in" aria-hidden="false" style="display: block;">
-        <?php echo $this->element('../FormulariosF1Detalle/modals_edit'); ?>
+<div class="row" id="modal-edit-div">
+    <div id="source-edit-modal" class="modal fade in" aria-hidden="false" style="display: block;">
+        <?php echo $this->element('../formulariosF1/modal_edit'); ?>
     </div>  
     
 </div>

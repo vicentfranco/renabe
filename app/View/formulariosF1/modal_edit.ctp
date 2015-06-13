@@ -1,4 +1,7 @@
 <script type="text/javascript">
+  $(document).ready(function(){
+    $('#modal-edit-div').hide();
+  });
   function loadForm(item){
     $('input#idDetail').val(item.id);
     $('input#supFinca').val(item.finca);
