@@ -227,46 +227,27 @@ $(document).ready(function(){
         $('#b-aproductor').hide();
         var p = {};
            
-            $("#b-search").click(function(){
-                
-                $("#b-aproductor").hide();
-                $("#b-eproductor").hide();
-                $("#b-agregar").hide();
-                $("#error-buscador strong").remove();
-                $("#error-buscador").hide();
-                if(!$("#t-cedula-s").val()){
-                    alert ('cedula no puede ser nulo');
-                    return;
-                }
-                var valueCI = $("#t-cedula-s").val();
-                
-                
-                var urls ="<?php echo $this->
-                    Html->url(array("controller"=>"productores", "action"=>"search"))?>"+"/"+valueCI;
-                
-                $.ajax({
-                    type: 'GET',
-                    dataType: 'json',
-                    url: urls,
-                    success: function(data){
-                        addTableProductor(data);
-                        
-                        if(typeof data['cedula'] != 'undefined'){
-                            $("#b-agregar").fadeIn(300);
-                            $("#b-eproductor").fadeIn(300);
-                        }else{
-                            $("#error-buscador").append("<strong>No se encontro información del productor, haga click en el boton de abajo para agregar</strong>");
-                            $("#error-buscador").show();
-                            $("#b-aproductor").fadeIn(300);
-                        }
-                    }
-                });
+        $("#b-search").click(function(){
+           bindSearchProductor();
         });
-        
+        $("#t-cedula-s, #b-search").keypress(function(e){
+           if(e.keyCode == 13){
+                bindSearchProductor();
+            }
+        });
+         
         $("#b-agregar").click(function(){
             disabledInputElement("#t-detalle", false);
             addInfoProductorForm(productor["cedula"], productor["nombre"],
                 productor["cantFamilia"], productor["id"]);   
+        });
+        $("#b-agregar").keypress(function(e){
+            if(e.keyCode == 13){
+                disabledInputElement("#t-detalle", false);
+                addInfoProductorForm(productor["cedula"], productor["nombre"],
+                    productor["cantFamilia"], productor["id"]);
+                getFocus('#t-supfinca');
+            }
         });
     
     
@@ -321,79 +302,13 @@ $(document).ready(function(){
         });
         
         $("#b-agregar-detalle").click(function(){
-            var empty = $("#detalle").find("input").filter(function() {
-                    return this.value === "";
-                });
-            if(empty.length) {
-                alert('Todos los campos son obligatorios');
-                return;
-            }
-            var ob = new Object();
-            
-            var dataForm = $('#t-detalle :input').serialize();
-            var url = "<?php echo $this->
-                Html->url(array("controller"=>"formulariosF1", "action"=>"addDetail"))?>";
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                data: dataForm,
-                url: url,
-                success: function(data){
-
-                    if(data["status"] == "error"){
-                        alert('error al guardar la cabecera:'. data['message']);
-                    }
-                    ob.id = data["message"];
-                }
-            });
-            
-            var tr = $('#t-detalle tr:last');
-            
-            ob.ci = tr.find('input[id=t-ci]').val();
-            ob.nombre = tr.find('input[id=t-nombre]').val();
-            ob.familia = tr.find('input[id=t-cantfamilia]').val();
-            ob.finca = tr.find('input[id=t-supfinca]').val();
-            ob.cultivo = tr.find('input[id=t-supcultivo]').val();
-            ob.contratados = tr.find('input[id=t-totcontra]').val();
-            ob.bovinos = tr.find('input[id=t-cantganado]').val();
-            ob.porcinos = tr.find('input[id=t-cantporcino]').val();
-            ob.aves = tr.find('input[id=t-cantaves]').val();
-            ob.exclusion = tr.find('input[id=t-codexcl]').val();
-            mapDetallesF1.set(ob.ci, ob);
-            var row = String.format
-                ('<tr>\n\
-                    <td>{0}</td>\n\
-                    <td class="numeric">{1}</td>\n\
-                    <td class="numeric">{2}</td>\n\
-                    <td class="numeric">{3}</td>\n\
-                    <td class="numeric">{4}</td>\n\
-                    <td class="numeric">{5}</td>\n\
-                    <td class="numeric">{6}</td>\n\
-                    <td class="numeric">{7}</td>\n\
-                    <td class="numeric">{8}</td>\n\
-                    <td class="numeric">{9}</td>\n\
-                    <td class="numeric"></td>\n\
-                    <td class="numeric"></td>\n\
-                ', ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
-                                ob.contratados, ob.bovinos, ob.porcinos,
-                                ob.aves, ob.exclusion);
-            
-            var tdoptions = 
-            '<td><button type="button" class="btn btn-primary btn-sm editar" aria-label="Editar" \n\
-            data-toggle="tooltip" data-placement="top" \n\
-            title="" data-original-title="Editar" rel="'+ob.ci+'">\n\
-            <span class="glyphicon glyphicon-pencil" aria-hidden="true">\n\
-            </span></button></td><td><button type="button" \n\
-            class="btn btn-danger btn-sm eliminar" aria-label="Eliminar" \n\
-            data-toggle="tooltip" data-placement="top" title="" \n\
-            data-original-title="Eliminar" rel="'+ob.ci+'">\n\
-            <span class="glyphicon glyphicon-trash" aria-hidden="true">\n\
-            </span></button></td></tr>';
-            $("#t-list tbody").append(row+tdoptions);
-            
-            borrarCamposDetalle();
-            bindDetailEvents();
+            bindAddEvent();
         });    
+        $("#b-agregar-detalle").keypress(function(e){
+            if(e.keyCode == 13){   
+                bindAddEvent();
+            }
+        }); 
 });
     function borrarCamposDetalle(){
         $("#t-detalle").find("input[type!=hidden]").not("input[type=button]").val('');
@@ -463,5 +378,115 @@ function bindDetailEvents(){
         $('#modal-edit-div').fadeIn(300);
         loadForm(mapDetallesF1.get($(this).attr('rel')));
     });
+}
+
+function bindSearchProductor(){
+    $("#b-aproductor").hide();
+    $("#b-eproductor").hide();
+    $("#b-agregar").hide();
+    $("#error-buscador strong").remove();
+    $("#error-buscador").hide();
+    if(!$("#t-cedula-s").val()){
+        alert ('cedula no puede ser nulo');
+        return;
+    }
+    var valueCI = $("#t-cedula-s").val();
+    
+    
+    var urls ="<?php echo $this->
+        Html->url(array("controller"=>"productores", "action"=>"search"))?>"+"/"+valueCI;
+    
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: urls,
+        success: function(data){
+            addTableProductor(data);
+            
+            if(typeof data['cedula'] != 'undefined'){
+                $("#b-agregar").fadeIn(300);
+                $("#b-eproductor").fadeIn(300);
+                $('#b-agregar').focus();
+            }else{
+                $("#error-buscador").append("<strong>No se encontro información del productor, haga click en el boton de abajo para agregar</strong>");
+                $("#error-buscador").show();
+                $("#b-aproductor").fadeIn(300);
+            }
+        }
+    });
+}
+
+function bindAddEvent(){
+    var empty = $("#detalle").find("input").filter(function() {
+                    return this.value === "";
+                });
+    if(empty.length) {
+        alert('Todos los campos son obligatorios');
+        return;
+    }
+    var ob = new Object();
+    
+    var dataForm = $('#t-detalle :input').serialize();
+    var url = "<?php echo $this->
+        Html->url(array("controller"=>"formulariosF1", "action"=>"addDetail"))?>";
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        data: dataForm,
+        url: url,
+        success: function(data){
+
+            if(data["status"] == "error"){
+                alert('error al guardar la cabecera:'. data['message']);
+            }
+            ob.id = data["message"];
+        }
+    });
+    
+    var tr = $('#t-detalle tr:last');
+    
+    ob.ci = tr.find('input[id=t-ci]').val();
+    ob.nombre = tr.find('input[id=t-nombre]').val();
+    ob.familia = tr.find('input[id=t-cantfamilia]').val();
+    ob.finca = tr.find('input[id=t-supfinca]').val();
+    ob.cultivo = tr.find('input[id=t-supcultivo]').val();
+    ob.contratados = tr.find('input[id=t-totcontra]').val();
+    ob.bovinos = tr.find('input[id=t-cantganado]').val();
+    ob.porcinos = tr.find('input[id=t-cantporcino]').val();
+    ob.aves = tr.find('input[id=t-cantaves]').val();
+    ob.exclusion = tr.find('input[id=t-codexcl]').val();
+    mapDetallesF1.set(ob.ci, ob);
+    var row = String.format
+        ('<tr>\n\
+            <td>{0}</td>\n\
+            <td class="numeric">{1}</td>\n\
+            <td class="numeric">{2}</td>\n\
+            <td class="numeric">{3}</td>\n\
+            <td class="numeric">{4}</td>\n\
+            <td class="numeric">{5}</td>\n\
+            <td class="numeric">{6}</td>\n\
+            <td class="numeric">{7}</td>\n\
+            <td class="numeric">{8}</td>\n\
+            <td class="numeric">{9}</td>\n\
+            <td class="numeric"></td>\n\
+            <td class="numeric"></td>\n\
+        ', ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
+                        ob.contratados, ob.bovinos, ob.porcinos,
+                        ob.aves, ob.exclusion);
+    
+    var tdoptions = 
+    '<td><button type="button" class="btn btn-primary btn-sm editar" aria-label="Editar" \n\
+    data-toggle="tooltip" data-placement="top" \n\
+    title="" data-original-title="Editar" rel="'+ob.ci+'">\n\
+    <span class="glyphicon glyphicon-pencil" aria-hidden="true">\n\
+    </span></button></td><td><button type="button" \n\
+    class="btn btn-danger btn-sm eliminar" aria-label="Eliminar" \n\
+    data-toggle="tooltip" data-placement="top" title="" \n\
+    data-original-title="Eliminar" rel="'+ob.ci+'">\n\
+    <span class="glyphicon glyphicon-trash" aria-hidden="true">\n\
+    </span></button></td></tr>';
+    $("#t-list tbody").append(row+tdoptions);
+    borrarCamposDetalle();
+    bindDetailEvents();
 }
 </script>
