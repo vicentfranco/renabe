@@ -2,33 +2,33 @@
     <div id="source-modal" class="modal fade in" aria-hidden="false" style="display: block;">
         <?php echo $this->element('../Productors/modal_add'); ?>
     </div>  
-    
+
 </div>
 <div class="row" id="modal-edit-div">
     <div id="source-edit-modal" class="modal fade in" aria-hidden="false" style="display: block;">
         <?php echo $this->element('../formulariosF1/modal_edit'); ?>
     </div>  
-    
+
 </div>
 <div class="row">
-    
+
     <div class="col-lg-12" id="detalle">
         <form id="f-detalle">
             <table class="table table-striped" id="t-detalle">
                 <thead>
-                        <tr>
-                            <th>Nombre y Apellido del titular</th>
-                            <th>C.I. Titular</th>
-                            <th>Total miembros familia</th>
-                            <th>Superficie finca</th>
-                            <th>Superficie cultivos</th>
-                            <th>Total contratados</th>
-                            <th>Cantidad ganado bovino</th>
-                            <th>Cantidad porcino</th>
-                            <th>Cantidad aves</th>
-                            <th>Codigo exclusion</th>
-                            <th>&nbsp;</th>
-                        </tr>
+                    <tr>
+                        <th>Nombre y Apellido del titular</th>
+                        <th>C.I. Titular</th>
+                        <th>Total miembros familia</th>
+                        <th>Superficie finca</th>
+                        <th>Superficie cultivos</th>
+                        <th>Total contratados</th>
+                        <th>Cantidad ganado bovino</th>
+                        <th>Cantidad porcino</th>
+                        <th>Cantidad aves</th>
+                        <th>Codigo exclusion</th>
+                        <th>&nbsp;</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr>
@@ -43,15 +43,15 @@
                         <td><input type="text" class="form-control" id="t-cantaves" name="data[FormulariosF1Detalle][aves]"></td>
                         <td><input type="text" class="form-control" id="t-codexcl" name="data[FormulariosF1Detalle][codigo_exclusion]"></td>
                         <td><input type="button" class="btn btn-primary" id="b-agregar-detalle" value="Guardar">
-                        <input type="hidden" class="form-control" id="t-hid-cabecera" name="data[FormulariosF1Detalle][formulario_id]">
-                        <input type="hidden" class="form-control" id="t-hid-productor" name="data[FormulariosF1Detalle][productor_id]"></td>
-                        
+                            <input type="hidden" class="form-control" id="t-hid-cabecera" name="data[FormulariosF1Detalle][formulario_id]">
+                            <input type="hidden" class="form-control" id="t-hid-productor" name="data[FormulariosF1Detalle][productor_id]"></td>
+
                     </tr>
                 </tbody>
             </table>
         </form>
     </div>
- 
+
 </div>
 
 <div class="row">
@@ -60,295 +60,301 @@
         <form id="f-detalle">
             <table class="table table-striped" id="t-list">
                 <thead>
-                        <tr>
-                            <th>Nombre y Apellido</th>
-                            <th>C.I. Titular</th>
-                            <th>Total miembros familia</th>
-                            <th>Sup. finca</th>
-                            <th>Sup. cultivos</th>
-                            <th>Contratados</th>
-                            <th>Cant. ganado bovino</th>
-                            <th>Cant. porcino</th>
-                            <th>Cant. aves</th>
-                            <th>Cod. exclusion</th>
-                            <th>&nbsp;</th>
-                        </tr>
+                    <tr>
+                        <th>Nombre y Apellido</th>
+                        <th>C.I. Titular</th>
+                        <th>Total miembros familia</th>
+                        <th>Sup. finca</th>
+                        <th>Sup. cultivos</th>
+                        <th>Contratados</th>
+                        <th>Cant. ganado bovino</th>
+                        <th>Cant. porcino</th>
+                        <th>Cant. aves</th>
+                        <th>Cod. exclusion</th>
+                        <th>&nbsp;</th>
+                    </tr>
                 </thead>
                 <tbody>
                 </tbody>
             </table>
         </form>
     </div>
- 
+
 </div>
 <script>
 
     var mapDetallesF1 = new Map();
 
-String.format = function() {
-    // The string containing the format items (e.g. "{0}")
-    // will and always has to be the first argument.
-    var theString = arguments[0];
-    
-    // start with the second argument (i = 1)
-    for (var i = 1; i < arguments.length; i++) {
-        // "gm" = RegEx options for Global search (more than one instance)
-        // and for Multiline search
-        var regEx = new RegExp("\\{" + (i - 1) + "\\}", "gm");
-        theString = theString.replace(regEx, arguments[i]);
-    }
-    
-    return theString;
-}
+    String.format = function () {
+        // The string containing the format items (e.g. "{0}")
+        // will and always has to be the first argument.
+        var theString = arguments[0];
 
-var productor = null;
-$(document).ready(function(){
+        // start with the second argument (i = 1)
+        for (var i = 1; i < arguments.length; i++) {
+            // "gm" = RegEx options for Global search (more than one instance)
+            // and for Multiline search
+            var regEx = new RegExp("\\{" + (i - 1) + "\\}", "gm");
+            theString = theString.replace(regEx, arguments[i]);
+        }
+
+        return theString;
+    }
+
+    var productor = null;
+    $(document).ready(function () {
         $.ajax({
             type: "GET",
             dataType: "json",
-            url: "<?php echo $this->Html->url(array("controller"=>"users", "action"=>"encuestadores"))?>",
-            success: function(data){
-                 $("#s-encuestador").append("<option></option>");
-                for(var i in data){
+            url: "<?php echo $this->Html->url(array("controller" => "users", "action" => "encuestadores")) ?>",
+            success: function (data) {
+                $("#s-encuestador").append("<option></option>");
+                for (var i in data) {
                     var encue = data[i];
                     var option =
                             String.format("<option value={0}>{1}</option>", encue.id, encue.nombre);
                     $("#s-encuestador").append(option);
                 }
-        }
+            }
         });
-        
-        
+
+
         $("#s-departamento").focus();
         $.ajax({
             type: "GET",
             dataType: "json",
-            url: "<?php echo $this->Html->url(array("controller"=>"departamentos", "action"=>"index"))?>",
-            success: function(data){
-                 $("#s-departamento").append("<option></option>");
-                for(var i in data){
+            url: "<?php echo $this->Html->url(array("controller" => "departamentos", "action" => "index")) ?>",
+            success: function (data) {
+                $("#s-departamento").append("<option></option>");
+                for (var i in data) {
                     var depar = data[i];
                     var option =
                             String.format("<option value={0}>{1}</option>", depar.id, depar.nombre);
                     $("#s-departamento").append(option);
                 }
-        }
+            }
         });
-        
-        $("#s-departamento").change(function(){
+
+        $("#s-departamento").change(function () {
             var selected = $("#s-departamento").val();
-            
+
             $("#s-distrito option").remove();
             $("#s-distrito").append("<option></option>");
-            var urls ="<?php echo $this->Html->url(array("controller"=>"distritos", "action"=>"view"))?>"+"/"+selected ;
+            var urls = "<?php echo $this->Html->url(array("controller" => "distritos", "action" => "view")) ?>" + "/" + selected;
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
                 url: urls,
-                success: function(data){
-                    for(var i in data){
+                success: function (data) {
+                    for (var i in data) {
                         var distri = data[i];
-                        var option =  String.format("<option value={0}>{1}</option>", distri.id, distri.nombre);
+                        var option = String.format("<option value={0}>{1}</option>", distri.id, distri.nombre);
                         $("#s-distrito").append(option);
                     }
                 }
             });
-            
+
         });
-        
-        $("#s-distrito").change(function(){
+
+        $("#s-distrito").change(function () {
             var selected = $("#s-distrito").val();
             $("#s-compania option").remove();
             $("#s-comite option").remove();
             $("#s-asentamiento option").remove();
-            
+
             $("#s-asentamiento").append("<option></option>");
             $("#s-compania").append("<option></option>");
             $("#s-comite").append("<option></option>");
-            
-            var url_compania ="<?php echo $this->
-                    Html->url(array("controller"=>"companias", "action"=>"view"))?>"+"/"+selected;
-                                
-            var url_comite ="<?php echo $this->
-                    Html->url(array("controller"=>"comites", "action"=>"view"))?>"+"/"+selected;
-            
-            var urls_asentamientos ="<?php echo $this->
-                    Html->url(array("controller"=>"asentamientos", "action"=>"view"))?>"+"/"+selected;            
-            
+
+            var url_compania = "<?php echo $this->
+        Html->url(array("controller" => "companias", "action" => "view"))
+        ?>" + "/" + selected;
+
+            var url_comite = "<?php echo $this->
+        Html->url(array("controller" => "comites", "action" => "view"))
+        ?>" + "/" + selected;
+
+            var urls_asentamientos = "<?php echo $this->
+        Html->url(array("controller" => "asentamientos", "action" => "view"))
+        ?>" + "/" + selected;
+
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
                 url: url_compania,
-                success: function(data){
-                    for(var i in data){
+                success: function (data) {
+                    for (var i in data) {
                         var compa = data[i];
-                        var option =  String.
-                                format("<option value={0}>{1}</option>",compa.id, compa.nombre);
+                        var option = String.
+                                format("<option value={0}>{1}</option>", compa.id, compa.nombre);
                         $("#s-compania").append(option);
                     }
                 }
             });
-            
-            
+
+
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
                 url: urls_asentamientos,
-                success: function(data){
-                    for(var i in data){
+                success: function (data) {
+                    for (var i in data) {
                         var asent = data[i];
-                        var option =  String.
-                                format("<option value={0}>{1}</option>",asent.id, asent.nombre);
+                        var option = String.
+                                format("<option value={0}>{1}</option>", asent.id, asent.nombre);
                         $("#s-asentamiento").append(option);
                     }
                 }
             });
-            
-            
-            
+
+
+
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
                 url: url_comite,
-                success: function(data){
-                    for(var i in data){
+                success: function (data) {
+                    for (var i in data) {
                         var comi = data[i];
-                        var option =  String.
-                                format("<option value={0}>{1}</option>",comi.id, comi.nombre);
+                        var option = String.
+                                format("<option value={0}>{1}</option>", comi.id, comi.nombre);
                         $("#s-comite").append(option);
                     }
                 }
-            });   
+            });
         });
-        
-        
-        
+
+
+
         $("#b-agregar").hide();
         $('#b-aproductor').hide();
         var p = {};
-           
-            $("#b-search").click(function(){
-                
-                $("#b-aproductor").hide();
-                $("#b-eproductor").hide();
-                $("#b-agregar").hide();
-                $("#error-buscador strong").remove();
-                $("#error-buscador").hide();
-                if(!$("#t-cedula-s").val()){
-                    alert ('cedula no puede ser nulo');
-                    return;
-                }
-                var valueCI = $("#t-cedula-s").val();
-                
-                
-                var urls ="<?php echo $this->
-                    Html->url(array("controller"=>"productores", "action"=>"search"))?>"+"/"+valueCI;
-                
-                $.ajax({
-                    type: 'GET',
-                    dataType: 'json',
-                    url: urls,
-                    success: function(data){
-                        addTableProductor(data);
-                        
-                        if(typeof data['cedula'] != 'undefined'){
-                            $("#b-agregar").fadeIn(300);
-                            $("#b-eproductor").fadeIn(300);
-                        }else{
-                            $("#error-buscador").append("<strong>No se encontro información del productor, haga click en el boton de abajo para agregar</strong>");
-                            $("#error-buscador").show();
-                            $("#b-aproductor").fadeIn(300);
-                        }
+
+        $("#b-search").click(function () {
+
+            $("#b-aproductor").hide();
+            $("#b-eproductor").hide();
+            $("#b-agregar").hide();
+            $("#error-buscador strong").remove();
+            $("#error-buscador").hide();
+            if (!$("#t-cedula-s").val()) {
+                alert('cedula no puede ser nulo');
+                return;
+            }
+            var valueCI = $("#t-cedula-s").val();
+
+
+            var urls = "<?php echo $this->
+        Html->url(array("controller" => "productores", "action" => "search"))
+        ?>" + "/" + valueCI;
+
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: urls,
+                success: function (data) {
+                    addTableProductor(data);
+
+                    if (typeof data['cedula'] != 'undefined') {
+                        $("#b-agregar").fadeIn(300);
+                        $("#b-eproductor").fadeIn(300);
+                    } else {
+                        $("#error-buscador").append("<strong>No se encontro información del productor, haga click en el boton de abajo para agregar</strong>");
+                        $("#error-buscador").show();
+                        $("#b-aproductor").fadeIn(300);
                     }
-                });
+                }
+            });
         });
-        
-        $("#b-agregar").click(function(){
+
+        $("#b-agregar").click(function () {
             disabledInputElement("#t-detalle", false);
             addInfoProductorForm(productor["cedula"], productor["nombre"],
-                productor["cantFamilia"], productor["id"]);   
+                    productor["cantFamilia"], productor["id"]);
         });
-    
-    
+
+
         /* LOS INPUT DE DETALLE Y BUSCADOR QUEDAN DESABILITADOS HASTA QUE SE CARGUE LA CABECERA*/
-        disabledInputElement("#t-detalle", true);
+        //disabledInputElement("#t-detalle", true);
         //disabledInputElement("#inp-buscador", true);
-    
-        $("#b-agregarcabecera").click(function(){
-            if($("#cabecera :input").is('[disabled=disabled]')){
+
+        $("#b-agregarcabecera").click(function () {
+            if ($("#cabecera :input").is('[disabled=disabled]')) {
                 $("#cabecera :input").attr("disabled", false);
                 $("#b-agregarcabecera").html("Agregar Registros");
-            }else{
-               
-                var empty = $("#cabecera").find("input").filter(function() {
+            } else {
+
+                var empty = $("#cabecera").find("input").filter(function () {
                     return this.value === "";
                 });
-                if(empty.length) {
+                if (empty.length) {
                     alert('Todos los campos son obligatorios');
                     return;
                 }
-          
+
                 var dataForm = $('#f-cabecera').serialize();
-                
-                if ($("#t-hid-edit-cabecera").length != 0){
-                    dataForm = dataForm.concat("&data[FormularioF1][id]="+$("#t-hid-edit-cabecera").val() );
+
+                if ($("#t-hid-edit-cabecera").length != 0) {
+                    dataForm = dataForm.concat("&data[FormularioF1][id]=" + $("#t-hid-edit-cabecera").val());
                 }
-                
+
                 var url = "<?php echo $this->
-                    Html->url(array("controller"=>"formulariosF1", "action"=>"addHeader"))?>";
+        Html->url(array("controller" => "formulariosF1", "action" => "addHeader"))
+        ?>";
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
                     data: dataForm,
                     url: url,
-                    success: function(data){
-                        if(data["status"] == "ok"){
+                    success: function (data) {
+                        if (data["status"] == "ok") {
                             $("#t-hid-cabecera").val(data['message']);
                             $("#t-hid-edit-cabecera").val(data['message']);
                             //HABILITAMOS EL BUSCADOR DE PRODUCTOR
                             disabledInputElement("#inp-buscador", false);
                             getFocus("#t-cedula-s");
-                            
-                        }else{
+
+                        } else {
                             alert('error al guardar la cabecera');
                         }
                     }
                 });
-                
+
                 $("#cabecera :input").attr("disabled", true);
                 $("#b-agregarcabecera").html("Modificar datos");
             }
         });
-        
-        $("#b-agregar-detalle").click(function(){
-            var empty = $("#detalle").find("input").filter(function() {
-                    return this.value === "";
-                });
-            if(empty.length) {
+
+        $("#b-agregar-detalle").click(function () {
+            /*var empty = $("#detalle").find("input").filter(function () {
+                return this.value === "";
+            });
+            if (empty.length) {
                 alert('Todos los campos son obligatorios');
                 return;
-            }
+            }*/
             var ob = new Object();
-            
-            var dataForm = $('#t-detalle :input').serialize();
+
+           /* var dataForm = $('#t-detalle :input').serialize();
             var url = "<?php echo $this->
-                Html->url(array("controller"=>"formulariosF1", "action"=>"addDetail"))?>";
+        Html->url(array("controller" => "formulariosF1", "action" => "addDetail"))
+        ?>";
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
                 data: dataForm,
                 url: url,
-                success: function(data){
+                success: function (data) {
 
-                    if(data["status"] == "error"){
-                        alert('error al guardar la cabecera:'. data['message']);
+                    if (data["status"] == "error") {
+                        alert('error al guardar la cabecera:'.data['message']);
                     }
                     ob.id = data["message"];
                 }
-            });
-            
+            });*/
+
             var tr = $('#t-detalle tr:last');
-            
+
             ob.ci = tr.find('input[id=t-ci]').val();
             ob.nombre = tr.find('input[id=t-nombre]').val();
             ob.familia = tr.find('input[id=t-cantfamilia]').val();
@@ -361,7 +367,7 @@ $(document).ready(function(){
             ob.exclusion = tr.find('input[id=t-codexcl]').val();
             mapDetallesF1.set(ob.ci, ob);
             var row = String.format
-                ('<tr>\n\
+                    ('<tr>\n\
                     <td>{0}</td>\n\
                     <td class="numeric">{1}</td>\n\
                     <td class="numeric">{2}</td>\n\
@@ -375,57 +381,57 @@ $(document).ready(function(){
                     <td class="numeric"></td>\n\
                     <td class="numeric"></td>\n\
                 ', ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
-                                ob.contratados, ob.bovinos, ob.porcinos,
-                                ob.aves, ob.exclusion);
-            
-            var tdoptions = 
-            '<td><button type="button" class="btn btn-primary btn-sm editar" aria-label="Editar" \n\
+                            ob.contratados, ob.bovinos, ob.porcinos,
+                            ob.aves, ob.exclusion);
+
+            var tdoptions =
+                    '<td><button type="button" class="btn btn-primary btn-sm editar" aria-label="Editar" \n\
             data-toggle="tooltip" data-placement="top" \n\
-            title="" data-original-title="Editar" rel="'+ob.ci+'">\n\
+            title="" data-original-title="Editar" rel="' + ob.ci + '">\n\
             <span class="glyphicon glyphicon-pencil" aria-hidden="true">\n\
             </span></button></td><td><button type="button" \n\
             class="btn btn-danger btn-sm eliminar" aria-label="Eliminar" \n\
             data-toggle="tooltip" data-placement="top" title="" \n\
-            data-original-title="Eliminar" rel="'+ob.ci+'">\n\
+            data-original-title="Eliminar" rel="' + ob.ci + '">\n\
             <span class="glyphicon glyphicon-trash" aria-hidden="true">\n\
             </span></button></td></tr>';
-            $("#t-list tbody").append(row+tdoptions);
-            
+            $("#t-list tbody").append(row + tdoptions);
+
             borrarCamposDetalle();
             bindDetailEvents();
-        });    
-});
-    function borrarCamposDetalle(){
+        });
+    });
+    function borrarCamposDetalle() {
         $("#t-detalle").find("input[type!=hidden]").not("input[type=button]").val('');
     }
-    
+
     /**
      * Deshabilita todos los input que estan dentro del element pasado como parametro
      * @param {type} parent element contenedor de inputs
      * @param {type} bool true o false
      */
-    function disabledInputElement(parent, bool){
+    function disabledInputElement(parent, bool) {
         $(parent).find('input').prop('disabled', bool);
     }
-    
-    function getFocus(element){
+
+    function getFocus(element) {
         $(element).focus();
     }
 
-    function addInfoProductorForm(ci, nombre, cantF, id){
+    function addInfoProductorForm(ci, nombre, cantF, id) {
         $("#t-nombre").val(nombre);
         $("#t-ci").val(ci);
         $("#t-cantfamilia").val(cantF);
         $("#t-hid-productor").val(id);
         $("#t-nombre, #t-ci, #t-cantfamilia").prop('disabled', true);
     }
-    
-    function addTableProductor(data){
+
+    function addTableProductor(data) {
         productor = data;
         $('#tb-buscador tr').remove();
-        for(var key in data){
+        for (var key in data) {
             if (data.hasOwnProperty(key)) {
-                if(key == 'id'){
+                if (key == 'id') {
                     continue;
                 }
                 var table = String.format("<tr><td>{0}</td><td>{1}</td></tr>", key, data[key]);
@@ -433,35 +439,36 @@ $(document).ready(function(){
             }
         }
     }
-    
-    function addMessageError(element, message){
+
+    function addMessageError(element, message) {
         $(element + " strong").remove();
-        $(element).append("<strong>"+message+"</strong>");
+        $(element).append("<strong>" + message + "</strong>");
     }
 
-function bindDetailEvents(){
-    $('button.eliminar').unbind('click');
-    $('button.eliminar').click(function(){
-        if(confirm('Desea eliminar este registro?')){
-            $.ajax({
-                type: 'GET',
-                url: '<?php echo $this->Html->url(array("controller"=>"formulariosF1", "action"=>"deleteDetail")); ?>',
-                data: 'id='+mapDetallesF1.get($(this).attr('rel')).id,
-                success: function(data){
-                    reply = eval('('+data+')');
-                    if(reply.status == 'error'){
-                        alert('Error al eliminar. Intente nuevamente');
-                        return false;
+    
+    function bindDetailEvents() {
+        $('button.eliminar').unbind('click');
+        $('button.eliminar').click(function () {
+            if (confirm('Desea eliminar este registro?')) {
+                $.ajax({
+                    type: 'GET',
+                    url: '<?php echo $this->Html->url(array("controller" => "formulariosF1", "action" => "deleteDetail")); ?>',
+                    data: 'id=' + mapDetallesF1.get($(this).attr('rel')).id,
+                    success: function (data) {
+                        reply = eval('(' + data + ')');
+                        if (reply.status == 'error') {
+                            alert('Error al eliminar. Intente nuevamente');
+                            return false;
+                        }
                     }
-                }
-            });
-            $(this).parent().parent().remove();
-        }
-    }); 
-    $('button.editar').unbind('click');
-    $('button.editar').click(function(){
-        $('#modal-edit-div').fadeIn(300);
-        loadForm(mapDetallesF1.get($(this).attr('rel')));
-    });
-}
+                });
+                $(this).parent().parent().remove();
+            }
+        });
+        $('button.editar').unbind('click');
+        $('button.editar').click(function () {
+            $('#modal-edit-div').fadeIn(300);
+            loadForm(mapDetallesF1.get($(this).attr('rel')));
+        });
+    }
 </script>

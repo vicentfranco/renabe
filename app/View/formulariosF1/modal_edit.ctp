@@ -22,7 +22,8 @@
   function bindSaveEditing(){
     $('.medit').fadeOut(300);
     $('button.b-edit').click(function(){
-      $.ajax({
+        
+     /* $.ajax({
         type: 'POST',
         dataType: 'json',
         url: "<?php echo $this->Html->url(array('controller'=>'formulariosF1', 'action'=>'addDetail')) ?>",
@@ -30,11 +31,17 @@
         success: function(data){
             if(data['status'] == 'ok'){
                $('#modal-edit-div').fadeOut(300);
+               
+               /*$("#f-detalle".find('tbody tr').each(function (rowIndex, element){
+                   var keyValue = $(this).find()
+                }));
+               
+               
             }else{
                 $('.medit').fadeIn(300);
             }
         }
-      }); 
+      }); */
     });
   }
 </script>
