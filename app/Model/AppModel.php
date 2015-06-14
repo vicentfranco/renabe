@@ -30,4 +30,11 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+
+	public function beforeSave($options = array()){
+		if(empty($this->data[$this->name]['usuario_id'])){
+			$this->Session = new CakeSession;
+			$this->data[$this->name]['usuario_id'] = $this->Session->read('Auth.User.id');
+		}
+	}
 }

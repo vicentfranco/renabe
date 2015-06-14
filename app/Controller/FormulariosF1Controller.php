@@ -75,4 +75,22 @@ class FormulariosF1Controller extends AppController {
             return $this->responseJson(array('status'=>'error', 'message'=>'Bad method'));
         }    
     }
+
+    public function index(){
+        $options = array(
+            'conditions'=> $this->conditions,
+            'contain'=> array(
+                'Usuario'=> array(
+                    'name'
+                )
+            )
+        );
+        $this->FormularioF1->Behaviors->attach('Containable');
+        print_r($this->FormularioF1->find('all', $options));
+        die();
+    }
+
+    private function conditions(){
+        return array();
+    }
 }
