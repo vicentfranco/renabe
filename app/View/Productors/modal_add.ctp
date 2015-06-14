@@ -4,7 +4,7 @@
       $('#modal-footer').hide();
       
       $("#b-aproductor, #b-eproductor").click(function(){
-        $("#form-det-div").children().not("#modal-div").css('opacity','0.5');
+        $("#form-det-div").children().children().not("#modal-div").css('opacity','0.5');
         $("#form-cab-div").children().css('opacity','0.5');
         $("#form-bus-div").children().css('opacity','0.5');
         $("#ProductorCedula").val($("#t-cedula-s").val());
@@ -56,7 +56,7 @@
         }
       });
       borrarCampos();
-       $("#form-det-div").children().css('opacity','1');
+       $("#form-det-div").children().children().css('opacity','1');
        $("#form-cab-div").children().css('opacity','1');
        $("#form-bus-div").children().css('opacity','1');
       

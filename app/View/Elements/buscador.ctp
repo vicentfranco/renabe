@@ -2,8 +2,8 @@
     <div class="row" id="inp-buscador">
         <div class="col-lg-12">
             <div class="form-group">
-                <label for="cedula-b">Cedula:</label>
-                <input type="text" class="form-control" id="t-cedula-s">
+                <h4>Buscar Produtor:<h4>
+                <input type="text" class="form-control" id="t-cedula-s" placeholder="Introduzca Cedula">
                 <br>
                 <input type="button" class="btn btn-primary" id ="b-search" value="Buscar">
             </div>
