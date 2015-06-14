@@ -84,7 +84,7 @@
 <script>
 
     var mapDetallesF1 = new Map();
-
+    var detalleSelect = new Object();
     String.format = function () {
         // The string containing the format items (e.g. "{0}")
         // will and always has to be the first argument.
@@ -326,16 +326,16 @@
         });
 
         $("#b-agregar-detalle").click(function () {
-            /*var empty = $("#detalle").find("input").filter(function () {
+            var empty = $("#detalle").find("input").filter(function () {
                 return this.value === "";
             });
             if (empty.length) {
                 alert('Todos los campos son obligatorios');
                 return;
-            }*/
+            }
             var ob = new Object();
 
-           /* var dataForm = $('#t-detalle :input').serialize();
+            var dataForm = $('#t-detalle :input').serialize();
             var url = "<?php echo $this->
         Html->url(array("controller" => "formulariosF1", "action" => "addDetail"))
         ?>";
@@ -351,7 +351,7 @@
                     }
                     ob.id = data["message"];
                 }
-            });*/
+            });
 
             var tr = $('#t-detalle tr:last');
 
@@ -367,20 +367,18 @@
             ob.exclusion = tr.find('input[id=t-codexcl]').val();
             mapDetallesF1.set(ob.ci, ob);
             var row = String.format
-                    ('<tr>\n\
-                    <td>{0}</td>\n\
-                    <td class="numeric">{1}</td>\n\
+                    ('<tr rel={0}>\n\
+                    <td>{1}</td>\n\
                     <td class="numeric">{2}</td>\n\
                     <td class="numeric">{3}</td>\n\
-                    <td class="numeric">{4}</td>\n\
-                    <td class="numeric">{5}</td>\n\
-                    <td class="numeric">{6}</td>\n\
-                    <td class="numeric">{7}</td>\n\
-                    <td class="numeric">{8}</td>\n\
-                    <td class="numeric">{9}</td>\n\
-                    <td class="numeric"></td>\n\
-                    <td class="numeric"></td>\n\
-                ', ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
+                    <td rel="finca" class="numeric">{4}</td>\n\
+                    <td rel="cultivo" class="numeric">{5}</td>\n\
+                    <td rel="contratados" class="numeric">{6}</td>\n\
+                    <td rel="bovinos" class="numeric">{7}</td>\n\
+                    <td rel="porcinos" class="numeric">{8}</td>\n\
+                    <td rel="aves" class="numeric">{9}</td>\n\
+                    <td rel="exclusion" class="numeric">{10}</td>\n\
+                ', ob.ci, ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
                             ob.contratados, ob.bovinos, ob.porcinos,
                             ob.aves, ob.exclusion);
 
