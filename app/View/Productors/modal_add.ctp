@@ -56,7 +56,7 @@
         }
       });
       borrarCampos();
-       $("#form-det-div").children().css('opacity','1');
+       $("#form-det-div").children().children().css('opacity','1');
        $("#form-cab-div").children().css('opacity','1');
        $("#form-bus-div").children().css('opacity','1');
       
