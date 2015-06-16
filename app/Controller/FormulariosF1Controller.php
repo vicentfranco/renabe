@@ -80,17 +80,50 @@ class FormulariosF1Controller extends AppController {
         $options = array(
             'conditions'=> $this->conditions,
             'contain'=> array(
-                'Usuario'=> array(
-                    'name'
+                'User'=> array(
+                    'nombre'
                 )
             )
         );
+        if(!empty($_GET['lineas'])){
+            $options['limit'] = $_GET['lineas'];
+        }else{
+            $options['limit'] = 25;
+        }
         $this->FormularioF1->Behaviors->attach('Containable');
-        print_r($this->FormularioF1->find('all', $options));
-        die();
+        $this->paginate = $options;
+        $this->set('f1', $this->paginate('FormularioF1'));
+        $this->layout = 'renabe';
     }
 
     private function conditions(){
-        return array();
+        if(empty($_GET['desde'])){
+            $conditions['f1_formularios.fecha >='] = $_GET['desde'];
+        }
+        if(empty($_GET['hasta'])){
+            $conditions['f1_formularios.fecha <='] = $_GET['hasta'];
+        }
+        if(empty($_GET['codigo'])){
+            $conditions[] = 'f1_formularios.codigo ILIKE %'.$_GET['codigo'].'%';
+        }
+        if(empty($_GET['asentamiento'])){
+            $conditions['f1_formularios.asentamiento'] = $_GET['asentamiento'];
+        }
+        if(empty($_GET['carpeta'])){
+            $conditions['f1_formularios.carpeta_id'] = $_GET['carpeta'];
+        }
+        if(empty($_GET['compania'])){
+            $conditions['f1_formularios.compania_id'] = $_GET['compania'];
+        }
+        if(empty($_GET['comite'])){
+            $conditions['f1_formularios.comite_id'] = $_GET['comite'];
+        }
+        if(empty($_GET['encuestador'])){
+            $conditions['f1_formularios.encuestador_id'] = $_GET['encuestador'];
+        }
+        if(empty($_GET['usuario'])){
+            $conditions['f1_formularios.usuario_id'] = $_GET['usuario'];
+        }
+        return $conditions;
     }
 }
