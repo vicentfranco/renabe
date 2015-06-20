@@ -54,10 +54,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     	padding-right: 0px;
     }
 
-    #contenido{
-    	padding-left: 0px;
-    	padding-right: 0px;
-    	padding: 0px;	
+    .key{
+    	width: 25px;	
     }
 
     .header{
@@ -65,7 +63,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     	height: 38px;
     	padding: 5px 16px;
     }
-
 
 
 </style>
@@ -130,12 +127,13 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				  <div class="panel-heading">
 				    <h3 class="panel-title">Opciones</h3>
 				  </div>
-				  <div class="panel-body">
-				    Panel content
+				  <div class="panel-body principal" style="margin-left:0px; margin-bottom:0px">
+				    <?php echo $this->element('filtros'); ?>
 				  </div>
 				</div>
 				<div class="principal col-md-9" id="contenido">
 					<?php echo $this->fetch('content'); ?>
+					<?php echo $this->element('paginate'); ?>
 				</div>
 		</div>
 		<div id="footer">
