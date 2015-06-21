@@ -13,10 +13,16 @@
 			<?php echo $this->Paginator->sort('fecha', 'Fecha') ?>
 		</th>
 		<th>
-			<?php echo $this->Paginator->sort('departamento_id', 'Departamento') ?>
+			<?php echo $this->Paginator->sort('distrito_id', 'Distrito') ?>
 		</th>
-		<th colspan="2">
+		<th>
 			Lugar Sensado
+		</th>
+		<th>
+			Usuario
+		</th>
+		<th>
+			Registro
 		</th>
 	</tr>
 	<?php 
@@ -30,16 +36,19 @@
 					<?php echo $this->Html->link($f1['f1_formularios']['codigo'], $this->Html->url($f1['f1_formularios']['codigo'], array('action'=>'view', $f1['f1_formularios']['id']))) ?>
 				</td>
 				<td>
-					<?php echo $f1['f1_formularios']['fecha'] ?>
+					<?php echo $this->Fx->format($f1['f1_formularios']['fecha'], 'fecha'); ?>
+				</td>
+				<td>
+					<?php echo $f1['Asentamiento']['Distrito']['nombre'] ?>
 				</td>
 				<td>
 					&nbsp;
 				</td>
 				<td>
-					&nbsp;
+					<?php echo $f1['User']['nombre'] ?>
 				</td>
 				<td>
-					&nbsp;
+					<?php echo $f1['f1_formularios']['created'] ?>
 				</td>
 			</tr>
 	<?php

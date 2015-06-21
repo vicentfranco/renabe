@@ -15,4 +15,12 @@
 App::uses('AppModel', 'Model');
 class Compania extends AppModel {
     public $name = 'companias';
+
+    var $belongsTo = array(
+		'Distrito' => array(
+			'className' => 'Distrito',
+			'foreignKey' => 'distrito_id',
+			'dependent' => false
+		)
+	);
 }

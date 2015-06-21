@@ -14,4 +14,12 @@
 App::uses('AppModel', 'Model');
 class Comite extends AppModel {
     public $name = 'comites';
+
+    var $belongsTo = array(
+		'Distrito' => array(
+			'className' => 'Distrito',
+			'foreignKey' => 'distrito_id',
+			'dependent' => false
+		)
+	);
 }

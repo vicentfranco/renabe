@@ -82,6 +82,30 @@ class FormulariosF1Controller extends AppController {
             'contain'=> array(
                 'User'=> array(
                     'nombre'
+                ),
+                'Compania'=> array(
+                    'fields'=> array(
+                        'nombre'
+                    ),
+                    'Distrito'=> array(
+                        'nombre'
+                    )
+                ),
+                'Comite'=> array(
+                    'fields'=> array(
+                        'nombre'
+                    ),
+                    'Distrito'=> array(
+                        'nombre'
+                    )
+                ),
+                'Asentamiento'=> array(
+                    'fields'=> array(
+                        'nombre'
+                    ),
+                    'Distrito'=> array(
+                        'nombre'
+                    )
                 )
             )
         );
