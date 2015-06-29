@@ -23,14 +23,17 @@ class FxHelper extends Helper {
 		return $result;
 	}
 
-	function renabeFormat($data = array()){
+	function renabeFormat($form = array()){
 		$result = '';
-		$key = key($data);
-		if($key != null){
-			$result .= $key;
+		if(!empty($form['Asentamiento'])){
+			$result = 'Asentamiento'; 
+		}else if(!empty($form['Compania'])){
+			$result = 'Compania'; 
+		}else if(!empty($form['Comite'])){
+			$result = 'Comite';
 		}
-		if(!empty($data['nombre'])){
-			$result .= ' - '.$data['nombre'];
+		if(!empty($form[$result]['nombre'])){
+			$result .= ' - '.$form[$result]['nombre'];
 		}
 		return $result;
 	}

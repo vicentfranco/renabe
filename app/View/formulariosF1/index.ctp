@@ -42,7 +42,9 @@
 					<?php echo $f1['Asentamiento']['Distrito']['nombre'] ?>
 				</td>
 				<td>
-					&nbsp;
+					<?php 
+						echo $this->Fx->renabeFormat($f1); 
+					?>
 				</td>
 				<td>
 					<?php echo $f1['User']['nombre'] ?>
