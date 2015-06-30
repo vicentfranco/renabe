@@ -5,28 +5,24 @@
     <label for="desde">Hasta:</label>
     <input type="date" class="form-control" name="hasta">
     <br />
+    <label for="usuario">Departamento:</label>
+	<select name = "lugar" class="form-control">
+		<option value="">- Todos -</option>
+	</select>
+	<br />
+	<label for="usuario">Lugar Sensado:</label>
+	<select name = "lugar" class="form-control">
+		<option value="">- Todos -</option>
+	</select>
+	<br />
     <label for="encuestador">Encuestador:</label>
 	<select name = "encuestador" class="form-control">
 		<option value="">- Todos -</option>
-		<?php
-			foreach ($encuestadores as $key => $encuestador) {
-				echo $_GET['encuestador']==$encuestador[$key]?'<option value="'.$key.'" selected>':'<option>';
-				echo $encuestador;
-				echo '</option>';
-			}
-		?>
 	</select>
 	<br />
 	<label for="usuario">Usuario:</label>
 	<select name = "usuario" class="form-control">
 		<option value="">- Todos -</option>
-		<?php
-			foreach ($usuario as $key => $usuario) {
-				echo $_GET['usuario']==$usuario[$key]?'<option value="'.$key.'" selected>':'<option>';
-				echo $usuario;
-				echo '</option>';
-			}
-		?>
 	</select>
 	<br />
 	<label for="lineas">Lineas por pagina</label>
