@@ -8,21 +8,19 @@
  
             <label for="s-distrito">Distrito:</label>
             <select class="form-control" id="s-distrito">
-    
-            </select>
-
-            <label for="s-compania">Compañia:</label>
-            <select class="form-control" id="s-compania" name="data[FormularioF1][compania_id]">
-        
             </select>
             
-            <label for="s-asentamiento">Asentamiento:</label>
-            <select class="form-control" id="s-asentamiento" name="data[FormularioF1][asentamiento_id]">
-
+            <label for="s-opcion-lugar">Tipo Lugar:</label>
+            <select class="form-control" id="s-opcion-lugar">
+                <option></option>
+                <option id="comite">Comite</option>
+                <option id="asentamiento">Asentamiento</option>
+                <option id="compania">Compañia</option>
             </select>
-            
-            <label for="s-comite">Comite:</label>
-            <select class="form-control" id="s-comite" name="data[FormularioF1][comite_id]">
+            <br>
+
+            <select class="form-control" id="s-lugar">
+                
             </select>
             
             <label for="s-comite">Encuestador:</label>

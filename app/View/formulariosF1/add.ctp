@@ -155,6 +155,60 @@
             });
 
         });
+        
+        
+        $("#s-opcion-lugar").change(function (){ 
+            var selected = $("#s-opcion-lugar").val();
+            var id = $("#s-distrito").val();
+            var name = null;
+            $("#s-lugar option").remove();
+
+            var url = null;
+            switch(selected){
+                case "Asentamiento":
+                    url = "<?php
+                        echo $this->
+                        Html->url(array("controller" => "asentamientos", "action" => "view"))
+                        ?>"+"/"+id;
+                    name = "data[FormularioF1][asentamiento_id]"
+                    break;
+                case "Comite":
+                    url = "<?php
+                        echo $this->
+                        Html->url(array("controller" => "comites", "action" => "view"))
+                        ?>"+"/"+id;
+                    name = "data[FormularioF1][comite_id]"
+                    break;
+                case "Compañia":
+                    url = "<?php
+                        echo $this->
+                        Html->url(array("controller" => "companias", "action" => "view"))
+                        ?>"+"/"+id;
+                    name = "data[FormularioF1][compania_id]"
+                    break;
+                default:
+                    alert("no funciona");
+            }
+            $("#s-lugar").attr("name", name);   
+            $("#s-lugar").append("<option></option>");
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: url,
+                success: function (data) {
+                    for (var i in data) {
+                        var compa = data[i];
+                        var option = String.
+                                format("<option value={0}>{1}</option>", compa.id, compa.nombre);
+                        $("#s-lugar").append(option);
+                    }
+                }
+            });
+            
+            
+        });
+        
+        
 
         $("#s-distrito").change(function () {
             var selected = $("#s-distrito").val();
