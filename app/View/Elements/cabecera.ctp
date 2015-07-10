@@ -38,7 +38,9 @@
             <input type="text" class="form-control" id="t-hasta" name="data[FormularioF1][fecha_fin]">
             <label for="t-fecha">Fecha firma:</label>
             <input type="date" class="form-control" id="t-fecha" name="data[FormularioF1][fecha]">
-            
+            <label for="t-codigo">Código</label>
+            <input type="text" class="form-control" id="t-codigo" name="data[FormularioF1][codigo]" />
+            <br>
             
         </form>
     </div>
