@@ -1,5 +1,9 @@
 <?php //print_r($f1); die(); ?>
-<h3>F1 - Productores de la Agriculatura Familiar</h3>
+<span class="options">
+	<h3>F1 - Productores de la Agriculatura Familiar</h3>
+	<a href="<?php echo $this->Html->url(array('action'=>'add')); ?>" class="btn btn-primary">Agregar</a>
+	<a href="<?php echo $this->Html->url(array('action'=>'export')); ?>" class="btn btn-primary">Exportar</a>
+</span>
 <hr />
 <table class="table table-striped">
 	<tr>		
