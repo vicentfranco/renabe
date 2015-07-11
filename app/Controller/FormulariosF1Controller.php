@@ -24,56 +24,67 @@ class FormulariosF1Controller extends AppController {
     }
 
     public function addHeader(){
-    	if($this->request->is('post')){
-            $reply = array();
-            if(!empty($this->request->data)){
-                $this->request->data['FormularioF1']['fecha_inicio'] = $this->request->data['FormularioF1']['fecha_inicio'].'-07-01';
-                $this->request->data['FormularioF1']['fecha_fin'] =  $this->request->data['FormularioF1']['fecha_fin'].'-07-01';
-            }else{
-                return $reply = array('status'=>'error', 'message'=>'Not input data');
+        if(!$this->request->is('post')){
+            return $this->responseJson(array('status'=>'error', 'message'=>'Bad method')); 
+        }    
+
+        if(empty($this->request->data)){
+            return array('status'=>'error', 'message'=>'Not input data');
+        }
+
+        $this->request->data['FormularioF1']['fecha_inicio'] = $this->request->data['FormularioF1']['fecha_inicio'].'-07-01';
+        $this->request->data['FormularioF1']['fecha_fin'] =  $this->request->data['FormularioF1']['fecha_fin'].'-07-01';
+
+        try {
+            if(!$this->FormularioF1->saveAll($this->request->data['FormularioF1'])){
+                return $this->responseJson(array('status'=>'error', 'message'=>'Error saving'));   
             }
-            if($this->FormularioF1->saveAll($this->request->data['FormularioF1'])){
-                return $this->responseJson(array('status'=>'ok', 'message'=>$this->FormularioF1->id));
-            }else{
-                return $this->responseJson(array('status'=>'error', 'message'=>'Error saving'));
-            }
-    	}else{
-            return $this->responseJson(array('status'=>'error', 'message'=>'Bad method'));
-    	}
+            return $this->responseJson(array('status'=>'ok', 'message'=>$this->FormularioF1->id));
+            
+        } catch(Exception $e){
+            return $this->responseJson(
+                    array('status'=>'error', 'message'=>'Error al guardar la cabecera'));
+        }
     }
 
     public function addDetail(){
-    	if($this->request->is('post')){
-    		$reply = array();
-    		if(empty($this->request->data)){
-    			return $this->responseJson(array('status'=>'error', 'message'=>'Not input data'));
-    		}
-    		if($this->FormularioF1->FormulariosF1Detalle->saveAll($this->request->data['FormulariosF1Detalle'])){
-    			return $this->responseJson(array('status'=>'ok', 'message'=>$this->FormularioF1->FormulariosF1Detalle->id, 'data'=>$this->request->data['FormulariosF1Detalle']));
-    		}else{
-    			return $this->responseJson(array('status'=>'error', 'message'=>'Error saving'));
-    		}
-                
-    	}else{
-    		return $this->responseJson(array('status'=>'error', 'message'=>'Bad method'));
-    	}	
+    	
+        if(!$this->request->is('post')){
+            return $this->responseJson(array('status'=>'error', 'message'=>'Bad method')); 
+        }
+
+        if(empty($this->request->data)){
+            return $this->responseJson(array('status'=>'error', 'message'=>'Not input data'));
+        }
+        try{
+            if(!$this->FormularioF1->FormulariosF1Detalle->saveAll($this->request->data['FormulariosF1Detalle'])){
+                return $this->responseJson(array('status'=>'error', 'message'=>'Error saving'));
+            } 
+        } catch (Exception $ex) {
+            return $this->responseJson(array('status'=>'error', 'message'=>'Error al guardar el detalle'));
+        }
+        
+        return $this->responseJson(array('status'=>'ok', 'message'=>$this->FormularioF1->FormulariosF1Detalle->id, 'data'=>$this->request->data['FormulariosF1Detalle']));
     }
 
     public function deleteDetail(){
-        if($this->request->is('get')){
-            $reply = array();
-            if(empty($_GET['id'])){
-                return $this->responseJson(array('status'=>'error', 'message'=>'Not input data'));
-            }
-            if($this->FormularioF1->FormulariosF1Detalle->delete($_GET['id'])){
-                return $this->responseJson(array('status'=>'ok', 'message'=>'Succesful'));
-            }else{
-                return $this->responseJson(array('status'=>'error', 'message'=>'Error deleting'));
-            }
-                
-        }else{
+        
+        if(!$this->request->is('get')){
             return $this->responseJson(array('status'=>'error', 'message'=>'Bad method'));
-        }    
+        }
+        
+        if(empty($_GET['id'])){
+            return $this->responseJson(array('status'=>'error', 'message'=>'Not input data'));
+        }
+        try{
+            if(!$this->FormularioF1->FormulariosF1Detalle->delete($_GET['id'])){
+                return $this->responseJson(array('status'=>'error', 'message'=>'Error al eliminar registro'));
+            }
+        } catch (Exception $ex) {
+            return $this->responseJson(array('status'=>'error', 'message'=>'Error al eliminar registro'));
+        }
+        
+        return $this->responseJson(array('status'=>'ok', 'message'=>'Succesful'));
     }
 
     public function index(){

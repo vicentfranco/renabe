@@ -35,8 +35,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->Html->css('bootstrap.min.css');
 		echo $this->Html->script('bootstrap.js');
 		echo $this->Html->script('bootstrap.min.js');
-
-
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
