@@ -32,9 +32,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->Html->script('jquery-2.1.3.js'); 
 		echo $this->Html->css('bootstrap.css');
 		echo $this->Html->script('bootstrap.js');
-        echo $this->Html->script('../assets/js/Buscador.js'); 
-
-
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
