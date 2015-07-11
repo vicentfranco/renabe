@@ -152,4 +152,58 @@ class FormulariosF1Controller extends AppController {
         }
         return $conditions;
     }
+
+    function view($id = null){
+        if (empty($id)) {
+            $this->Session->setFlash('Formulario invalido', 'error'); 
+        }
+        $options = array(
+            'conditions'=>array(
+                'f1_formularios.id'=>$id
+            ),
+            'contain'=> array(
+                'FormulariosF1Detalle'=> array(
+                    'Productor'
+                ),
+                'Comite'=> array(
+                    'Distrito'=> array(
+                        'Departamento'
+                    )
+                ),
+                'Compania'=> array(
+                    'Distrito'=> array(
+                        'Departamento'
+                    )
+                ),
+                'Asentamiento'=> array(
+                    'Distrito'=> array(
+                        'Departamento'
+                    )
+                ),
+                'Encuestador',
+                'User'
+            )
+        ); 
+        $this->FormularioF1->Behaviors->attach('Containable');
+        $f1 = $this->FormularioF1->find('first', $options);
+        if(empty($f1)){
+            $this->Session->setFlash('No se a podido encontrar el formulario');
+        }
+        $this->set(compact('f1'));
+        $this->layout = 'index';
+    }
+
+    function delete($id = null){
+        if(empty($id)){
+            $this->Session->setFlash('Formulario no valido', 'error');
+            $this->redirect(array('controller'=>'formulariosF1','action'=>'index'));
+        }
+        if($this->FormularioF1->delete($id)){
+            $this->Session->setFlash('Formulario eliminado');
+            $this->redirect(array('controller'=>'formulariosF1','action'=>'index'));
+        }else{
+            $this->Session->setFlash('Error al eliminar el formulario. Intente nuevamente', 'error');
+            $this->redirect(array('controller'=>'formulariosF1','action'=>'index'));
+        }
+    }
 }

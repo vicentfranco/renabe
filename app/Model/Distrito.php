@@ -14,4 +14,12 @@
 App::uses('AppModel', 'Model');
 class Distrito extends AppModel{
     public $name = 'distritos';
+
+    var $belongsTo = array(
+		'Departamento' => array(
+			'className' => 'Departamento',
+			'foreignKey' => 'departamento_id',
+			'dependent' => false
+		)
+	);
 }

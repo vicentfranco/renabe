@@ -34,10 +34,10 @@
 	?>
 			<tr>
 				<td class="numeric key">
-					<?php echo $this->Html->link($f1['f1_formularios']['id'], $this->Html->url(array('action'=>'view', $f1['f1_formularios']['id']))); ?>
+					<?php echo $this->Html->link($f1['f1_formularios']['id'], array('controller'=>'formulariosF1', 'action'=>'view', $f1['f1_formularios']['id'])); ?>
 				</td>
 				<td>
-					<?php echo $this->Html->link($f1['f1_formularios']['codigo'], $this->Html->url($f1['f1_formularios']['codigo'], array('action'=>'view', $f1['f1_formularios']['id']))) ?>
+					<?php echo $this->Html->link($f1['f1_formularios']['codigo'], array('controller'=>'formulariosF1', 'action'=>'view', $f1['f1_formularios']['id'])) ?>
 				</td>
 				<td>
 					<?php echo $this->Fx->format($f1['f1_formularios']['fecha'], 'fecha'); ?>

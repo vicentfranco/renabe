@@ -37,6 +37,35 @@ class FxHelper extends Helper {
 		}
 		return $result;
 	}
+
+	function getDepartament($data = null){
+		$type = $this->getType($data);
+		if(isset($data[$type]['Distrito']['Departamento'])){
+			return $data[$type]['Distrito']['Departamento'];
+		}
+		return array('nombre'=>'Desconocido');
+	}
+
+	function getDistrito($data = null){
+		$type = $this->getType($data);
+		if(isset($data[$type]['Distrito'])){
+			return $data[$type]['Distrito'];
+		}
+		return array('nombre'=>'Desconocido');
+	}
+
+	function getType($data = null){
+		if (!empty($data['Asentamiento'])) {
+			return 'Asentamiento';
+		}
+		if (!empty($data['Distrito'])) {
+			return 'Distrito';
+		}
+		if (!empty($data['Compania'])) {
+			return 'Compania';
+		}
+		return 'Desconocido';
+	}
 }
 
 ?>
