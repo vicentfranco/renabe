@@ -20,6 +20,7 @@ class FormulariosF1Controller extends AppController {
     }
 
     public function add(){
+        $this->layout = 'formulario';
         return $this->render();
     }
 
@@ -201,7 +202,6 @@ class FormulariosF1Controller extends AppController {
             $this->Session->setFlash('No se a podido encontrar el formulario');
         }
         $this->set(compact('f1'));
-        $this->layout = 'index';
     }
 
     function delete($id = null){
