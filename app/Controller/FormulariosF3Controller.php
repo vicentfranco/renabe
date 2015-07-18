@@ -7,12 +7,18 @@
  */
 
 /**
- * Description of FormularioF3Controller
+ * Description of FormulariosF3Controller
  *
  * @author vfranco
  */
 App:import('Model', 'FormularioF3');
-class FormularioF3Controller extends AppController{
+class FormulariosF3Controller extends AppController{
+       
+
+    function beforeRender(){
+        $this->set('cabecera', 'f3_cabecera');
+    }
+
     
     public function _construct($request = null, $response = null){
         parent::__construct($request, $response);
@@ -235,5 +241,5 @@ class FormularioF3Controller extends AppController{
             $this -> redirect(array('controller'=>'formulariosF3','action'=>'index'));
         }
     }
-    
+
 }
