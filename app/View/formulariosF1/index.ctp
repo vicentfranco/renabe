@@ -5,6 +5,7 @@
 	<a href="<?php echo $this->Html->url(array('action'=>'export')); ?>" class="btn btn-primary">Exportar</a>
 </span>
 <hr />
+<div id="d-content-index">
 <table class="table table-striped">
 	<tr>		
 		<th class="key">
@@ -61,3 +62,4 @@
 		}
 	?>
 </table>
+</div>

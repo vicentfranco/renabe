@@ -32,7 +32,7 @@
                         <td><input type="text" class="form-control" id="t-supfinca" name="data[FormulariosF3Detalle][superficie_finca]"></td>
                         
                         <td>
-                            <select class="form-control" id="s-actividad" name="data[FormulariosF3dDetalle][actividad_id]">
+                            <select class="form-control" id="s-actividad" name="data[FormulariosF3Detalle][actividad_id]">
                             </select>
                         </td>
                         
@@ -118,7 +118,7 @@
         }
         
         var ob = new Object();
-        var dataForm = $('#t-detalle').find('input', 'select').serialize();
+        var dataForm = $('#t-detalle').find(':input').serialize();
         var url = "<?php
             echo $this->
             Html->url(

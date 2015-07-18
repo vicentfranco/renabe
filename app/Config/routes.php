@@ -118,7 +118,15 @@ Router::connect('/users/encuestadores',
         array(
             'controller' => 'users',
             'action' => 'encuestadores'
-        ));
+        )
+);
+
+Router::connect('/users/usuarios',
+        array(
+            'controller' => 'users',
+            'action' => 'usuarios'
+        )
+);
 
 
 Router::connect('/formulariosF3/add', array(

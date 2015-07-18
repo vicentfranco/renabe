@@ -101,6 +101,7 @@ class FormulariosF1Controller extends AppController {
     }
 
     public function index(){
+        $this->log($_GET['lineas'], 'info');
         $options = array(
             'conditions'=> $this->conditions(),
             'contain'=> array(
@@ -149,6 +150,9 @@ class FormulariosF1Controller extends AppController {
         $conditions = array();
         if(!empty($_GET['desde'])){
             $conditions['f1_formularios.fecha >='] = $_GET['desde'];
+        }
+        if(!empty($_GET['departamento'])){
+            $conditions['f1_formularios.distrito_id'] = $_GET['departamento'];
         }
         if(!empty($_GET['hasta'])){
             $conditions['f1_formularios.fecha <='] = $_GET['hasta'];
