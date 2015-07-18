@@ -11,7 +11,7 @@
  *
  * @author vfranco
  */
-App:import('Model', 'FormularioF3');
+App::import('Model', 'FormularioF3');
 class FormulariosF3Controller extends AppController{
        
 
@@ -20,10 +20,9 @@ class FormulariosF3Controller extends AppController{
     }
 
     
-    public function _construct($request = null, $response = null){
-        parent::__construct($request, $response);
-        
-        $this -> FormularioF3 = new FormularioF3;
+    public function __construct($request = null, $response = null){
+    	parent::__construct($request, $response);
+    	$this->FormularioF3 = new FormularioF3;
     }
     
     public function add(){
@@ -45,11 +44,14 @@ class FormulariosF3Controller extends AppController{
         $this->request -> data['FormularioF3']['fecha_fin'] =  $this-> request-> data['FormularioF3']['fecha_fin'].'-07-01';
 
         try {
+            $this -> log("Datos recibidos para insertar la cabecera F3", "info");
+            $this->log($this->request->data, 'info');
             
-            if(!$this-> FormularioF3-> saveAll($this-> request -> data['FormularioF3'])){
+            if(!$this->FormularioF3->saveAll($this->request->data['FormularioF3'])){
                 $this-> log("Error al guardar la cabecera. Return False");
                 return $this -> responseJson(array('status' => 'error', 'message' => 'Error saving'));   
             }
+            
             return $this -> responseJson(array('status' => 'ok', 'message' => $this->FormularioF3 -> id));
             
         } catch(Exception $e){
@@ -73,6 +75,8 @@ class FormulariosF3Controller extends AppController{
         }
         
         try {
+            $this -> log("Datos recibidos para insertar el detalle F3", "info");
+            $this->log($this-> request-> data, 'info');
             
             if(!$this-> FormularioF3 -> FormulariosF3Detalle->saveAll($this-> request -> data['FormulariosF3Detalle'])){
                 return $this -> responseJson(array('status' => 'error', 'message' => 'Error saving'));

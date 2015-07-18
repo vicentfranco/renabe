@@ -5,21 +5,18 @@
             <h4 class="modal-title"> Editar Detalle </h4>
         </div>
         
-        <div class="modal-body editing">
+        <div class="modal-body" id="editing">
             <?php echo $this->Form->create('FormulariosF3Detalle', array('class' => 'horizontal-form')); ?>
             <fieldset>
                 <?php
-                echo $this->Form->input('id', array('type' => 'hidden', 'name' => 'data[FormulariosF1Detalle][id]', 'id' => 'idDetail'));
-                echo $this->Form->input('sup_finca', array('type' => 'text', 'name' => 'data[FormulariosF1Detalle][superficie_finca]', 'label' => 'Sup. Finca', 'id' => 'supFinca'));
-                echo $this->Form->input('sup_cultivo', array('type' => 'text', 'name' => 'data[FormulariosF1Detalle][superficie_cultivo]', 'label' => 'Sup. Cultivo', 'id' => 'supCultivo'));
-                echo $this->Form->input('total_contratados', array('type' => 'text', 'name' => 'data[FormulariosF1Detalle][total_contratados]', 'label' => 'Total Contratados', 'id' => 'totalContratados'));
-                echo $this->Form->input('bovinos', array('type' => 'text', 'name' => 'data[FormulariosF1Detalle][bovinos]', 'label' => 'Bovinos', 'id' => 'bovinos'));
-                echo $this->Form->input('porcinos', array('type' => 'text', 'name' => 'data[FormulariosF1Detalle][porcinos]', 'label' => 'Porcinos', 'id' => 'porcinos'));
-                echo $this->Form->input('aves', array('type' => 'text', 'name' => 'data[FormulariosF1Detalle][aves]', 'label' => 'Aves', 'id' => 'aves'));
-                echo $this->Form->input('codigo', array('type' => 'text', 'name' => 'data[FormulariosF1Detalle][codigo_exclusion]', 'label' => 'Codigo de Exclusion', 'id' => 'exclusion'));
+                echo $this->Form->input('id', array('type' => 'hidden', 'name' => 'data[FormulariosF3Detalle][id]', 'id' => 'idDetail'));
+                echo $this->Form->input('sup_finca', array('type' => 'text', 'name' => 'data[FormulariosF3Detalle][superficie_finca]', 'label' => 'Sup. Finca', 'id' => 'supFinca'));
+                echo $this->Form->input('codigo', array('type' => 'text', 'name' => 'data[FormulariosF3Detalle][codigo_exclusion]', 'label' => 'Codigo de Exclusion', 'id' => 'exclusion'));
                 echo $this->Form->input('ci', array('type' => 'hidden', 'id' => 'ci-det'));
                 ?>
-                
+                <select id="s-edit-actividad" class="form-control" name="data[FormularioF3Detalle][actividad_id]">
+                    
+                </select>
             </fieldset>
         </div>
         <div class="modal-footer">
@@ -34,6 +31,24 @@
 
 <script>
     $(document).ready(function () {
+        
+        $("#s-edit-actividad option").remove();
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "<?php echo $this->Html->url(array("controller" => "actividades", "action" => "index")) ?>",
+            success: function (data) {
+                $("#s-actividad").append("<option></option>");
+                for (var i in data) {
+                    var acti = data[i];
+                    var option =
+                            String.format("<option value={0}>{1}</option>", acti.id, acti.nombre);
+                    $("#s-edit-actividad").append(option);
+                }
+            }
+        });
+        
+        
         bindSaveEditing();
         $('#modal-edit-div').hide();
         $('.medit').hide();
@@ -45,10 +60,6 @@
     function loadForm(item) {
         $('input#idDetail').val(item.id);
         $('input#supFinca').val(item.finca);
-        $('input#supCultivo').val(item.cultivo);
-        $('input#totalContratados').val(item.contratados);
-        $('input#bovinos').val(item.bovinos);
-        $('input#porcinos').val(item.porcinos);
         $('input#aves').val(item.aves);
         $('input#exclusion').val(item.exclusion);
         detalleSelect.ci = item.ci;
@@ -61,7 +72,7 @@
                 type: 'POST',
                 dataType: 'json',
                 url: "<?php echo $this->Html->url(array('controller' => 'formulariosF3', 'action' => 'addDetail')) ?>",
-                data: $('.editing input').serialize(),
+                data: $('#editing').find('input', 'select').serialize(),
                 success: function (data) {
                     if (data['status'] == 'ok') {
                         changeDetailsTable();

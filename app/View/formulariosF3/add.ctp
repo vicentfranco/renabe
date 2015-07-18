@@ -19,13 +19,8 @@
                     <tr>
                         <th>Nombre y Apellido del titular</th>
                         <th>C.I. Titular</th>
-                        <th>Total miembros familia</th>
                         <th>Superficie finca</th>
-                        <th>Superficie cultivos</th>
-                        <th>Total contratados</th>
-                        <th>Cantidad ganado bovino</th>
-                        <th>Cantidad porcino</th>
-                        <th>Cantidad aves</th>
+                        <th>Actividad que desarrolla</th>
                         <th>Codigo exclusion</th>
                         <th>&nbsp;</th>
                     </tr>
@@ -34,17 +29,19 @@
                     <tr>
                         <td><input type="text" class="form-control" id="t-nombre"></td>
                         <td><input type="text" class="form-control" id="t-ci"></td>
-                        <td><input type="text" class="form-control" id="t-cantfamilia"></td>
-                        <td><input type="text" class="form-control" id="t-supfinca" name="data[FormulariosF1Detalle][superficie_finca]"></td>
-                        <td><input type="text" class="form-control" id="t-supcultivo" name="data[FormulariosF1Detalle][superficie_cultivo]"></td>
-                        <td><input type="text" class="form-control" id="t-totcontra" name="data[FormulariosF1Detalle][total_contratados]"></td>
-                        <td><input type="text" class="form-control" id="t-cantganado" name="data[FormulariosF1Detalle][bovinos]"></td>
-                        <td><input type="text" class="form-control" id="t-cantporcino" name="data[FormulariosF1Detalle][porcinos]"></td>
-                        <td><input type="text" class="form-control" id="t-cantaves" name="data[FormulariosF1Detalle][aves]"></td>
-                        <td><input type="text" class="form-control" id="t-codexcl" name="data[FormulariosF1Detalle][codigo_exclusion]"></td>
+                        <td><input type="text" class="form-control" id="t-supfinca" name="data[FormulariosF3Detalle][superficie_finca]"></td>
+                        
+                        <td>
+                            <select class="form-control" id="s-actividad" name="data[FormulariosF3dDetalle][actividad_id]">
+                            </select>
+                        </td>
+                        
+                        <td><input type="text" class="form-control" id="t-codexcl" name="data[FormulariosF3Detalle][codigo_exclusion]"></td>
+                        
                         <td><input type="button" class="btn btn-primary" id="b-agregar-detalle" value="Guardar">
-                            <input type="hidden" class="form-control" id="t-hid-cabecera" name="data[FormulariosF1Detalle][formulario_id]">
-                            <input type="hidden" class="form-control" id="t-hid-productor" name="data[FormulariosF1Detalle][productor_id]">
+                            
+                        <input type="hidden" class="form-control" id="t-hid-cabecera" name="data[FormulariosF3Detalle][formulario_id]">
+                        <input type="hidden" class="form-control" id="t-hid-productor" name="data[FormulariosF3Detalle][productor_id]">
                         </td>
                     </tr>
                 </tbody>
@@ -61,15 +58,10 @@
                     <tr>
                         <th>Nombre y Apellido</th>
                         <th>C.I. Titular</th>
-                        <th>Total miembros familia</th>
                         <th>Sup. finca</th>
-                        <th>Sup. cultivos</th>
-                        <th>Contratados</th>
-                        <th>Cant. ganado bovino</th>
-                        <th>Cant. porcino</th>
-                        <th>Cant. aves</th>
+                        <th>Actividad que desarrolla</th>
                         <th>Cod. exclusion</th>
-                        <th>&nbsp;</th>
+                        <th colspan="2">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,6 +78,24 @@
     var detalleSelect = new Object();
 
     $(document).ready(function () {
+        
+        $("#s-actividad option").remove();
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "<?php echo $this->Html->url(array("controller" => "actividades", "action" => "index")) ?>",
+            success: function (data) {
+                $("#s-actividad").append("<option></option>");
+                for (var i in data) {
+                    var acti = data[i];
+                    var option =
+                            String.format("<option value={0}>{1}</option>", acti.id, acti.nombre);
+                    $("#s-actividad").append(option);
+                }
+            }
+        });
+        
+        
         
         disabledInputElement("#t-detalle", true);
         $("#b-agregar-detalle").click(function () {
@@ -108,7 +118,7 @@
         }
         
         var ob = new Object();
-        var dataForm = $('#t-detalle :input').serialize();
+        var dataForm = $('#t-detalle').find('input', 'select').serialize();
         var url = "<?php
             echo $this->
             Html->url(
@@ -122,7 +132,7 @@
             success: function (data) {
 
                 if (data["status"] == "error") {
-                    alert('error al guardar la cabecera:'.data['message']);
+                    alert('error al guardar el detalle:'.data['message']);
                 }
                 ob.id = data["message"];
             }
@@ -131,30 +141,19 @@
         var tr = $('#t-detalle tr:last');
         ob.ci = tr.find('input[id=t-ci]').val();
         ob.nombre = tr.find('input[id=t-nombre]').val();
-        ob.familia = tr.find('input[id=t-cantfamilia]').val();
         ob.finca = tr.find('input[id=t-supfinca]').val();
-        ob.cultivo = tr.find('input[id=t-supcultivo]').val();
-        ob.contratados = tr.find('input[id=t-totcontra]').val();
-        ob.bovinos = tr.find('input[id=t-cantganado]').val();
-        ob.porcinos = tr.find('input[id=t-cantporcino]').val();
-        ob.aves = tr.find('input[id=t-cantaves]').val();
+        ob.actividad = tr.find('select[id=s-actividad]').val();
         ob.exclusion = tr.find('input[id=t-codexcl]').val();
         mapDetallesF3.set(ob.ci, ob);
         var row = String.format
                 ('<tr rel={0}>\n\
                     <td>{1}</td>\n\
                     <td class="numeric">{2}</td>\n\
-                    <td class="numeric">{3}</td>\n\
-                    <td rel="finca" class="numeric">{4}</td>\n\
-                    <td rel="cultivo" class="numeric">{5}</td>\n\
-                    <td rel="contratados" class="numeric">{6}</td>\n\
-                    <td rel="bovinos" class="numeric">{7}</td>\n\
-                    <td rel="porcinos" class="numeric">{8}</td>\n\
-                    <td rel="aves" class="numeric">{9}</td>\n\
-                    <td rel="exclusion" class="numeric">{10}</td>\n\
-                ', ob.ci, ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
-                        ob.contratados, ob.bovinos, ob.porcinos,
-                        ob.aves, ob.exclusion);
+                    <td rel="finca" class="numeric">{3}</td>\n\
+                    <td rel="actividad" class="numeric">{4}</td>\n\
+                    <td rel="exclusion" class="numeric">{5}</td>\n\
+                ', ob.ci, ob.nombre, ob.ci, ob.finca,
+                        ob.actividad, ob.exclusion);
 
         var tdoptions =
                 '<td><button type="button" class="btn btn-primary btn-sm editar" aria-label="Editar" \n\
@@ -200,7 +199,7 @@
     }
     
     function borrarCamposDetalle() {
-        $("#t-detalle").find("input[type!=hidden]").not("input[type=button]").val('');
+        $("#t-detalle").find("input[type!=hidden] select").not("input[type=button]").val('');
     }
 
 </script>

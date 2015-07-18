@@ -43,6 +43,12 @@
 	require CAKE . 'Config' . DS . 'routes.php';
 
         
+//ruta para obtener las actividades
+
+Router::connect(
+    '/actividades',
+    array('controller' => 'actividades', 'action' => 'index')
+);
         
 //ruta para obtener departamentos
 Router::connect(
