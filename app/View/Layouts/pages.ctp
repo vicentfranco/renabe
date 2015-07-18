@@ -56,7 +56,15 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		</div>
 		<div id="content" class="row">
 			<?php echo $this->Session->flash(); ?>
-			<div class="principal col-md-12" id="contenido">
+            <div class="panel panel-primary col-md-2" id="menu-panel">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Informacion General</h3>
+			  </div>
+			  <div class="panel-body principal" style="margin-left:0px; margin-bottom:0px">
+			    <?php echo $this->element('leftdata'); ?>
+			  </div>
+			</div>
+			<div class="principal col-md-9" id="contenido">
 				<?php echo $this->fetch('content'); ?>
 			</div>
 		</div>
