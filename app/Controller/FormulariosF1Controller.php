@@ -16,6 +16,7 @@ class FormulariosF1Controller extends AppController {
 
     function beforeRender(){
         $this->set('cabecera', 'f1_cabecera');
+        $this->set('form_title', 'F1 - Productores de la Agriculatura Familiar');
     }
 
     public function __construct($request = null, $response = null){
