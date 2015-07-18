@@ -43,6 +43,12 @@
 	require CAKE . 'Config' . DS . 'routes.php';
 
         
+//ruta para obtener las actividades
+
+Router::connect(
+    '/actividades',
+    array('controller' => 'actividades', 'action' => 'index')
+);
         
 //ruta para obtener departamentos
 Router::connect(
@@ -113,3 +119,9 @@ Router::connect('/users/encuestadores',
             'controller' => 'users',
             'action' => 'encuestadores'
         ));
+
+
+Router::connect('/formulariosF3/add', array(
+        'controller' => 'formulariosF3',
+        'action' => 'add')
+);
