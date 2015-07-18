@@ -137,13 +137,19 @@
                 ob.id = data["message"];
             }
         });
+        
+       
 
         var tr = $('#t-detalle tr:last');
         ob.ci = tr.find('input[id=t-ci]').val();
         ob.nombre = tr.find('input[id=t-nombre]').val();
         ob.finca = tr.find('input[id=t-supfinca]').val();
         ob.actividad = tr.find('select[id=s-actividad]').val();
+
         ob.exclusion = tr.find('input[id=t-codexcl]').val();
+        
+
+        
         mapDetallesF3.set(ob.ci, ob);
         var row = String.format
                 ('<tr rel={0}>\n\
@@ -199,7 +205,8 @@
     }
     
     function borrarCamposDetalle() {
-        $("#t-detalle").find("input[type!=hidden] select").not("input[type=button]").val('');
+        $("#t-detalle").find("input[type!=hidden] ").not("input[type=button]").val('');
+        $("#t-detalle").find("select").val('');
     }
 
 </script>

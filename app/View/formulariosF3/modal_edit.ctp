@@ -6,18 +6,20 @@
         </div>
         
         <div class="modal-body" id="editing">
-            <?php echo $this->Form->create('FormulariosF3Detalle', array('class' => 'horizontal-form')); ?>
-            <fieldset>
-                <?php
-                echo $this->Form->input('id', array('type' => 'hidden', 'name' => 'data[FormulariosF3Detalle][id]', 'id' => 'idDetail'));
-                echo $this->Form->input('sup_finca', array('type' => 'text', 'name' => 'data[FormulariosF3Detalle][superficie_finca]', 'label' => 'Sup. Finca', 'id' => 'supFinca'));
-                echo $this->Form->input('codigo', array('type' => 'text', 'name' => 'data[FormulariosF3Detalle][codigo_exclusion]', 'label' => 'Codigo de Exclusion', 'id' => 'exclusion'));
-                echo $this->Form->input('ci', array('type' => 'hidden', 'id' => 'ci-det'));
-                ?>
-                <select id="s-edit-actividad" class="form-control" name="data[FormularioF3Detalle][actividad_id]">
-                    
-                </select>
-            </fieldset>
+            <form id="f-edit-detalle">
+                <fieldset>
+                    <input type="hidden" name="data[FormulariosF3Detalle][id]" id="idDetail" class="form-control" >
+                    <label for="supFinca">Sup. Finca</label>
+                    <input type="text" name="data[FormulariosF3Detalle][superficie_finca]" id="supFinca" class="form-control" >
+                    <label for="exclusion">Cod. Exclusion</label>
+                    <input type="text" name="data[FormulariosF3Detalle][codigo_exclusion]" id="exclusion" class="form-control" >
+                    <input type="hidden" id="ci-det" class="form-control">    
+                    <label for="s-edit-actividad">Actividad que desarrolla</label>
+                    <select id="s-edit-actividad" class="form-control" name="data[FormularioF3Detalle][actividad_id]">      
+                    </select>
+                </fieldset>
+                
+            </form>    
         </div>
         <div class="modal-footer">
             <div class="alert medit alert-dismissible alert-danger">
@@ -38,7 +40,7 @@
             dataType: "json",
             url: "<?php echo $this->Html->url(array("controller" => "actividades", "action" => "index")) ?>",
             success: function (data) {
-                $("#s-actividad").append("<option></option>");
+                $("#s-edit-actividad").append("<option></option>");
                 for (var i in data) {
                     var acti = data[i];
                     var option =
@@ -60,8 +62,8 @@
     function loadForm(item) {
         $('input#idDetail').val(item.id);
         $('input#supFinca').val(item.finca);
-        $('input#aves').val(item.aves);
         $('input#exclusion').val(item.exclusion);
+        $('select#s-edit-actividad option:eq('+ item.actividad+')');
         detalleSelect.ci = item.ci;
     }
 
@@ -87,20 +89,13 @@
 
     function changeDetailsTable() {
         var tablatr = $('#f-detalle-tab tbody tr[rel="' + detalleSelect.ci + '"]');
-        alert(tablatr.html());
+
         var b = tablatr.find('td[rel="finca"]').html($("input#supFinca").val()).html();
-        tablatr.find('td[rel="cultivo"]').html($("input#supCultivo").val());
-        tablatr.find('td[rel="contratados"]').html($("input#totalContratados").val());
-        tablatr.find('td[rel="bovinos"]').html($("input#bovinos").val());
-        tablatr.find('td[rel="porcinos"]').html($("input#porcinos").val());
-        tablatr.find('td[rel="aves"]').html($("input#aves").val());
+        tablatr.find('td[rel="actividad"]').html($("select#s-edit-actividad").val());
         tablatr.find('td[rel="exclusion"]').html($("input#exclusion").val());
         mapDetallesF3.get(detalleSelect.ci).finca = $("input#supFinca").val();
-        mapDetallesF3.get(detalleSelect.ci).cultivo = $("input#supCultivo").val();
-        mapDetallesF3.get(detalleSelect.ci).contratados = $("input#totalContratados").val();
-        mapDetallesF3.get(detalleSelect.ci).bovinos = $("input#bovinos").val();
-        mapDetallesF3.get(detalleSelect.ci).porcinos = $("input#porcinos").val();
-        mapDetallesF3.get(detalleSelect.ci).aves = $("input#aves").val();
+      
+        mapDetallesF3.get(detalleSelect.ci).actividad = $("select#s-edit-actividad").val();
         mapDetallesF3.get(detalleSelect.ci).exclusion = $("input#exclusion").val();
     }
     
