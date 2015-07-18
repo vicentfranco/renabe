@@ -30,7 +30,8 @@ class FormulariosF1Controller extends AppController {
         }    
 
         if(empty($this->request->data)){
-            return array('status'=>'error', 'message'=>'Not input data');
+            $this->log("No se enviaron datos para crear la cabecera");
+            return array('status'=>'error', 'message'=>'No hay datos en la peticion');
         }
 
         $this->request->data['FormularioF1']['fecha_inicio'] = $this->request->data['FormularioF1']['fecha_inicio'].'-07-01';
@@ -38,11 +39,13 @@ class FormulariosF1Controller extends AppController {
 
         try {
             if(!$this->FormularioF1->saveAll($this->request->data['FormularioF1'])){
+                $this->log("Error al guardar la cabecera. Return False");
                 return $this->responseJson(array('status'=>'error', 'message'=>'Error saving'));   
             }
             return $this->responseJson(array('status'=>'ok', 'message'=>$this->FormularioF1->id));
             
         } catch(Exception $e){
+            $this->log(sprintf("Error al guardar la cabecera. Exception [ %s ]", $e->getMessage()));
             return $this->responseJson(
                     array('status'=>'error', 'message'=>'Error al guardar la cabecera'));
         }
@@ -55,13 +58,16 @@ class FormulariosF1Controller extends AppController {
         }
 
         if(empty($this->request->data)){
-            return $this->responseJson(array('status'=>'error', 'message'=>'Not input data'));
+            $this->log("No se enviaron datos para agregar el detalle");
+            return $this->responseJson(array('status'=>'error', 'message'=>'No se enviaron datos para agregar el detalle'));
         }
+        
         try{
             if(!$this->FormularioF1->FormulariosF1Detalle->saveAll($this->request->data['FormulariosF1Detalle'])){
                 return $this->responseJson(array('status'=>'error', 'message'=>'Error saving'));
             } 
         } catch (Exception $ex) {
+            $this->log(sprintf("Error al guardar el detalle. Exception [ %s ]", $ex->getMessage()));
             return $this->responseJson(array('status'=>'error', 'message'=>'Error al guardar el detalle'));
         }
         
@@ -75,13 +81,15 @@ class FormulariosF1Controller extends AppController {
         }
         
         if(empty($_GET['id'])){
-            return $this->responseJson(array('status'=>'error', 'message'=>'Not input data'));
+            $this->log("No se envio ningun id de registro para eliminar");
+            return $this->responseJson(array('status'=>'error', 'message'=>'No se paso ningun id para eliminar'));
         }
         try{
             if(!$this->FormularioF1->FormulariosF1Detalle->delete($_GET['id'])){
                 return $this->responseJson(array('status'=>'error', 'message'=>'Error al eliminar registro'));
             }
         } catch (Exception $ex) {
+            $this->log(sprintf("Error al eliminar un detalle. Exception [ %s ]", $ex->getMessage()));
             return $this->responseJson(array('status'=>'error', 'message'=>'Error al eliminar registro'));
         }
         

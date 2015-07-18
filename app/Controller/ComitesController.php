@@ -13,12 +13,12 @@
  */
 class ComitesController extends AppController{
     public function index() {
-        
-        
+       
         $comites = array();
         try{
            $comites = $this->Comite->find('all');
         } catch (Exception $ex) {
+            $this->log("Error al obtener los comites");
            return Err.getErrorFromDescription('001','Error inesperado');
         }
 
@@ -34,15 +34,20 @@ class ComitesController extends AppController{
      * @throws NotFoundException
      */
     public function view($id = null) {
+        
         if (!$id) {
             //TODO: voy a modificar esto luego
             throw new NotFoundException(__('Invalid post'));
         }
+        
         $comites = array();
         $response = array();
-        try{
+        
+        try {
             $comites = $this->Comite->find('all',array('conditions'=>array('distrito_id'=>$id)));
+            
         } catch (Exception $ex) {
+            $this->log("Error al obtener el comite con id: " + $id);
             return Err.getErrorFromDescription('001','Error inesperado');
         }
         
