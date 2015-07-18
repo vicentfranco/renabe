@@ -20,7 +20,8 @@ class DistritosController extends AppController{
         try{
            $distritos = $this->Distrito->find('all');
         } catch (Exception $ex) {
-           return Err.getErrorFromDescription('001','Error inesperado');
+            $this->log("Error al obtener los distritos");
+            return Err.getErrorFromDescription('001','Error inesperado');
         }
 
         return $this->responseJson($distritos);
@@ -32,15 +33,19 @@ class DistritosController extends AppController{
      * @throws NotFoundException
      */
     public function view($id = null) {
+        
         if (!$id) {
             //TODO: voy a modificar esto luego
             throw new NotFoundException(__('Invalid post'));
         }
+        
         $distritos = array();
         $response = array();
+        
         try{
             $distritos = $this->Distrito->find('all',array('conditions'=>array('departamento_id'=>$id)));
         } catch (Exception $ex) {
+            $this->log("Error al obtener el distrito con id: " + $id);
             return Err.getErrorFromDescription('001','Error inesperado');
         }
         

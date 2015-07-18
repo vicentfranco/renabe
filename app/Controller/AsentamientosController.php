@@ -19,6 +19,7 @@ class AsentamientosController extends AppController{
         try{
            $asentamientos = $this->Asentamiento->find('all');
         } catch (Exception $ex) {
+           $this->log("Error al obtener los asentamientos");
            return Err.getErrorFromDescription('001','Error inesperado');
         }
 
@@ -41,13 +42,16 @@ class AsentamientosController extends AppController{
         try{
             $asentamientos = $this->Asentamiento->find('all',array('conditions'=>array('distrito_id'=>$id)));
         } catch (Exception $ex) {
+            $this->log("Error al obtener el asentamiento con id: " + $id);
             return Err.getErrorFromDescription('001','Error inesperado');
         }
+        
         foreach($asentamientos as $asentamiento){
             $data = $asentamiento['Asentamiento'];
             $a = array("id"=>$data['id'], "nombre"=>$data['nombre'], "distrito_id"=>$data['distrito_id']);
             array_push($response, $a);
         }
+        
         return $this->responseJson($response);
     }
 }

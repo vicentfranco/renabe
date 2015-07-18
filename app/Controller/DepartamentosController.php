@@ -21,6 +21,7 @@ class DepartamentosController extends AppController {
         try{
            $departamentos = $this->Departamento->find('all');
         } catch (Exception $ex) {
+           $this->log("Error al obtener los departamentos");
            return Err.getErrorFromDescription('001','Error inesperado');
         }
         foreach($departamentos as $departamento){
