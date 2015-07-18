@@ -14,6 +14,10 @@
 App::import('Model', 'FormularioF1');
 class FormulariosF1Controller extends AppController {
 
+    function beforeRender(){
+        $this->set('cabecera', 'f1_cabecera');
+    }
+
     public function __construct($request = null, $response = null){
     	parent::__construct($request, $response);
     	$this->FormularioF1 = new FormularioF1;

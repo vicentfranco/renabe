@@ -12,5 +12,7 @@
  * @author vfranco
  */
 class FormularioF3Controller extends AppController{
-    
+    function beforeRender(){
+        $this->set('cabecera', 'f3_cabecera');
+    }
 }

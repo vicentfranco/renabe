@@ -12,5 +12,7 @@
  * @author vfranco
  */
 class FormulariosF2Controller extends AppController{
-    //put your code here
+    function beforeRender(){
+        $this->set('cabecera', 'f2_cabecera');
+    }
 }

@@ -53,7 +53,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		<div id="content" class="row">
                     <div class="col-lg-1 principal" id="form-cab-div">
                     	<h4>Cabecera</h4>
-                         <?php echo $this->element('cabecera'); ?>
+                         <?php echo $this->element($cabecera); ?>
                     </div>
                     <div class="col-lg-9" id="form-det-div">
                         <?php echo $this->Session->flash(); ?>
