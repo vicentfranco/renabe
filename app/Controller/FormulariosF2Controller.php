@@ -67,6 +67,8 @@ class FormulariosF2Controller extends AppController{
         }
         
         try{
+            $this -> log("Datos recibidos para insertar la cabecera F2", "info");
+            $this->log($this->request->data, 'info');
             if(!$this->FormularioF2->FormulariosF2Detalle->saveAll($this->request->data['FormulariosF2Detalle'])){
                 return $this->responseJson(array('status'=>'error', 'message'=>'Error saving'));
             } 

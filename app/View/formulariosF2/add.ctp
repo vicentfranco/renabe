@@ -34,10 +34,10 @@
                         <td><input type="text" class="form-control" id="t-nombre"></td>
                         <td><input type="text" class="form-control" id="t-ci"></td>
                         <td><input type="text" class="form-control" id="t-cantfamilia"></td>
-                        <td><input type="text" class="form-control" id="t-totcontra" name="data[FormulariosF2Detalle][total_contratados]"></td>
-                        <td><input type="radio" class="form-control" name="data[FormulariosF2Detalle][zonda_id]" id="ck-indigena" ></td>
-                        <td><input type="radio" class="form-control" name="data[FormulariosF2Detalle][zonda_id]" id="ck-urbana" ></td>
-                        <td><input type="radio" class="form-control" name="data[FormulariosF2Detalle][zonda_id]" id="ck-periurbana" ></td>
+                        <td><select class="form-control" id="s-actividad" name="data[FormulariosF2Detalle][actividad_id]"></select></td>
+                        <td><input type="radio" class="form-control" name="data[FormulariosF2Detalle][zona_id]" id="ck-indigena" value="1" ></td>
+                        <td><input type="radio" class="form-control" name="data[FormulariosF2Detalle][zona_id]" id="ck-urbana" value="2"></td>
+                        <td><input type="radio" class="form-control" name="data[FormulariosF2Detalle][zona_id]" id="ck-periurbana" value="3"></td>
                         <td><input type="text" class="form-control" id="t-codexcl" name="data[FormulariosF2Detalle][codigo_exclusion]"></td>
                         <td><input type="button" class="btn btn-primary" id="b-agregar-detalle" value="Guardar">
                             <input type="hidden" class="form-control" id="t-hid-cabecera" name="data[FormulariosF2Detalle][formulario_id]">
@@ -66,7 +66,7 @@
                         <th class="key">Z. Urbana</th>
                         <th class="key">Z. Periurbana</th>
                         <th>Codigo exclusion</th>
-                        <th>&nbsp;</th>
+                        <th colspan="2">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,6 +87,21 @@
         $("#b-agregar-detalle").click(function () {
             bindAddEvent();
         });
+        $("#s-actividad option").remove();
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "<?php echo $this->Html->url(array("controller" => "actividades", "action" => "index")) ?>",
+            success: function (data) {
+                $("#s-actividad").append("<option></option>");
+                for (var i in data) {
+                    var acti = data[i];
+                    var option =
+                            String.format("<option value={0} rel={1}>{1}</option>", acti.id, acti.nombre);
+                    $("#s-actividad").append(option);
+                }
+            }
+        });
     });
 
     /**
@@ -94,7 +109,7 @@
      */
     function bindAddEvent(){
         
-        var empty = $("#detalle").find("input").filter(function () {
+        var empty = $("#detalle").find("input").not('input[type="radio"]').filter(function () {
             return this.value === "";
         });
         
@@ -128,29 +143,37 @@
         ob.ci = tr.find('input[id=t-ci]').val();
         ob.nombre = tr.find('input[id=t-nombre]').val();
         ob.familia = tr.find('input[id=t-cantfamilia]').val();
-        ob.finca = tr.find('input[id=t-supfinca]').val();
-        ob.cultivo = tr.find('input[id=t-supcultivo]').val();
-        ob.contratados = tr.find('input[id=t-totcontra]').val();
-        ob.bovinos = tr.find('input[id=t-cantganado]').val();
-        ob.porcinos = tr.find('input[id=t-cantporcino]').val();
-        ob.aves = tr.find('input[id=t-cantaves]').val();
+        ob.actividad = tr.find('select[id=s-actividad] option:selected').attr('rel');
+        ob.zona = tr.find('input[id=s-actividad]').val();
         ob.exclusion = tr.find('input[id=t-codexcl]').val();
+        if($('input[id=ck-indigena]').is(':checked')){
+            ob.indigena = '<span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>';
+        }else{
+            ob.indigena = '<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>';
+        }
+        if($('input[id=ck-urbana]').is(':checked')){
+            ob.urbana = '<span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>';
+        }else{
+            ob.urbana = '<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>';
+        }
+        if($('input[id=ck-periurbana]').is(':checked')){
+            ob.periurbana = '<span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>';
+        }else{
+            ob.periurbana = '<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>';
+        }
         mapDetallesF2.set(ob.ci, ob);
         var row = String.format
                 ('<tr rel={0}>\n\
                     <td>{1}</td>\n\
                     <td class="numeric">{2}</td>\n\
                     <td class="numeric">{3}</td>\n\
-                    <td rel="finca" class="numeric">{4}</td>\n\
-                    <td rel="cultivo" class="numeric">{5}</td>\n\
-                    <td rel="contratados" class="numeric">{6}</td>\n\
-                    <td rel="bovinos" class="numeric">{7}</td>\n\
-                    <td rel="porcinos" class="numeric">{8}</td>\n\
-                    <td rel="aves" class="numeric">{9}</td>\n\
-                    <td rel="exclusion" class="numeric">{10}</td>\n\
-                ', ob.ci, ob.nombre, ob.ci, ob.familia, ob.finca, ob.cultivo,
-                        ob.contratados, ob.bovinos, ob.porcinos,
-                        ob.aves, ob.exclusion);
+                    <td rel="actividad" class="numeric">{4}</td>\n\
+                    <td rel="indigena" class="centered">{5}</td>\n\
+                    <td rel="urbana" class="centered">{6}</td>\n\
+                    <td rel="preiurbana" class="centered">{7}</td>\n\
+                    <td rel="exclusion" class="numeric">{8}</td>\n\
+                ',ob.ci, ob.nombre, ob.ci, ob.familia, ob.actividad, ob.indigena,
+                        ob.urbana, ob.periurbana, ob.exclusion);
 
         var tdoptions =
                 '<td><button type="button" class="btn btn-primary btn-sm editar" aria-label="Editar" \n\
@@ -167,6 +190,7 @@
 
         borrarCamposDetalle();
         bindDetailEvents();
+        $('#t-cedula-s').focus();
     }
 
     function bindDetailEvents() {
@@ -197,6 +221,8 @@
     
     function borrarCamposDetalle() {
         $("#t-detalle").find("input[type!=hidden]").not("input[type=button]").val('');
+        $("#t-detalle").find("input[type=radio]").attr('selected', false);
+        $('#s-actividad').val('');
     }
 
 </script>

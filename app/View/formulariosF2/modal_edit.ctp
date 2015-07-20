@@ -9,12 +9,16 @@
             <fieldset>
                 <?php
                 echo $this->Form->input('id', array('type' => 'hidden', 'name' => 'data[FormulariosF1Detalle][id]', 'id' => 'idDetail'));
-                echo $this->Form->input('sup_finca', array('type' => 'text', 'name' => 'data[FormulariosF1Detalle][superficie_finca]', 'label' => 'Sup. Finca', 'id' => 'supFinca'));
-                echo $this->Form->input('sup_cultivo', array('type' => 'text', 'name' => 'data[FormulariosF1Detalle][superficie_cultivo]', 'label' => 'Sup. Cultivo', 'id' => 'supCultivo'));
-                echo $this->Form->input('total_contratados', array('type' => 'text', 'name' => 'data[FormulariosF1Detalle][total_contratados]', 'label' => 'Total Contratados', 'id' => 'totalContratados'));
-                echo $this->Form->input('bovinos', array('type' => 'text', 'name' => 'data[FormulariosF1Detalle][bovinos]', 'label' => 'Bovinos', 'id' => 'bovinos'));
-                echo $this->Form->input('porcinos', array('type' => 'text', 'name' => 'data[FormulariosF1Detalle][porcinos]', 'label' => 'Porcinos', 'id' => 'porcinos'));
-                echo $this->Form->input('aves', array('type' => 'text', 'name' => 'data[FormulariosF1Detalle][aves]', 'label' => 'Aves', 'id' => 'aves'));
+                echo $this->Form->input('actividad', array('type'=>'select', 'name'=>'data[FormulariosF1Detalle][actividad_id]', 'id'=>'cb-mactividad'));
+                ?>
+                <br />
+                    <input type="radio" class="form-control" name="data[FormulariosF2Detalle][zona_id]" id="ck-mindigena" value="1"><label for="data[FormulariosF2Detalle][zona_id]">Clan Indígena</label>
+                <br />
+                    <input type="radio" class="form-control" name="data[FormulariosF2Detalle][zona_id]" id="ck-murbana" value="2"><label for="data[FormulariosF2Detalle][zona_id]">Zona Urbana</label>
+                <br />
+                    <input type="radio" class="form-control" name="data[FormulariosF2Detalle][zona_id]" id="ck-mperiurbana" value="2"><label for="data[FormulariosF2Detalle][zona_id]">Zona Periurbana</label>
+                <br />
+                <?php
                 echo $this->Form->input('codigo', array('type' => 'text', 'name' => 'data[FormulariosF1Detalle][codigo_exclusion]', 'label' => 'Codigo de Exclusion', 'id' => 'exclusion'));
                 echo $this->Form->input('ci', array('type' => 'hidden', 'id' => 'ci-det'));
                 ?>
@@ -38,16 +42,25 @@
         $('.cerrar').click(function () {
             $('#modal-edit-div').fadeOut(300);
         });
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "<?php echo $this->Html->url(array("controller" => "actividades", "action" => "index")) ?>",
+            success: function (data) {
+                $("#s-actividad").append("<option></option>");
+                for (var i in data) {
+                    var acti = data[i];
+                    var option =
+                            String.format("<option value={0} rel={1}>{1}</option>", acti.id, acti.nombre);
+                    $("#s-actividad").append(option);
+                }
+            }
+        });
     });
 
     function loadForm(item) {
         $('input#idDetail').val(item.id);
-        $('input#supFinca').val(item.finca);
-        $('input#supCultivo').val(item.cultivo);
-        $('input#totalContratados').val(item.contratados);
-        $('input#bovinos').val(item.bovinos);
-        $('input#porcinos').val(item.porcinos);
-        $('input#aves').val(item.aves);
+        $('#cb-mactividad').val(item.zona_id);
         $('input#exclusion').val(item.exclusion);
         detalleSelect.ci = item.ci;
     }
