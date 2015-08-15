@@ -55,13 +55,13 @@ class FxHelper extends Helper {
 	}
 
 	function getType($data = null){
-		if (!empty($data['Asentamiento'])) {
+		if (!empty($data['Asentamiento']['id'])) {
 			return 'Asentamiento';
 		}
-		if (!empty($data['Distrito'])) {
+		if (!empty($data['Distrito']['id'])) {
 			return 'Distrito';
 		}
-		if (!empty($data['Compania'])) {
+		if (!empty($data['Compania']['id'])) {
 			return 'Compania';
 		}
 		return 'Desconocido';

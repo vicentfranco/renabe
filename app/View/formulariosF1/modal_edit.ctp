@@ -74,7 +74,6 @@
 
     function changeDetailsTable() {
         var tablatr = $('#f-detalle-tab tbody tr[rel="' + detalleSelect.ci + '"]');
-        alert(tablatr.html());
         var b = tablatr.find('td[rel="finca"]').html($("input#supFinca").val()).html();
         tablatr.find('td[rel="cultivo"]').html($("input#supCultivo").val());
         tablatr.find('td[rel="contratados"]').html($("input#totalContratados").val());
