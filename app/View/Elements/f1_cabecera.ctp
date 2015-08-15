@@ -74,7 +74,7 @@
             }
         });
         
-         $.ajax({
+        $.ajax({
             type: "GET",
             dataType: "json",
             url: "<?php echo $this->Html->url(array("controller" => "departamentos", "action" => "index")) ?>",

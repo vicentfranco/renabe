@@ -1,6 +1,6 @@
-<?php //print_r($f1); die(); ?>
+<?php //print_r($f3); die(); ?>
 <span class="options">
-	<h3>F1 - Productores de la Agriculatura Familiar</h3>
+	<h3>F3 - Productores de la Agriculatura Familiar</h3>
 	<a href="<?php echo $this->Html->url(array('action'=>'add')); ?>" class="btn btn-primary">Agregar</a>
 	<a href="<?php echo $this->Html->url(array('action'=>'export')); ?>" class="btn btn-primary">Exportar</a>
 </span>
@@ -30,31 +30,31 @@
 		</th>
 	</tr>
 	<?php 
-		foreach ($f1 as $key=>$f1) {
+		foreach ($f3 as $key => $f3) {
 	?>
 			<tr>
 				<td class="numeric key">
-					<?php echo $this->Html->link($f1['f1_formularios']['id'], array('controller'=>'formulariosF1', 'action'=>'view', $f1['f1_formularios']['id'])); ?>
+					<?php echo $this->Html->link($f3['f3_formularios']['id'], array('controller'=>'formulariosF3', 'action'=>'view', $f3['f3_formularios']['id'])); ?>
 				</td>
 				<td>
-					<?php echo $this->Html->link($f1['f1_formularios']['codigo'], array('controller'=>'formulariosF1', 'action'=>'view', $f1['f1_formularios']['id'])) ?>
+					<?php echo $this->Html->link($f3['f3_formularios']['codigo'], array('controller'=>'formulariosF3', 'action'=>'view', $f3['f3_formularios']['id'])) ?>
 				</td>
 				<td>
-					<?php echo $this->Fx->format($f1['f1_formularios']['fecha'], 'fecha'); ?>
+					<?php echo $this->Fx->format($f3['f3_formularios']['fecha'], 'fecha'); ?>
 				</td>
 				<td>
-					<?php echo $f1['Asentamiento']['Distrito']['nombre'] ?>
+					<?php echo $f3['Asentamiento']['Distrito']['nombre'] ?>
 				</td>
 				<td>
 					<?php 
-						echo $this->Fx->renabeFormat($f1); 
+						echo $this->Fx->renabeFormat($f3); 
 					?>
 				</td>
 				<td>
-					<?php echo $f1['User']['nombre'] ?>
+					<?php echo $f3['User']['nombre'] ?>
 				</td>
 				<td>
-					<?php echo $f1['f1_formularios']['created'] ?>
+					<?php echo $f3['f3_formularios']['created'] ?>
 				</td>
 			</tr>
 	<?php

@@ -50,7 +50,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		<div id="header">
 			<?php echo $this->element('menu'); ?>
 		</div>
-		<div id="content" class="row">
+		<div id="content">
                     <div class="col-lg-1 principal" id="form-cab-div">
                     	<h4>Cabecera</h4>
                          <?php echo $this->element($cabecera); ?>

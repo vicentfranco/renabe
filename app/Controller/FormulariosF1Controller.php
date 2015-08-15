@@ -17,6 +17,7 @@ class FormulariosF1Controller extends AppController {
     function beforeRender(){
         $this->set('cabecera', 'f1_cabecera');
         $this->set('form_title', 'F1 - Productores de la Agriculatura Familiar');
+        $this->set('tipo', 'f1');
     }
 
     public function __construct($request = null, $response = null){
@@ -102,6 +103,7 @@ class FormulariosF1Controller extends AppController {
     }
 
     public function index(){
+        $this->log($_GET['lineas'], 'info');
         $conditions = $this->conditions();
         $options = array(
             'conditions'=> $conditions,
@@ -154,6 +156,9 @@ class FormulariosF1Controller extends AppController {
         if(!empty($_GET['desde'])){
             $conditions['f1_formularios.fecha >='] = $_GET['desde'];
             $condsql .= ' AND f1_formularios.fecha >= \''.$_GET['desde'].'\'';
+        }
+        if(!empty($_GET['departamento'])){
+            $conditions['f1_formularios.distrito_id'] = $_GET['departamento'];
         }
         if(!empty($_GET['hasta'])){
             $conditions['f1_formularios.fecha <='] = $_GET['hasta'];
