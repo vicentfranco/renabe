@@ -10,7 +10,7 @@ class FxHelper extends Helper {
 				if(empty($options['decimales'])){
 					$options['decimales'] = 0;
 				}
-				$result = number_format($data, ',', '.', $options['decimales']);
+				$result = number_format($data, $options['decimales'], ',', '.');
 				break;
 			
 			case 'fecha':
