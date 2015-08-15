@@ -24,27 +24,27 @@
             </select>
             
             <label for="s-comite">Encuestador:</label>
-            <select class="form-control" id="s-encuestador" name="data[FormularioF1][encuestador_id]">
+            <select class="form-control" id="s-encuestador" name="data[FormularioF2][encuestador_id]">
             </select>
             
             
             <label for="s-carpeta">Carpeta:</label>
-            <input type="text" class="form-control" id="t-carpeta" name="data[FormularioF1][carpeta_id]">
+            <input type="text" class="form-control" id="t-carpeta" name="data[FormularioF2][carpeta_id]">
             
             <label>Periodo Agricola:</label>
             <label for="t-desde">Del 1 DE JULIO:</label>
-            <input type="text" class="form-control" id="t-desde" name="data[FormularioF1][fecha_inicio]">
+            <input type="text" class="form-control" id="t-desde" name="data[FormularioF2][fecha_inicio]">
             <label for="t-hasta">Al 30 DE JUNIO:</label>
-            <input type="text" class="form-control" id="t-hasta" name="data[FormularioF1][fecha_fin]">
+            <input type="text" class="form-control" id="t-hasta" name="data[FormularioF2][fecha_fin]">
             <label for="t-fecha">Fecha firma:</label>
-            <input type="date" class="form-control" id="t-fecha" name="data[FormularioF1][fecha]">
+            <input type="date" class="form-control" id="t-fecha" name="data[FormularioF2][fecha]">
             <label for="t-codigo">Código</label>
-            <input type="text" class="form-control" id="t-codigo" name="data[FormularioF1][codigo]" />
+            <input type="text" class="form-control" id="t-codigo" name="data[FormularioF2][codigo]" />
             <br>
             
         </form>
     </div>
-    <input type="hidden" id="t-hid-edit-cabecera" name="data[FormularioF1][id]">
+    <input type="hidden" id="t-hid-edit-cabecera" name="data[FormularioF2][id]">
     <button type="button" class="btn btn-primary" id="b-agregarcabecera">Agregar registros</button>
               
 </div>
@@ -123,21 +123,21 @@
                     echo $this->
                     Html->url(array("controller" => "asentamientos", "action" => "view"))
                     ?>"+"/"+id;
-                name = "data[FormularioF1][asentamiento_id]"
+                name = "data[FormularioF2][asentamiento_id]"
                 break;
             case "Comite":
                 url = "<?php
                     echo $this->
                     Html->url(array("controller" => "comites", "action" => "view"))
                     ?>"+"/"+id;
-                name = "data[FormularioF1][comite_id]"
+                name = "data[FormularioF2][comite_id]"
                 break;
             case "Compañia":
                 url = "<?php
                     echo $this->
                     Html->url(array("controller" => "companias", "action" => "view"))
                     ?>"+"/"+id;
-                name = "data[FormularioF1][compania_id]"
+                name = "data[FormularioF2][compania_id]"
                 break;
             default:
                 alert("no funciona");
@@ -183,13 +183,13 @@
 
             if ($("#t-hid-edit-cabecera").length != 0) {
                 dataForm = 
-                        dataForm.concat("&data[FormularioF1][id]=" + 
+                        dataForm.concat("&data[FormularioF2][id]=" + 
                         $("#t-hid-edit-cabecera").val());
             }
 
             var url = "<?php
                 echo $this->
-                Html->url(array("controller" => "formulariosF1", "action" => "addHeader"))
+                Html->url(array("controller" => "formulariosF2", "action" => "addHeader"))
                 ?>";
 
             $.ajax({

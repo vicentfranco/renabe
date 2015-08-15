@@ -58,7 +58,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                     <div class="col-lg-10" id="form-det-div">
                         <?php echo $this->Session->flash(); ?>
                         <div class="principal" style="margin:0;">
-                        	<h2>F1 - Productores de la Agriculatura Familiar</h2>
+                        	<h2><?php echo $form_title; ?></h2>
                         	<hr />
                         	<?php echo $this->fetch('content'); ?>
                         </div>

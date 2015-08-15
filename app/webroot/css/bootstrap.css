@@ -6782,3 +6782,11 @@ button.close {
 .panel-primary .panel-title {
   color: #fff;
 }
+
+.centered{
+  text-align:center;
+}
+
+input[type=radio]{
+  height: 20px;
+}
