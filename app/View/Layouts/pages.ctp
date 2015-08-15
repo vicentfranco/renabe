@@ -54,7 +54,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		<div id="header">
 			<?php echo $this->element('menu'); ?>
 		</div>
-		<div id="content" class="row">
+		<div id="content">
 			<?php echo $this->Session->flash(); ?>
             <div class="panel panel-primary col-md-2" id="menu-panel">
 			  <div class="panel-heading">
@@ -64,7 +64,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			    <?php echo $this->element('leftdata'); ?>
 			  </div>
 			</div>
-			<div class="principal col-md-9" id="contenido">
+			<div class="principal col-md-9">
 				<?php echo $this->fetch('content'); ?>
 			</div>
 		</div>
