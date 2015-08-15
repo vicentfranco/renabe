@@ -1,51 +1,93 @@
 <div class="row">
     <div class="col-lg-12" id="cabecera">
-        <form id="f-cabecera">
-            <label for="s-departamento" >Departamento:</label>
-            <select class="form-control" id="s-departamento">
-                
-            </select>
- 
-            <label for="s-distrito">Distrito:</label>
-            <select class="form-control" id="s-distrito">
-            </select>
-            
-            <label for="s-opcion-lugar">Tipo Lugar:</label>
-            <select class="form-control" id="s-opcion-lugar">
-                <option></option>
-                <option id="comite">Comite</option>
-                <option id="asentamiento">Asentamiento</option>
-                <option id="compania">Compañia</option>
-            </select>
-            <br>
+        <form class="form-horizontal" id="f-cabecera">
+            <div class="col-lg-6" >
+                <div class="form-group">
+                    <label for="s-departamento" class="col-lg-2 control-label">Departamento:</label>
+                    <div class="col-lg-2">
+                        <select class="form-control" id="s-departamento">
+                        </select>
+                    </div>
 
-            <select class="form-control" id="s-lugar">
+                    <label for="s-distrito" class="col-lg-2 control-label">Distrito:</label>
+                    <div class="col-lg-2">
+                        <select class="form-control" id="s-distrito">
+                        </select>
+                    </div>
+
+                    
+                    <label for="s-compania" class="col-lg-2 control-label">Compañia:</label>
+                    <div class="col-lg-2">
+                        <select class="form-control" id="s-compania" name="data[FormularioF1][compania_id]">
+                        </select>
+                    </div>
+                </div>
                 
-            </select>
+                <div class="form-group">
+                    <label for="s-asentamiento" class="col-lg-2 control-label">Asentamiento:</label>
+                    <div class="col-lg-2">
+                        <select class="form-control" id="s-asentamiento" name="data[FormularioF1][asentamiento_id]">
+                        </select>
+                    </div>
+                    
+                    <label for="s-comite" class="col-lg-2 control-label">Comite:</label>
+                    <div class="col-lg-2">
+                        <select class="form-control" id="s-comite" name="data[FormularioF1][comite_id]">
+                        </select>
+                    </div>
+                    
+                    <label for="s-encuestador" class="col-lg-2 control-label">Encuestador:</label>
+                    <div class="col-lg-2">
+                        <select class="form-control" id="s-encuestador" name="data[FormularioF1][encuestador_id]">
+                        </select>
+                    </div>
+                    
+                </div>
+                
+                
+            </div>
             
-            <label for="s-comite">Encuestador:</label>
-            <select class="form-control" id="s-encuestador" name="data[FormularioF1][encuestador_id]">
-            </select>
+            <div class="col-lg-6">
             
+                <div class="form-group">
+                
+                    <label for="s-carpeta" class="col-lg-2 control-label">Carpeta:</label>
+                    <div class="col-lg-2">
+                        <input type="text" class="form-control" id="t-carpeta" name="data[FormularioF1][carpeta_id]">
+                    </div>
+                    
+                    <label for="t-fecha" class="col-lg-2 control-label">Fecha firma:</label>
+                    <div class="col-lg-2">
+                        <input type="date" class="form-control" id="t-fecha" name="data[FormularioF1][fecha]">
+                    </div>   
+
+                    <label for="t-codigo" class="col-lg-2 control-label">Código</label>
+                    <div class="col-lg-2">
+                        <input type="text" class="form-control" id="t-codigo" name="data[FormularioF1][codigo]" />
+                    </div>
+                    
+                </div>
+                
+                <div class="form-group">
+                <label class="col-lg-12 col-lg-offset-7">Periodo Agricola:</label>
+                
+                <label for="t-desde" class="col-lg-2 col-lg-offset-4 control-label">Del 1 DE JULIO:</label>
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" id="t-desde" name="data[FormularioF1][fecha_inicio]">
+                </div>
+                
+                <label for="t-hasta" class="col-lg-2 control-label">Al 30 DE JUNIO:</label>
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" id="t-hasta" name="data[FormularioF1][fecha_fin]">
+                </div>
+            </div>
             
-            <label for="s-carpeta">Carpeta:</label>
-            <input type="text" class="form-control" id="t-carpeta" name="data[FormularioF1][carpeta_id]">
-            
-            <label>Periodo Agricola:</label>
-            <label for="t-desde">Del 1 DE JULIO:</label>
-            <input type="text" class="form-control" id="t-desde" name="data[FormularioF1][fecha_inicio]">
-            <label for="t-hasta">Al 30 DE JUNIO:</label>
-            <input type="text" class="form-control" id="t-hasta" name="data[FormularioF1][fecha_fin]">
-            <label for="t-fecha">Fecha firma:</label>
-            <input type="date" class="form-control" id="t-fecha" name="data[FormularioF1][fecha]">
-            <label for="t-codigo">Código</label>
-            <input type="text" class="form-control" id="t-codigo" name="data[FormularioF1][codigo]" />
-            <br>
+            </div>
             
         </form>
     </div>
     <input type="hidden" id="t-hid-edit-cabecera" name="data[FormularioF1][id]">
-    <button type="button" class="btn btn-primary" id="b-agregarcabecera">Agregar registros</button>
+    <button type="button" class="btn btn-primary" id="b-agregarcabecera" style="float: right">Agregar registros</button>
               
 </div>
 <script>
@@ -109,57 +151,61 @@
                 }
             });
     });
-        
-    $("#s-opcion-lugar").change(function (){ 
-        var selected = $("#s-opcion-lugar").val();
-        var id = $("#s-distrito").val();
-        var name = null;
-        $("#s-lugar option").remove();
+       
+    $("#s-distrito").change(function () {
+            var selected = $("#s-distrito").val();
 
-        var url = null;
-        switch(selected){
-            case "Asentamiento":
-                url = "<?php
-                    echo $this->
-                    Html->url(array("controller" => "asentamientos", "action" => "view"))
-                    ?>"+"/"+id;
-                name = "data[FormularioF1][asentamiento_id]"
-                break;
-            case "Comite":
-                url = "<?php
-                    echo $this->
-                    Html->url(array("controller" => "comites", "action" => "view"))
-                    ?>"+"/"+id;
-                name = "data[FormularioF1][comite_id]"
-                break;
-            case "Compañia":
-                url = "<?php
-                    echo $this->
-                    Html->url(array("controller" => "companias", "action" => "view"))
-                    ?>"+"/"+id;
-                name = "data[FormularioF1][compania_id]"
-                break;
-            default:
-                alert("no funciona");
-        }
-        $("#s-lugar").attr("name", name);   
-        $("#s-lugar").append("<option></option>");
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            url: url,
-            success: function (data) {
-                for (var i in data) {
-                    var compa = data[i];
-                    var option = String.
-                            format("<option value={0}>{1}</option>", compa.id, compa.nombre);
-                    $("#s-lugar").append(option);
+            $("#s-comite option").remove();
+            $("#s-asentamiento option").remove();
+            $("#s-compania option").remove();
+            
+            $("#s-comite").append("<option></option>");
+            $("#s-asentamiento").append("<option></option>");
+            $("#s-compania").append("<option></option>");
+            
+            var urlComite = "<?php echo $this->Html->url(array("controller" => "comites", "action" => "view")) ?>"+ "/" + selected;
+            var urlCompania = "<?php echo $this->Html->url(array("controller" => "companias", "action" => "view")) ?>"+ "/" + selected;
+            var urlAsentamientos = "<?php echo $this->Html->url(array("controller" => "asentamientos", "action" => "view")) ?>"+ "/" + selected;
+            
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: urlComite,
+                success: function (data) {
+                    for (var i in data) {
+                        var comite = data[i];
+                        var option = String.format("<option value={0}>{1}</option>", comite.id, comite.nombre);
+                        $("#s-comite").append(option);
+                    }
                 }
-            }
-        });
-
-
-    });
+            });
+            
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: urlAsentamientos,
+                success: function (data) {
+                    for (var i in data) {
+                        var asent = data[i];
+                        var option = String.format("<option value={0}>{1}</option>", asent.id, asent.nombre);
+                        $("#s-asentamiento").append(option);
+                    }
+                }
+            });
+            
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: urlCompania,
+                success: function (data) {
+                    for (var i in data) {
+                        var compa = data[i];
+                        var option = String.format("<option value={0}>{1}</option>", compa.id, compa.nombre);
+                        $("#s-compania").append(option);
+                    }
+                }
+            });
+    });   
 
 
     $("#b-agregarcabecera").click(function () {

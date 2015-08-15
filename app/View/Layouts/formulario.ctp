@@ -51,11 +51,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			<?php echo $this->element('menu'); ?>
 		</div>
 		<div id="content">
-                    <div class="col-lg-1 principal" id="form-cab-div">
+                    <div class="col-lg-12 principal" id="form-cab-div">
                     	<h4>Cabecera</h4>
                          <?php echo $this->element($cabecera); ?>
                     </div>
-                    <div class="col-lg-9" id="form-det-div">
+                    <div class="col-lg-10" id="form-det-div">
                         <?php echo $this->Session->flash(); ?>
                         <div class="principal" style="margin:0;">
                         	<h2>F1 - Productores de la Agriculatura Familiar</h2>
