@@ -17,6 +17,7 @@ class FormulariosF3Controller extends AppController{
 
     function beforeRender(){
         $this->set('cabecera', 'f3_cabecera');
+        $this->set('tipo', 'f3');
     }
 
     
@@ -182,9 +183,6 @@ class FormulariosF3Controller extends AppController{
         if(!empty($_GET['comite'])){
             $conditions['f3_formularios.comite_id'] = $_GET['comite'];
         }
-        if(!empty($_GET['encuestador'])){
-            $conditions['f3_formularios.encuestador_id'] = $_GET['encuestador'];
-        }
         if(!empty($_GET['usuario'])){
             $conditions['f3_formularios.usuario_id'] = $_GET['usuario'];
         }
@@ -220,7 +218,6 @@ class FormulariosF3Controller extends AppController{
                         'Departamento'
                     )
                 ),
-                'Encuestador',
                 'User'
             )
         ); 

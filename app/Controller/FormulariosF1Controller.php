@@ -16,6 +16,7 @@ class FormulariosF1Controller extends AppController {
 
     function beforeRender(){
         $this->set('cabecera', 'f1_cabecera');
+        $this->set('tipo', 'f1');
     }
 
     public function __construct($request = null, $response = null){

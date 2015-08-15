@@ -16,9 +16,14 @@
     	<option value="">- Todos -</option>
     </select>
     <br />
-    <label for="encuestador">Encuestador:</label>
-    <select name = "encuestador" class="form-control" id="s-f-encuestador">
-    </select>
+    
+    <?php 
+       if ($tipo != 'f3'){
+       echo '<label for="encuestador">Encuestador:</label>';
+       echo '<select name = "encuestador" class="form-control" id="s-f-encuestador">';
+       echo '</select>';
+       }
+    ?>
     <br />
     <label for="usuario">Usuario:</label>
     <select name = "usuario" class="form-control" id="s-f-usuarios">

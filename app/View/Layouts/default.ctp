@@ -28,7 +28,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         text-align: right;
     }
     .principal{
-    	margin-left: 10px;
+    	margin:0;
     }
     #menu-panel{
     	margin-left: 25px;
@@ -54,9 +54,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		<div id="header">
 			<?php echo $this->element('menu'); ?>
 		</div>
-		<div id="content" class="row">
+		<div id="content">
 			<?php echo $this->Session->flash(); ?>
-			<div class="principal col-md-12" id="contenido">
+			<div class="principal col-md-12">
 				<?php echo $this->fetch('content'); ?>
 			</div>
 		</div>
