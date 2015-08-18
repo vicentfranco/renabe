@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="col-lg-12" id="cabecera">
         <form class="form-horizontal" id="f-cabecera">
@@ -5,41 +6,54 @@
                 <div class="form-group">
                     <label for="s-departamento" class="col-lg-2 control-label">Departamento:</label>
                     <div class="col-lg-2">
-                        <select class="form-control" id="s-departamento">
-                        </select>
+                        <?php echo $this->Form->select('s-departamento', 
+                                array($departamento), 
+                                array('default' => $f1['Compania']['Distrito']['departamento_id'] ,'id'=>'s-departamento', 'class'=>'form-control')); ?>
+                        
                     </div>
 
                     <label for="s-distrito" class="col-lg-2 control-label">Distrito:</label>
                     <div class="col-lg-2">
-                        <select class="form-control" id="s-distrito">
-                        </select>
+                        
+                         <?php echo $this->Form->select('s-distrito', 
+                                array($distrito), 
+                                array('default' => $f1['Compania']['distrito_id'] ,'id'=>'s-campania', 'class'=>'form-control')); ?>
+                      
                     </div>
 
                     
                     <label for="s-compania" class="col-lg-2 control-label">Compañia:</label>
                     <div class="col-lg-2">
-                        <select class="form-control" id="s-compania" name="data[FormularioF1][compania_id]">
-                        </select>
+                        <?php echo $this->Form->select('s-compania', 
+                                array($compania), 
+                                array('id'=>'s-campania', 'class'=>'form-control', 'default' => $f1['Compania']['id']  )); ?>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="s-asentamiento" class="col-lg-2 control-label">Asentamiento:</label>
+                    
                     <div class="col-lg-2">
-                        <select class="form-control" id="s-asentamiento" name="data[FormularioF1][asentamiento_id]">
-                        </select>
+                        <?php echo $this->Form->select('s-asentamiento', 
+                                array($asentamiento), 
+                                array('id'=>'s-asentamiento', 'class'=>'form-control', 'default'=>$f1['Asentamiento']['id'])); ?>
                     </div>
                     
                     <label for="s-comite" class="col-lg-2 control-label">Comite:</label>
+                    
                     <div class="col-lg-2">
-                        <select class="form-control" id="s-comite" name="data[FormularioF1][comite_id]">
-                        </select>
+                        
+                        <?php echo $this->Form->select('s-comite', 
+                                array($comite), 
+                                array('id'=>'s-comite', 'class'=>'form-control', 'default'=> $f1['Comite']['id'])); ?>
                     </div>
                     
                     <label for="s-encuestador" class="col-lg-2 control-label">Encuestador:</label>
                     <div class="col-lg-2">
-                        <select class="form-control" id="s-encuestador" name="data[FormularioF1][encuestador_id]">
-                        </select>
+                        <?php echo $this->Form->select('s-encuestador', 
+                                array($encuestador), 
+                                array('id'=>'s-encuestador', 'class'=>'form-control', 'default'=> $f1['Encuestador']['id'])); ?>
+                                               
                     </div>
                     
                 </div>
@@ -53,17 +67,18 @@
                 
                     <label for="s-carpeta" class="col-lg-2 control-label">Carpeta:</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control" id="t-carpeta" name="data[FormularioF1][carpeta_id]">
+                        <input type="text" value="<?php echo $f1['f1_formularios']['carpeta_id']   ?>" class="form-control" id="t-carpeta" name="data[FormularioF1][carpeta_id]">
                     </div>
                     
                     <label for="t-fecha" class="col-lg-2 control-label">Fecha firma:</label>
                     <div class="col-lg-2">
-                        <input type="date" class="form-control" id="t-fecha" name="data[FormularioF1][fecha]">
+                        
+                        <input type="date" class="form-control" id="t-fecha" name="data[FormularioF1][fecha]" value="<?php echo new DateTime($f1['f1_formularios']['fecha'])   ?>">
                     </div>   
 
                     <label for="t-codigo" class="col-lg-2 control-label">Código</label>
                     <div class="col-lg-2">
-                        <input type="text" class="form-control" id="t-codigo" name="data[FormularioF1][codigo]" />
+                        <input type="text" class="form-control" id="t-codigo" name="data[FormularioF1][codigo]" value="<?php echo $f1['f1_formularios']['codigo']?>"/>
                     </div>
                     
                 </div>
@@ -73,13 +88,15 @@
                 
                 <label for="t-desde" class="col-lg-2 col-lg-offset-4 control-label">Del 1 DE JULIO:</label>
                 <div class="col-lg-2">
-                    <input type="text" class="form-control" id="t-desde" name="data[FormularioF1][fecha_inicio]">
+                    <input type="text" class="form-control" id="t-desde" name="data[FormularioF1][fecha_inicio]" value="<?php echo $f1['f1_formularios']['fecha_inicio']?>">
                 </div>
                 
                 <label for="t-hasta" class="col-lg-2 control-label">Al 30 DE JUNIO:</label>
+                
                 <div class="col-lg-2">
-                    <input type="text" class="form-control" id="t-hasta" name="data[FormularioF1][fecha_fin]">
+                    <input type="text" class="form-control" id="t-hasta" name="data[FormularioF1][fecha_fin]" value="<?php echo $f1['f1_formularios']['fecha_fin']?>">
                 </div>
+                
             </div>
             
             </div>
