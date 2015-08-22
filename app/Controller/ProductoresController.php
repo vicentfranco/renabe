@@ -56,6 +56,7 @@ class ProductoresController extends AppController{
     }
     
     function addProductor(){
+        $this ->log($this->request->data, 'info');
         if($this->request->is('post')){
             $reply = array();
             if(empty($this->request->data)){

@@ -34,14 +34,14 @@
 
   function bindGuardar(){
     $('#guardar').click(function(){
+      console.log($('#productor_abm').serialize());  
       $('#modal-footer').hide();
       $.ajax({
         type: 'POST',
         dataType: 'json',
-        data: $('#ProductorAddForm').serialize(),
+        data: $('#productor_abm').serialize(),
         url: '<?php echo $this->Html->url(array('controller'=>'productores', 'action'=>'addProductor')); ?>',
         success: function(data){
-            console.log(data);
           if(data.status == 'ok'){
             $('#source-modal').fadeOut(200);
             disabledInputElement("#t-detalle", false);
@@ -90,7 +90,7 @@
         <h4 class="modal-title">Agregar Productor</h4>
       </div>
       <div class="modal-body">
-        <?php echo $this->Form->create('Productor', array('class'=>'horizontal-form')); ?>
+        <?php echo $this->Form->create('Productor', array('class'=>'horizontal-form', 'id' => 'productor_abm')); ?>
           <fieldset>
             <?php 
             echo $this->Form->input('cedula', array('type'=>'text', 'name'=>'data[Productor][cedula]', 'label'=>'Cedula'));
