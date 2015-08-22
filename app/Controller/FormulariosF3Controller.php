@@ -59,7 +59,7 @@ class FormulariosF3Controller extends AppController{
             
             $this -> log( sprintf("Error al guardar la cabecera. Exception [ %s ]", $e -> getMessage()) );
             return $this-> responseJson(
-                    array('status' => 'error', 'message' => 'Error al guardar la cabecera'));
+                    array('status' => 'error', 'message' => 'Error al guardar la cabecera'. $e ->getMessage()));
         }
         
     }

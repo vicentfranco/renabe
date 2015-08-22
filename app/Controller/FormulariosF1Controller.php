@@ -53,7 +53,7 @@ class FormulariosF1Controller extends AppController {
         } catch(Exception $e){
             $this->log(sprintf("Error al guardar la cabecera. Exception [ %s ]", $e->getMessage()));
             return $this->responseJson(
-                    array('status'=>'error', 'message'=>'Error al guardar la cabecera'));
+                    array('status'=>'error', 'message'=>'Error al guardar la cabecera'. $e->getMessage()));
         }
     }
 
@@ -229,7 +229,9 @@ class FormulariosF1Controller extends AppController {
             )
         ); 
         $this->FormularioF1->Behaviors->attach('Containable');
+        
         $f1 = $this->FormularioF1->find('first', $options);
+        
         if(empty($f1)){
             $this->Session->setFlash('No se a podido encontrar el formulario');
         }
@@ -268,6 +270,85 @@ class FormulariosF1Controller extends AppController {
             '. $conditions;
         ;   
         return $this->FormularioF1->query($sql);
+    }
+    
+    function edit($id = null){
+       
+        
+        if (empty($id)){
+            $this->Session->setFlash('Formulario no valido', 'error');
+            $this->redirect
+                    (array('controller'=>'formulariosF1','action'=>'index'));
+        }
+        
+         $options = array(
+            'conditions'=>array(
+                'f1_formularios.id'=>$id
+            ),
+            'contain'=> array(
+                'FormulariosF1Detalle'=> array(
+                    'Productor'
+                ),
+                'Comite'=> array(
+                    'Distrito'=> array(
+                        'Departamento'
+                    )
+                ),
+                'Compania'=> array(
+                    'Distrito'=> array(
+                        'Departamento'
+                    )
+                ),
+                'Asentamiento'=> array(
+                    'Distrito'=> array(
+                        'Departamento'
+                    )
+                ),
+                'Encuestador',
+                'User',
+                'Carpeta'
+            )
+        ); 
+        $this->FormularioF1->Behaviors->attach('Containable');
+        
+        $f1 = $this->FormularioF1->find('first', $options);
+  
+        $distrito_id = $f1['Compania']['distrito_id'];
+        
+        $depar_id = $f1['Compania']['Distrito']['departamento_id'];
+        
+        $asentamiento = $this -> FormularioF1 -> Asentamiento->find
+                ('list',array('conditions'=>array('distrito_id'=> $distrito_id), 'fields' => array('nombre')));
+        
+        $distrito = $this -> FormularioF1 -> Asentamiento -> Distrito ->find
+                ('list',array('conditions'=>array('departamento_id'=> $depar_id), 'fields' => array('nombre')));
+               
+        $compania = $this -> FormularioF1 -> Compania ->find
+                ('list',array('conditions'=>array('distrito_id'=> $distrito_id), 'fields' => array('nombre')));
+        
+        $comite = $this -> FormularioF1 -> Comite ->find
+                ('list',array('conditions'=>array('distrito_id'=> $distrito_id), 'fields' => array('nombre')));
+        
+        $departamento = $this -> FormularioF1 -> Asentamiento -> Distrito -> Departamento -> find
+                ('list',array('conditions'=>array(), 'fields' => array('nombre')));
+       
+        $encuestador = $this -> FormularioF1 -> User -> find
+                ('list',array('conditions'=>array(), 'fields' => array('nombre')));
+        
+        
+        if(empty($f1)){
+            $this->Session->setFlash('No se a podido encontrar el formulario');
+        }
+        
+        $this -> set (compact('encuestador') );
+        $this -> set (compact( 'departamento' ));
+        $this -> set ( compact('comite') );
+        $this -> set( compact( 'distrito' ) );
+        $this -> set( compact( 'compania' ) );
+        $this -> set(compact('asentamiento'));
+        $this -> set(compact('f1'));
+        $this -> layout = 'formulario';
+       
     }
 
 }
