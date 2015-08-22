@@ -77,28 +77,37 @@
                 </thead>
                 <tbody>
                     <?php foreach ($f1['FormulariosF1Detalle'] as $detalle): ?>
-                        <tr>
+                        <tr rel="<?php echo $detalle['Productor']['cedula'] ?>">
+                            <input type="hidden" id="id_detail" value="<?php echo $detalle['id'] ?>" >
                             <td><?php  echo $detalle['Productor']['nombre'] ?></td>
-                            <td> <?php echo $detalle['Productor']['cedula'] ?></td>
-                            <td> <?php echo $detalle['Productor']['total_familiares'] ?></td>
-                            <td> <?php echo $detalle['superficie_finca'] ?></td>
-                            <td> <?php echo $detalle['superficie_cultivo'] ?></td>
-                            <td> <?php echo $detalle['total_contratados'] ?></td>
-                            <td> <?php echo $detalle['bovinos'] ?></td>
-                            <td> <?php echo $detalle['porcinos'] ?></td>
-                            <td> <?php echo $detalle['aves'] ?></td>
-                            <td> <?php echo $detalle['codigo_exclusion'] ?> </td>
-                            <td><button type="button" class="btn btn-primary btn-sm editar" aria-label="Editar" 
-            data-toggle="tooltip" data-placement="top"
-            title="" data-original-title="Editar" rel="' + <?php echo $detalle['Productor']['cedula'] ?> + '">
-            <span class="glyphicon glyphicon-pencil" aria-hidden="true">
-            </span></button></td><td><button type="button"
-            class="btn btn-danger btn-sm eliminar" aria-label="Eliminar"
-            data-toggle="tooltip" data-placement="top" title=""
-            data-original-title="Eliminar" rel="' + <?php echo $detalle['Productor']['cedula'] ?> + '">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true">
-            </span></button></td>
-                            
+                            <td><?php echo $detalle['Productor']['cedula'] ?></td>
+                            <td><?php echo $detalle['Productor']['total_familiares'] ?></td>
+                            <td rel="finca"><?php echo $detalle['superficie_finca'] ?></td>
+                            <td rel="cultivo"><?php echo $detalle['superficie_cultivo'] ?></td>
+                            <td rel="contratados"><?php echo $detalle['total_contratados'] ?></td>
+                            <td rel="bovinos"><?php echo $detalle['bovinos'] ?></td>
+                            <td rel="porcinos"><?php echo $detalle['porcinos'] ?></td>
+                            <td rel="aves"><?php echo $detalle['aves'] ?></td>
+                            <td rel="exclusion"><?php echo $detalle['codigo_exclusion'] ?></td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-sm editar" aria-label="Editar" 
+                                    data-toggle="tooltip" data-placement="top"
+                                    accesskey=""title="" data-original-title="Editar" rel="<?php echo $detalle['Productor']['cedula'] ?>"
+                                     >
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true">
+                                    </span>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button"
+                                    autofocus="" accesskey="" class="btn btn-danger btn-sm eliminar" aria-label="Eliminar"
+                                    contenteditable="" data-toggle="tooltip" data-placement="top" title=""
+                                    contextmenu="" data-original-title="Eliminar" rel="<?php echo $detalle['Productor']['cedula'] ?>"
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true">
+                                    </span>
+                                </button>
+                            </td>
+                
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -113,11 +122,36 @@
     var detalleSelect = new Object();
 
     $(document).ready(function () {
+        bindDetailEvents();
         
         disabledInputElement("#t-detalle", true);
         $("#b-agregar-detalle").click(function () {
             bindAddEvent();
         });
+        
+       
+         $('#t-list > tbody').find('tr').each(function(i, elem){
+            var ob = new Object();
+            var $tds = $(this).find('td');
+            var $id = $(this).find('input[id=id_detail]').val();
+            
+            ob.nombre = $tds.eq(0).text().trim();
+            ob.ci = $tds.eq(1).text().trim();
+            ob.familia = $tds.eq(2).text().trim();
+            ob.finca = $tds.eq(3).text().trim();
+            ob.cultivo = $tds.eq(4).text().trim();
+            ob.contratados = $tds.eq(5).text().trim();
+            ob.bovinos = $tds.eq(6).text().trim();
+            ob.porcinos = $tds.eq(7).text().trim();
+            ob.aves = $tds.eq(8).text().trim();
+            ob.exclusion = $tds.eq(9).text().trim();
+            ob.id = $id;
+            
+            mapDetallesF1.set(ob.ci, ob);
+           
+         });
+         console.log(mapDetallesF1)
+        
     });
 
     /**
@@ -202,6 +236,7 @@
 
     function bindDetailEvents() {
         $('button.eliminar').unbind('click');
+        
         $('button.eliminar').click(function () {
             if (confirm('Desea eliminar este registro?')) {
                 $.ajax({
@@ -221,6 +256,7 @@
         });
         $('button.editar').unbind('click');
         $('button.editar').click(function () {
+            
             $('#modal-edit-div').fadeIn(300);
             loadForm(mapDetallesF1.get($(this).attr('rel')));
         });

@@ -41,6 +41,7 @@
     });
 
     function loadForm(item) {
+        console.log(item)
         $('input#idDetail').val(item.id);
         $('input#supFinca').val(item.finca);
         $('input#supCultivo').val(item.cultivo);
@@ -50,6 +51,8 @@
         $('input#aves').val(item.aves);
         $('input#exclusion').val(item.exclusion);
         detalleSelect.ci = item.ci;
+        console.log("cedula selecionada"+ item.ci)
+        console.log($('.editing input').serialize())
     }
 
     function bindSaveEditing() {
@@ -74,8 +77,16 @@
 
     function changeDetailsTable() {
         var tablatr = $('#f-detalle-tab tbody tr[rel="' + detalleSelect.ci + '"]');
+        alert(detalleSelect.ci);
+        
+        alert($('#f-detalle-tab tbody tr[rel="' + detalleSelect.ci + '"]').html());
+        
         var b = tablatr.find('td[rel="finca"]').html($("input#supFinca").val()).html();
         tablatr.find('td[rel="cultivo"]').html($("input#supCultivo").val());
+        
+        console.log($("input#totalContratados").val());
+        
+        
         tablatr.find('td[rel="contratados"]').html($("input#totalContratados").val());
         tablatr.find('td[rel="bovinos"]').html($("input#bovinos").val());
         tablatr.find('td[rel="porcinos"]').html($("input#porcinos").val());

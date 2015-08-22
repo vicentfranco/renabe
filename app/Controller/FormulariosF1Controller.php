@@ -313,6 +313,8 @@ class FormulariosF1Controller extends AppController {
         
         $f1 = $this->FormularioF1->find('first', $options);
   
+        //print_r($f1); die();
+        
         $distrito_id = $f1['Compania']['distrito_id'];
         
         $depar_id = $f1['Compania']['Distrito']['departamento_id'];
