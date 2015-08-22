@@ -104,7 +104,7 @@ class ProductoresController extends AppController{
             $options[] = '("Productor".cedula ILIKE %'.$_GET['cedula'].'% OR "Productor".codigo ILIKE %'.$_GET['identificacion'].'%)';
         }
         if(!$_GET['indigena']){
-            $options['"Productor".indigena'] = true
+            $options['"Productor".indigena'] = true;
         }
         return $options;
     }
