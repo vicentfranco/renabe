@@ -17,7 +17,13 @@
 			<?php echo $this->Paginator->sort('fecha', 'Fecha') ?>
 		</th>
 		<th>
-			<?php echo $this->Paginator->sort('distrito_id', 'Distrito') ?>
+			<?php echo $this->Paginator->sort('asentamiento_id', 'Asentamiento') ?>
+		</th>
+		<th>
+			<?php echo $this->Paginator->sort('compania_id', 'Compañia') ?>
+		</th>
+		<th>
+			<?php echo $this->Paginator->sort('comite_id', 'Comite') ?>
 		</th>
 		<th>
 			Lugar Sensado
@@ -40,15 +46,13 @@
 					<?php echo $this->Html->link($f3['f3_formularios']['codigo'], array('controller'=>'formulariosF3', 'action'=>'view', $f3['f3_formularios']['id'])) ?>
 				</td>
 				<td>
-					<?php echo $this->Fx->format($f3['f3_formularios']['fecha'], 'fecha'); ?>
+					<?php echo $f3['Asentamiento']['nombre'] ?>
 				</td>
 				<td>
-					<?php echo $f3['Asentamiento']['Distrito']['nombre'] ?>
+					<?php echo $f3['Copmania']['nombre'] ?>
 				</td>
 				<td>
-					<?php 
-						echo $this->Fx->renabeFormat($f3); 
-					?>
+					<?php echo $f3['Comite']['nombre'] ?>
 				</td>
 				<td>
 					<?php echo $f3['User']['nombre'] ?>

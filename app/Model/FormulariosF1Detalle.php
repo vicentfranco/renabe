@@ -10,8 +10,8 @@ class FormulariosF1Detalle extends AppModel{
 			'dependent' => false
 		),
 		'Productor' => array(
-			'className' => 'FormularioF1',
-			'foreignKey' => 'fomulario_id',
+			'className' => 'Productor',
+			'foreignKey' => 'productor_id',
 			'dependent' => false
 		)
 	);

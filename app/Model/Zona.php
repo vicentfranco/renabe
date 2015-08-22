@@ -12,6 +12,6 @@
  * @author vfranco
  */
 App::uses('AppModel', 'Model');
-class Zona {
+class Zona extends AppModel{
     public $name = 'zonas';
 }

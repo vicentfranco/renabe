@@ -78,5 +78,24 @@ class ProductoresController extends AppController{
             return $this->responseJson(array('status'=>'error', 'message'=>'Bad method'));
         }
     }
+
+    function productorList(){
+        $conditions = $this->setConditions();
+    }
     
+    function setConditions(){
+        if(!empty($_GET['nombre'])){
+            $options[] = '"Productor".name ILIKE %'.$_GET['nombre'].'%';
+        }
+        if(!empty($_GET['total_familiares'])){
+            $options['"Productor".total_familiares <='] = $_GET['total_familiares'];
+        }
+        if(!empty($_GET['cedula'])){
+            $options[] = '("Productor".cedula ILIKE %'.$_GET['cedula'].'% OR "Productor".codigo ILIKE %'.$_GET['identificacion'].'%)';
+        }
+        if(!$_GET['indigena']){
+            $options['"Productor".indigena'] = true
+        }
+        return $options;
+    }
 }
