@@ -6,18 +6,31 @@
                 <div class="form-group">
                     <label for="s-departamento" class="col-lg-2 control-label">Departamento:</label>
                     <div class="col-lg-2">
-                        <?php echo $this->Form->select('s-departamento', 
+                        <?php if(!$f1): ?>
+                        <select id="s-departamento" class="form-control"></select>
+                        
+                        <?php else:
+                            echo $this->Form->select('s-departamento', 
                                 array($departamento), 
-                                array('default' => $f1['Compania']['Distrito']['departamento_id'] ,'id'=>'s-departamento', 'class'=>'form-control')); ?>
+                                array('default' => $f1['Compania']['Distrito']['departamento_id'] ,'id'=>'s-departamento', 'class'=>'form-control'));
+                                
+                            endif;
+                        ?>
+
                         
                     </div>
 
                     <label for="s-distrito" class="col-lg-2 control-label">Distrito:</label>
                     <div class="col-lg-2">
-                        
-                         <?php echo $this->Form->select('s-distrito', 
+                        <?php if( !$distrito): ?>
+                        <select id="s-distrito" class="form-control"></select>
+                         <?php else:
+                             echo $this->Form->select('s-distrito', 
                                 array($distrito), 
-                                array('default' => $f1['Compania']['distrito_id'] ,'id'=>'s-campania', 'class'=>'form-control')); ?>
+                                array('default' => $f1['Compania']['distrito_id'] ,'id'=>'s-distrito', 'class'=>'form-control'));
+                         
+                           endif;
+                         ?>
                       
                     </div>
 
@@ -26,7 +39,8 @@
                     <div class="col-lg-2">
                         <?php echo $this->Form->select('s-compania', 
                                 array($compania), 
-                                array('id'=>'s-campania', 'class'=>'form-control', 'default' => $f1['Compania']['id']  )); ?>
+                                array('id'=>'s-compania', 'name' => 'data[FormularioF1][compania_id]',
+                                    'class'=>'form-control', 'default' => $f1['Compania']['id']  )); ?>
                     </div>
                 </div>
                 
@@ -36,7 +50,8 @@
                     <div class="col-lg-2">
                         <?php echo $this->Form->select('s-asentamiento', 
                                 array($asentamiento), 
-                                array('id'=>'s-asentamiento', 'class'=>'form-control', 'default'=>$f1['Asentamiento']['id'])); ?>
+                                array('id'=>'s-asentamiento', 'name' => 'data[FormularioF1][asentamiento_id]',
+                                    'class'=>'form-control', 'default'=>$f1['Asentamiento']['id'])); ?>
                     </div>
                     
                     <label for="s-comite" class="col-lg-2 control-label">Comite:</label>
@@ -45,14 +60,21 @@
                         
                         <?php echo $this->Form->select('s-comite', 
                                 array($comite), 
-                                array('id'=>'s-comite', 'class'=>'form-control', 'default'=> $f1['Comite']['id'])); ?>
+                                array('id'=>'s-comite', 'name' => 'data[FormularioF1][comite_id]',
+                                    'class'=>'form-control', 'default'=> $f1['Comite']['id'])); ?>
                     </div>
                     
                     <label for="s-encuestador" class="col-lg-2 control-label">Encuestador:</label>
                     <div class="col-lg-2">
-                        <?php echo $this->Form->select('s-encuestador', 
+                        <?php if(!$encuestador): ?>
+                        <select id="s-encuestador" class="form-control" name="data[FormularioF1][encuestador_id]"></select>
+                        <?php else:
+                                echo $this->Form->select('s-encuestador', 
                                 array($encuestador), 
-                                array('id'=>'s-encuestador', 'class'=>'form-control', 'default'=> $f1['Encuestador']['id'])); ?>
+                                array('id'=>'s-encuestador', 'name' => 'data[FormularioF1][encuestador_id]',
+                                    'class'=>'form-control', 'default'=> $f1['Encuestador']['id'])); 
+                            endif;
+                        ?>
                                                
                     </div>
                     
@@ -70,10 +92,9 @@
                         <input type="text" value="<?php echo $f1['f1_formularios']['carpeta_id']   ?>" class="form-control" id="t-carpeta" name="data[FormularioF1][carpeta_id]">
                     </div>
                     
-                    <label for="t-fecha" class="col-lg-2 control-label">Fecha firma:</label>
-                    <div class="col-lg-2">
-                        
-                        <input type="date" class="form-control" id="t-fecha" name="data[FormularioF1][fecha]" value="<?php echo new DateTime($f1['f1_formularios']['fecha'])   ?>">
+                    <label for="t-fecha" class="col-lg-1 control-label">Fecha firma:</label>
+                    <div class="col-lg-3">
+                        <input type="date" class="form-control" id="t-fecha" name="data[FormularioF1][fecha]" value="<?php echo date("Y-m-d", strtotime($f1['f1_formularios']['fecha']))   ?>">
                     </div>   
 
                     <label for="t-codigo" class="col-lg-2 control-label">Código</label>
@@ -84,26 +105,30 @@
                 </div>
                 
                 <div class="form-group">
-                <label class="col-lg-12 col-lg-offset-7">Periodo Agricola:</label>
+                    <label class="col-lg-12 col-lg-offset-7">Periodo Agricola:</label>
+
+                    <label for="t-desde" class="col-lg-2 col-lg-offset-4 control-label">Del 1 DE JULIO:</label>
+                    <div class="col-lg-2">
+                        <input type="text" class="form-control" id="t-desde" name="data[FormularioF1][fecha_inicio]" value="<?php echo date("Y", strtotime($f1['f1_formularios']['fecha_inicio']))?>">
+                    </div>
+
+                    <label for="t-hasta" class="col-lg-2 control-label">Al 30 DE JUNIO:</label>
+
+                    <div class="col-lg-2">
+                        <input type="text" class="form-control" id="t-hasta" name="data[FormularioF1][fecha_fin]" value="<?php echo date("Y", strtotime($f1['f1_formularios']['fecha_fin'])) ?>">
+                    </div>
                 
-                <label for="t-desde" class="col-lg-2 col-lg-offset-4 control-label">Del 1 DE JULIO:</label>
-                <div class="col-lg-2">
-                    <input type="text" class="form-control" id="t-desde" name="data[FormularioF1][fecha_inicio]" value="<?php echo $f1['f1_formularios']['fecha_inicio']?>">
                 </div>
-                
-                <label for="t-hasta" class="col-lg-2 control-label">Al 30 DE JUNIO:</label>
-                
-                <div class="col-lg-2">
-                    <input type="text" class="form-control" id="t-hasta" name="data[FormularioF1][fecha_fin]" value="<?php echo $f1['f1_formularios']['fecha_fin']?>">
-                </div>
-                
-            </div>
             
             </div>
             
         </form>
     </div>
-    <input type="hidden" id="t-hid-edit-cabecera" name="data[FormularioF1][id]">
+    <?php if ($f1): ?>
+        <input type="hidden" id="t-hid-edit-cabecera" name="data[FormularioF1][id]" value="<?php echo $f1['f1_formularios']['id'] ?>">
+    <?php else:?>
+        <input type="hidden" id="t-hid-edit-cabecera" name="data[FormularioF1][id]" value="<?php echo $f1['f1_formularios']['id'] ?>">
+    <?php endif; ?>
     <button type="button" class="btn btn-primary" id="b-agregarcabecera" style="float: right">Agregar registros</button>
               
 </div>
@@ -117,36 +142,48 @@
         /* LOS INPUT DE DETALLE Y BUSCADOR QUEDAN DESABILITADOS HASTA QUE SE CARGUE LA CABECERA*/
 
 
-        
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: "<?php echo $this->Html->url(array("controller" => "users", "action" => "encuestadores")) ?>",
-            success: function (data) {
-                $("#s-encuestador").append("<option></option>");
-                for (var i in data) {
-                    var encue = data[i];
-                    var option =
-                            String.format("<option value={0}>{1}</option>", encue.id, encue.nombre);
-                    $("#s-encuestador").append(option);
+        if ($("#s-encuestador").val() == null )
+        {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "<?php echo $this->Html->url(array("controller" => "users", "action" => "encuestadores")) ?>",
+                success: function (data) {
+                    $("#s-encuestador").append("<option></option>");
+                    for (var i in data) {
+                        var encue = data[i];
+                        var option =
+                                String.format("<option value={0}>{1}</option>", encue.id, encue.nombre);
+                        $("#s-encuestador").append(option);
+                    }
                 }
-            }
-        });
+            });
+        }
         
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: "<?php echo $this->Html->url(array("controller" => "departamentos", "action" => "index")) ?>",
-            success: function (data) {
-                $("#s-departamento").append("<option></option>");
-                for (var i in data) {
-                    var depar = data[i];
-                    var option =
-                            String.format("<option value={0}>{1}</option>", depar.id, depar.nombre);
-                    $("#s-departamento").append(option);
+        if ($("#s-departamento").val() == null)
+        {  
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "<?php echo $this->Html->url(array("controller" => "departamentos", "action" => "index")) ?>",
+                success: function (data) {
+                    $("#s-departamento").append("<option></option>");
+                    for (var i in data) {
+                        var depar = data[i];
+                        var option =
+                                String.format("<option value={0}>{1}</option>", depar.id, depar.nombre);
+                        $("#s-departamento").append(option);
+                    }
                 }
-            }
-        });
+            });
+        }
+        
+        if ( $("#t-hid-edit-cabecera").val() != "")
+        {
+            $("#cabecera :input").attr("disabled", true);
+            $("#b-agregarcabecera").html("Modificar datos");
+        }
+        
     });
     
     $("#s-departamento").change(function () {

@@ -41,6 +41,7 @@
         data: $('#ProductorAddForm').serialize(),
         url: '<?php echo $this->Html->url(array('controller'=>'productores', 'action'=>'addProductor')); ?>',
         success: function(data){
+            console.log(data);
           if(data.status == 'ok'){
             $('#source-modal').fadeOut(200);
             disabledInputElement("#t-detalle", false);

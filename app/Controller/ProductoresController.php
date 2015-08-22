@@ -61,19 +61,29 @@ class ProductoresController extends AppController{
             if(empty($this->request->data)){
                 return $reply = array('status'=>'error', 'message'=>'Not input data');
             }
-            if($this->Productor->saveAll($this->request->data['Productor'])){
-                $pro = $this->request->data['Productor'];
-                $p = array("id"=>$this->Productor->id, 
-                    "nombre"=>$pro["nombre"],
-                    "cedula"=>$pro["cedula"],
-                    "cantFamilia"=>$pro["total_familiares"]
-                );  
+            
+            try
+            {
+                if($this->Productor->saveAll($this->request->data['Productor']))
+                {
+                    $pro = $this->request->data['Productor'];
+                    $p = array("id"=>$this->Productor->id, 
+                        "nombre"=>$pro["nombre"],
+                        "cedula"=>$pro["cedula"],
+                        "cantFamilia"=>$pro["total_familiares"]
+                    );  
+
+                    return $this->responseJson(array('status'=>'ok', 'message'=>$this->Productor->id, 
+                        'data'=>$p));
+                }else{
+                    return $this->responseJson(array('status'=>'error', 'message'=>'Error saving'));
+                }
                 
-                return $this->responseJson(array('status'=>'ok', 'message'=>$this->Productor->id, 
-                    'data'=>$p));
-            }else{
-                return $this->responseJson(array('status'=>'error', 'message'=>'Error saving'));
+            } catch (Exception $ex) {
+                $this->log(sprintf("Error al eliminar un detalle. Exception [ %s ]", $ex->getMessage()));
+                return $this->responseJson(array('status'=>'error', 'message'=>'Error al eliminar registro' . $ex->getMessage()));
             }
+            
         }else{
             return $this->responseJson(array('status'=>'error', 'message'=>'Bad method'));
         }
