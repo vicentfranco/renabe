@@ -52,6 +52,11 @@ class FormularioF3 extends AppModel{
 			'className' => 'Carpeta',
 			'foreignKey' => 'carpeta_id',
 			'dependent' => false
+		),
+		'User'=> array(
+			'className' => 'User',
+			'foreignKey' => 'usuario_id',
+			'dependent' => false
 		)
 	);
 }

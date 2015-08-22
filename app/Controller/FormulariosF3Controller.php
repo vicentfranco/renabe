@@ -160,31 +160,43 @@ class FormulariosF3Controller extends AppController{
         $this -> layout = 'renabe';
     }
 
-    private function conditions(){
+    private function conditions($mode = null){
         $conditions = array();
+        $condsql = '';
         if(!empty($_GET['desde'])){
             $conditions['f3_formularios.fecha >='] = $_GET['desde'];
+            $condsql .= ' AND f3_formularios.fecha >= \''.$_GET['desde'].'\'';
         }
         if(!empty($_GET['hasta'])){
             $conditions['f3_formularios.fecha <='] = $_GET['hasta'];
+            $condsql .= ' AND f3_formularios.fecha <= \''.$_GET['hasta'].'\'';
         }
         if(!empty($_GET['codigo'])){
             $conditions[] = 'f3_formularios.codigo ILIKE %'.$_GET['codigo'].'%';
+            $condsql .= ' AND f3_formularios.codigo ILIKE %'.$_GET['codigo'].'%';
         }
         if(!empty($_GET['asentamiento'])){
             $conditions['f3_formularios.asentamiento'] = $_GET['asentamiento'];
+            $condsql .= ' AND f3_formularios.codigo = '.$_GET['asentamiento'];
         }
         if(!empty($_GET['carpeta'])){
             $conditions['f3_formularios.carpeta_id'] = $_GET['carpeta'];
+            $condsql .= ' AND f3_formularios.carpeta = '.$_GET['carpeta'];
         }
         if(!empty($_GET['compania'])){
             $conditions['f3_formularios.compania_id'] = $_GET['compania'];
+            $condsql .= ' AND f3_formularios.compania = '.$_GET['compania'];
         }
         if(!empty($_GET['comite'])){
             $conditions['f3_formularios.comite_id'] = $_GET['comite'];
+            $condsql .= ' AND f3_formularios.comite_id = '.$_GET['comite'];
         }
         if(!empty($_GET['usuario'])){
             $conditions['f3_formularios.usuario_id'] = $_GET['usuario'];
+            $condsql .= ' AND f3_formularios.usuario_id = '.$_GET['usuario'];
+        }
+        if($mode == 'sql'){
+            return $condsql;
         }
         return $conditions;
     }

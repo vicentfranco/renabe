@@ -1,6 +1,6 @@
-<?php //print_r($f1); die(); ?>
+<?php //print_r($zonas); die(); ?>
 <span class="options">
-	<h3>F1 - Productores de la Agriculatura Familiar</h3>
+	<h3>F2 - Productores Indíginas, Urbanos y Periurbanos</h3>
 	<a href="<?php echo $this->Html->url(array('action'=>'add')); ?>" class="btn btn-primary">Agregar</a>
 	<a href="<?php echo $this->Html->url(array('action'=>'export')); ?>" class="btn btn-primary">Exportar</a>
 </span>
@@ -17,11 +17,13 @@
 			<?php echo $this->Paginator->sort('fecha', 'Fecha') ?>
 		</th>
 		<th>
-			<?php echo $this->Paginator->sort('distrito_id', 'Distrito') ?>
+			<?php echo $this->Paginator->sort('asentamiento_id', 'Asentamiento') ?>
 		</th>
 		<th>
-			Lugar Sensado
+			<?php echo $this->Paginator->sort('copmania_id', 'Compañia') ?>
 		</th>
+		<th>
+			<?php echo $this->Paginator->sort('comite_id', 'Comite') ?>
 		<th>
 			Usuario
 		</th>
@@ -30,31 +32,32 @@
 		</th>
 	</tr>
 	<?php 
-		foreach ($f1 as $key=>$f1) {
+		foreach ($f2 as $key=>$f2) {
 	?>
 			<tr>
 				<td class="numeric key">
-					<?php echo $this->Html->link($f1['f1_formularios']['id'], array('controller'=>'formulariosF1', 'action'=>'view', $f1['f1_formularios']['id'])); ?>
+					<?php echo $this->Html->link($f2['f2_formularios']['id'], array('controller'=>'formulariosF2', 'action'=>'view', $f2['f2_formularios']['id'])); ?>
 				</td>
 				<td>
-					<?php echo $this->Html->link($f1['f1_formularios']['codigo'], array('controller'=>'formulariosF1', 'action'=>'view', $f1['f1_formularios']['id'])) ?>
+					<?php echo $this->Html->link($f2['f2_formularios']['codigo'], array('controller'=>'formulariosF2', 'action'=>'view', $f2['f2_formularios']['id'])) ?>
 				</td>
 				<td>
-					<?php echo $this->Fx->format($f1['f1_formularios']['fecha'], 'fecha'); ?>
+					<?php echo $this->Fx->format($f2['f2_formularios']['fecha'], 'fecha'); ?>
 				</td>
 				<td>
-					<?php echo $f1['Asentamiento']['Distrito']['nombre'] ?>
+					<?php echo $f2['Asentamiento']['nombre'] ?>
 				</td>
 				<td>
-					<?php 
-						echo $this->Fx->renabeFormat($f1); 
-					?>
+					<?php echo $f2['Compania']['nombre'] ?>
 				</td>
 				<td>
-					<?php echo $f1['User']['nombre'] ?>
+					<?php echo $f2['Comite']['nombre'] ?>
 				</td>
 				<td>
-					<?php echo $f1['f1_formularios']['created'] ?>
+					<?php echo $f2['User']['nombre'] ?>
+				</td>
+				<td>
+					<?php echo $f2['f2_formularios']['created'] ?>
 				</td>
 			</tr>
 	<?php

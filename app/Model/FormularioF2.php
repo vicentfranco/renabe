@@ -17,7 +17,7 @@ class FormularioF2 extends AppModel{
 
     var $hasMany = array(
 		'FormulariosF2Detalle' => array(
-			'className' => 'DetalleF2',
+			'className' => 'FormulariosF2Detalle',
 			'foreignKey' => 'formulario_id',
 			'dependent' => false,
 			'conditions' => '',

@@ -107,7 +107,9 @@ class FormulariosF2Controller extends AppController{
             'conditions'=> $this->conditions(),
             'contain'=> array(
                 'User'=> array(
-                    'nombre'
+                    'fields'=> array(
+                        'nombre'
+                    )
                 ),
                 'Compania'=> array(
                     'fields'=> array(
@@ -140,15 +142,16 @@ class FormulariosF2Controller extends AppController{
         }else{
             $options['limit'] = 25;
         }
-        //print_r($options); die();
         $this->FormularioF2->Behaviors->attach('Containable');
         $this->paginate = $options;
         $this->set('f2', $this->paginate('FormularioF2'));
+        //$this->set('summary', $this->summary($this->conditions('sql')));
         $this->layout = 'renabe';
     }
 
     private function conditions($mode = null){
         $conditions = array();
+        $condsql = '';
         if(!empty($_GET['desde'])){
             $conditions['f2_formularios.fecha >='] = $_GET['desde'];
             $condsql .= ' AND f2_formularios.fecha >= \''.$_GET['desde'].'\'';
@@ -183,7 +186,7 @@ class FormulariosF2Controller extends AppController{
         }
         if(!empty($_GET['usuario'])){
             $conditions['f2_formularios.usuario_id'] = $_GET['usuario'];
-            $condsql .= ' AND f1_formularios.usuario_id = '.$_GET['usuario'];
+            $condsql .= ' AND f2_formularios.usuario_id = '.$_GET['usuario'];
         }
         if($mode == 'sql'){
             return $condsql;
@@ -244,4 +247,44 @@ class FormulariosF2Controller extends AppController{
             $this->redirect(array('controller'=>'formulariosF2','action'=>'index'));
         }
     }
+
+    function summary($conditions = null){
+        $actividades = $this->FormularioF2->FormulariosF2Detalle->Actividad->find('list', array('fields'=> array('nombre')));
+        $zonas = $this->FormularioF2->FormulariosF2Detalle->Zona->find('list', array('fields'=>array('nombre')));
+        $sql = '
+            SELECT
+                actividad_id AS "Summary__actividad_id",
+                COUNT(*) AS "Summary__actividad_total"
+            FROM
+                f2_detalles,
+                f2_formularios
+            WHERE
+                1 = 1
+            '.$conditions.'
+            GROUP BY
+                actividad_id
+            ';
+        ;
+        $sql = '
+            SELECT
+                zona_id AS "Summary__zona_id",
+                COUNT(*) AS "Summary__zona_total"
+            FROM
+                f2_detalles,
+                f2_formularios
+            WHERE
+                1 = 1
+        '.$conditions.'
+            GROUP BY
+                zona_id
+        ';
+        $summary_zonas = $this->FormularioF2->query($sql);
+        foreach ($summary_zonas as $sum_zona) {
+            $zonas[$sum_zona['zona_id']]['nombre'] = $actividades[$sum_zona['actividad_id']];
+            $zonas[$sum_zona['actividad_id']]['total'] = $sum_zona['actividad_total'];
+        }
+        $summary['zonas'] = $zonas;
+        return $summary;
+    }
+
 }

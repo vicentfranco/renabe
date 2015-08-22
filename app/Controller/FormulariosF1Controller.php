@@ -103,7 +103,6 @@ class FormulariosF1Controller extends AppController {
     }
 
     public function index(){
-        $this->log($_GET['lineas'], 'info');
         $conditions = $this->conditions();
         $options = array(
             'conditions'=> $conditions,
@@ -171,7 +170,6 @@ class FormulariosF1Controller extends AppController {
         if(!empty($_GET['asentamiento'])){
             $conditions['f1_formularios.asentamiento'] = $_GET['asentamiento'];
             $condsql .= ' AND f1_formularios.codigo = '.$_GET['asentamiento'];
-
         }
         if(!empty($_GET['carpeta'])){
             $conditions['f1_formularios.carpeta_id'] = $_GET['carpeta'];
